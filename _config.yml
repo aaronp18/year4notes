@@ -1,0 +1,10 @@
+plugins:
+  - jekyll-relative-links
+relative_links:
+  enabled: true
+  collections: true
+
+title: Aaron's Year 4 Notes
+include:
+  - index.md
+  - cs402
