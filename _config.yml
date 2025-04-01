@@ -1,5 +1,10 @@
+# Build settings
+markdown: kramdown
+theme: minima
+
 plugins:
   - jekyll-relative-links
+  - jekyll-feed
 relative_links:
   enabled: true
   collections: true
@@ -8,3 +13,5 @@ title: Aaron's Year 4 Notes
 include:
   - index.md
   - cs402
+
+url: "0.0.0.0" # the base hostname & protocol for your site, e.g. http://example.com
