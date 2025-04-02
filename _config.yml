@@ -2,9 +2,12 @@
 markdown: kramdown
 theme: minima
 
+# remote_theme: zendesk/jekyll-theme-zendesk-garden@main
+
+
 plugins:
   - jekyll-relative-links
-  - jekyll-feed
+  # - jekyll-feed
 relative_links:
   enabled: true
   collections: true
@@ -15,3 +18,12 @@ include:
   - cs402
 
 url: "0.0.0.0" # the base hostname & protocol for your site, e.g. http://example.com
+
+header_pages:
+  - index.md
+
+sidebar:
+  - index
+  - cs402
+
+minify_html: false
