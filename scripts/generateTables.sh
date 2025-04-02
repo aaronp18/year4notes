@@ -5,7 +5,7 @@ then
     if [ -d "$1" ]; then
         
         
-        echo "Generating tables..."
+        echo "Generating tables in directory '$1'..."
         
         SECONDS=0
         
@@ -26,10 +26,15 @@ then
     if [ "$exists" -gt 0 ]    # ← see 'man bash' for valid conditional statements.
     then
         node generateTable.js $1 $1
+
+          # Format Table
+        markdown-table-formatter $1
+    # else
+        # echo "No <equation-table> tag found in file '$1'."
+        
     fi
     
-    # Format Table
-    markdown-table-formatter $1
+  
     
 else
     # No directory so run in current directory

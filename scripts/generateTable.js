@@ -17,7 +17,7 @@ fs = require('fs');
  * npm install -y marked cheerio
  * 
  * To add equations to the files simply make a equations div for each category followed by a `##` with the name of the category.
- * Below that, you then can add the equation title (### Title), followed by a description (optional) with the equation after that in
+ * Below that, you then can add the equation title (#### Title), followed by a description (optional) with the equation after that in
  * double dollar signs ($$ equation $$). Anything after that is ignored. If there is no double dollar signs (no big equations, then it
  *  will add the first 80 characters (see const characterLimit)).
  * 
@@ -126,7 +126,7 @@ $(".equations").each(function () {
 
 
     // For each equation
-    $("h3", thisHTMl).each(function () {
+    $("h4", thisHTMl).each(function () {
         // Title
         let title = $(this).text();
         string += `| [${title}](#${$(this).attr("id")}) | `;
