@@ -1,4 +1,20 @@
-# Install and Setup Instructions to run locally
+# Install and setup instrustions for running mdBook locally
+
+Install rust.
+
+On wsl you can use: 
+`curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh`
+
+`source ~/.bashrc`
+
+Then install mdbook
+`cargo install mdbook mdbook-katex`
+
+
+`mdbook serve -p 8080 -n 0.0.0.0` 
+
+
+# Install and Setup Instructions to run Jekyll locally (OLD)
 
 Follow these instructions for WSL2 setup [here](https://www.vgemba.net/blog/Setup-Jekyll-WSL/).
 
