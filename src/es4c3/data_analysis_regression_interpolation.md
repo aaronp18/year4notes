@@ -5,18 +5,23 @@
 <equation-table>
 
 | [Interpolation](#interpolation)                                                                              |                                                                                                                         |
-| ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+|--------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|
 | [Linear Interpolation Formula](#linear-interpolation-formula)                                                | $y = y_0 + \frac{y_1 - y_0}{x_1 - x_0} (x - x_0)$                                                                       |
 | [Taylor's Expansion Formula](#taylors-expansion-formula)                                                     | $f(x) = f(x_0) + (x-x_0)f'(x_0) + \frac{(x-x_0)}{2!}f''(x_0) + \ldots + \frac{(x-x_0)^n}{n!}f^{(n)} (x_0) + R_n =$      |
 | [Newton's Divided-Difference Interpolating Polynomial](#newtons-divided-difference-interpolating-polynomial) | $f_n(x) = g[x_0] + g[x_1, x_0](x - x_0) + \ldots + g[x_n, x_{n-1}, \ldots, x_0](x - x_0)(x - x_1) \ldots (x - x_{n-1})$ |
 | [Lagrange's Interpolation Polynomial](#lagranges-interpolation-polynomial)                                   | $f_n(x) = \sum_{i=0}^{n} L_i(x)f(x_i) = \sum_{i=0}^{n} L_i(x)y_i$                                                       |
 | [Cubic Spline](#cubic-spline)                                                                                | Cubic polynomial approximates the data between two conseceutive data points                                             |
 
-| [Regressions](#regressions)                                                                               |                                                            |
-| --------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
-| [Residual, epsilon](#residual-epsilon)                                                                    | $\epsilon = y - (a_0 + a_1x)$                              |
-| [Least-Squares Criterion](#least-squares-criterion)                                                       | $Minimize \sum \epsilon^2 = \sum (y - (a_0 + a_1x))^2$     |
-| [Non Linear relationships - Table of transfomations](#non-linear-relationships---table-of-transfomations) | Can be transformed to linear and perform linear regression |
+| [Regressions](#regressions)                                                                               |                                                                                  |
+|-----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| [Residual, epsilon](#residual-epsilon)                                                                    | $\epsilon = y - (a_0 + a_1x)$                                                    |
+| [Least-Squares Criterion](#least-squares-criterion)                                                       | $Minimize \sum \epsilon^2 = \sum (y - (a_0 + a_1x))^2$                           |
+| [Non Linear relationships - Table of transfomations](#non-linear-relationships---table-of-transfomations) | Can be transformed to linear and perform linear regression                       |
+| [N-order polynomial least-square regression](#n-order-polynomial-least-square-regression)                 | $y = \sum_{j=0}^{n} a_j x^j + \epsilon$                                          |
+| [Fourier Basis Least Square](#fourier-basis-least-square)                                                 | $z_j(x) = \sin(j\Omega x), \quad z_j(x) = \cos(j\Omega x), \quad \Omega = const$ |
+
+| [Extrapolation](#extrapolation)  | | 
+| ----------- | -----------  | 
 
 </equation-table>
 
