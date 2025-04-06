@@ -5,10 +5,10 @@
 | [Polynomial Equations](#polynomial-equations)                                 |                                                                                                        |
 |-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
 | [General Eigenvalue problem](#general-eigenvalue-problem)                     | $Ax = \lambda x$                                                                                       |
-| [Companion Matrix, A](#companion-matrix-a)                                    | Specifcy suitable matrix for the initial polynomal which have roots $\lambda$ of...                    |
+| [Companion Matrix, A](#companion-matrix-a)                                    | Specifcy suitable matrix for the initial polynomal which have roots \lambda of...                      |
 | [Characteristic polynomial equation](#characteristic-polynomial-equation)     | $\lambda^n + \frac{a_2}{a_1}\lambda^{n-1} + \ldots + \frac{a_n}{a_1}\lambda + \frac{a_{n+1}}{a_1} = 0$ |
-| [Semi-analytical Roots via Polynomail](#semi-analytical-roots-via-polynomail) | Expand function $f(x)$ in Taylor series around $x_0$, and rewrite expansion in p...                    |
-| [Numerical Roots via Polynomial](#numerical-roots-via-polynomial)             | Introduce grid with nodes $x_i$ and use  curve fitting to calculate coefficients...                    |
+| [Semi-analytical Roots via Polynomail](#semi-analytical-roots-via-polynomail) | Expand function f(x) in Taylor series around x_0, and rewrite expansion in p...                        |
+| [Numerical Roots via Polynomial](#numerical-roots-via-polynomial)             | Introduce grid with nodes x_i and use  curve fitting to calculate coefficients...                      |
 
 | [Bracketing Methods](#bracketing-methods)  | | 
 | ----------- | -----------  | 

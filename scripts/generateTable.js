@@ -58,14 +58,18 @@ function stringValidation(title, str) {
     replacement_string = str
     // Check for unclosed $
     // Get count of $
-    let dollar_count = str.split("$").length - 1;
-    if (dollar_count % 2 != 0) {
-        console.log(`WARNING | Unclosed $ found in equation (${title}), closing...`)
-        console.log(`"${str}"`)
 
-        replacement_string = replacement_string + "$";
+    // Remove all dollar signs maths as it messes up the table.
+    replacement_string = replacement_string.replaceAll("$", "");
 
-    }
+    // let dollar_count = str.split("$").length - 1;
+    // if (dollar_count % 2 != 0) {
+    //     console.log(`WARNING | Unclosed $ found in equation (${title}), closing...`)
+    //     console.log(`"${str}"`)
+
+    //     replacement_string = replacement_string + "$";
+
+    // }
 
     // Check for included sqrt
     // For some reason can't be drawn
@@ -73,7 +77,7 @@ function stringValidation(title, str) {
         console.log(`WARNING | \\sqrt found in equation (${title}). Known to cause issues. Replacing...`)
         console.log(`"${str}"`)
 
-        replacement_string = replacement_string.replace("\\sqrt", "sqrt")
+        replacement_string = replacement_string.replaceAll("\\sqrt", "sqrt")
     }
 
     return replacement_string

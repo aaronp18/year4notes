@@ -1,6 +1,23 @@
 # Probability and Information
 
-<equation-table></equation-table>
+<equation-table>
+
+| [Information](#information)                                                     |                                                                                                                                          |
+| ------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| [Coding](#coding)                                                               |                                                                                                                                          |
+| [Source / Channel Seperation Theroum](#source--channel-seperation-theroum)      | If a source can be transmitted over a channel in any way, it can be transmitted ...                                                      |
+| [Outcomes and information](#outcomes-and-information)                           | $r = 2^n$                                                                                                                                |
+| [Hartley Information Definition](#hartley-information-definition)               | $I_{\text{hartley}}(U) = \log{}_b r$                                                                                                     |
+| [Shannons Information](#shannons-information)                                   | Measure of information =                                                                                                                 |
+| [Entorpy](#entorpy)                                                             |                                                                                                                                          |
+| [Entropy of equal probability](#entropy-of-equal-probability)                   | $H(X) = \lg n$                                                                                                                           |
+| [Transmission error probability](#transmission-error-probability)               | $P_e \sim e^{-kE_b}$                                                                                                                     |
+| [Signal Power](#signal-power)                                                   | $\text{Power} = E_b R_b$                                                                                                                 |
+| [Quantisation:](#quantisation)                                                  | Divide the range from v_{min} to v_{max} into number of levels 2^n where c...                                                            |
+| [Quantisation Error](#quantisation-error)                                       | $\text{Quantisation Error, } Q = \text{quantised signal} - \text{original signal}$                                                       |
+| [Signal to Quantised Noise Ratio (SQNR)](#signal-to-quantised-noise-ratio-sqnr) | $\text{SQNR} = \frac{P_{signal}}{P_{noise}} = \frac{E[V^2]}{E[Q^2]} = \frac{v_m^2 E[\hat{V}^2]}{\frac{v_m^2}{3N^2}} = 3N^2 E[\hat{V}^2]$ |
+
+</equation-table>
 
 
 <div class="equations">
@@ -38,19 +55,24 @@ If a source can be transmitted over a channel in any way, it can be transmitted 
 
 
 #### Outcomes and information
+
 r outcomes, n binary choices, = n bits of information
 $$
-r = 2^n\\
-n = log_2(r) = lg(r)
+r = 2^n
 $$
 
+$$
+n = \log_2(r) = \lg(r)
+$$
 
 ### Hartley Information
 
 #### Hartley Information Definition
+
 $$
-I_{\text{hartley}}(U) = \log_b r
+I_{\text{hartley}}(U) = \log{}_b r
 $$
+
 $U$ is the random result
 
 $r$ is the number of possible outcomes
@@ -123,6 +145,7 @@ Increased rate means need to increase power to keep same P_e.
 
 #### Quantisation:
 Divide the range from $v_{min}$ to $v_{max}$ into number of levels $2^n$ where coded by n bits.
+
 - Each level is represented by a binary code.
 - Can be varied to optimise
 
