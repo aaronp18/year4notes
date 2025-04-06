@@ -5,7 +5,7 @@
 | [Noise](#noise)                                                                                 |                                                                                                                                     |
 |-------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
 | [Zero Mean Additive Gaussian White Noise (AWGN)](#zero-mean-additive-gaussian-white-noise-awgn) | Gaussian proability distribution with                                                                                               |
-| [ercf function](#ercf-function)                                                                 | $% \text{erfc}(x) \approx \frac{e^{-x^2}}{xsqrt{\pi} }$                                                                             |
+| [ercf function](#ercf-function)                                                                 | $\text{erfc}(x) \approx \frac{e^{-x^2}}{xsqrt{\pi} }$                                                                               |
 | [Error Probability](#error-probability)                                                         | $P_e = \frac{1}{2} \text{erfc}\left(\frac{d-A_0}{sqrt{2\sigma}}\right) = \frac{1}{2} \text{erfc}\left(sqrt{\frac{E_b}{N_0}}\right)$ |
 | [Matched Filter](#matched-filter)                                                               | In rreal noisy channel, know pulse shape but not how big or exaclty when it will...                                                 |
 | [Calculation of Energy per Bit E_b](#calculation-of-energy-per-bit-e_b)                         | Digital communications use the ratio fo enery per bit to the ones sided Power sp...                                                 |
@@ -17,7 +17,9 @@
 | [Repetition Code Performance](#repetition-code-performance)                               | See image                                                         |
 | [Run Length Encoding Image Comrpression](#run-length-encoding-image-comrpression)         | Idea to remove redundancy of images using run length encoding     |
 | [Ad Hoc Image compression](#ad-hoc-image-compression)                                     | Straight run length encoding of the original image                |
-| [More adhoc Image compression](#more-adhoc-image-compression)                             | ERR                                                               |
+| [More adhoc Image compression](#more-adhoc-image-compression)                             | Can divide into segements, but in some will expand the image.     |
+| [Compression limits](#compression-limits)                                                 |                                                                   |
+| [Mean Length Sparese Files](#mean-length-sparese-files)                                   | $\hat{l} = 3 + 4P(\text{block is not one of the six})$            |
 
 </equation-table>
 
@@ -39,7 +41,7 @@ $$
 
 #### ercf function
 $$
-% \text{erfc}(x) \approx \frac{e^{-x^2}}{x\sqrt{\pi} } 
+\text{erfc}(x) \approx \frac{e^{-x^2}}{x\sqrt{\pi} } 
 $$
 Approximated for exams
 
@@ -155,7 +157,42 @@ IE:
 In some cases can compress image better
 
 #### More adhoc Image compression
+Can divide into segements, but in some will expand the image.
+
+Also have to consider if compressing is recoverable (lossless) or not (lossy).
+
+Stream of independednt 1s and zeros, maximum compression is 71% (see later for detail). Relationships between pixels can make more than this possible.
+
+We do not know the actual message at the time of the design ,so the system bust operate fro every possible selectuion
 
 
+#### Compression limits
+- File of N bits in length, ocompressed to X of original
+- $2^N$ possible messages
+- $\approx 2^{X\times N}$ possible files
+- So very small
+- To be effective, compression algorthim needs to examine the data and find redundencies.
+
+
+
+### Sparse Files
+- Long binary vector consisting mainly of zeros
+- Bits drwan independently
+- Recall Bernoulii distribution
+- EG Prob of 1 occuring is low, $p=0.1$, so compress large file by taking blocks of size N
+- Occurance of 1s follow binomial distribution, therfore mose linkely blcoks will be no 1s or a single 1.
+- Therefore Most for N = 5, 6 most likely blocks = 00000 00001 00010 00100 01000 10000  
+- Can enode these 6 symbols with 3 bits (000 001 010 011 100 101)
+- But need to accomodoate other blocks using the remaining (2^5 - 6) = 26 blocks
+- Remaining 3 bits (2 remiaing codes 110 111) plus 4 bits for 13
+  
+#### Mean Length Sparese Files
+$$
+\hat{l} = 3 + 4P(\text{block is not one of the six})
+$$
+
+
+Expected code length
 
 </div>
+
