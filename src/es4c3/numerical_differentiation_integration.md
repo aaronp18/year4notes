@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Numerical Differentiation](#numerical-differentiation)                                 |                                                       |
-| --------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+|-----------------------------------------------------------------------------------------|-------------------------------------------------------|
 | [First Forward finite Divided Difference](#first-forward-finite-divided-difference)     | $f'(x_i) \approx \frac{y_{i+1}-y_i}{h}$               |
 | [First Backward finite Divided Difference](#first-backward-finite-divided-difference)   | $f'(x_i) \approx \frac{y_i-y_{i-1}}{h}$               |
 | [First Central finite Divided Difference](#first-central-finite-divided-difference)     | $f'(x_i) \approx \frac{y_{i+1}-y_{i-1}}{2h}$          |
@@ -13,7 +13,7 @@
 | [Richardson Extrapolation Formula](#richardson-extrapolation-formula)                   | $G = \frac{2^p g(\frac{h_1}{2})-g(h_1)}{2^p-1}$       |
 
 | [Numerical Integration](#numerical-integration)                                           |                                                                                                                                 |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
 | [Quadrature (Numerical integration)](#quadrature-numerical-integration)                   | $I = \int_a^b f(x) dx \approxeq \sum_{i=1}^n A_i f_n(x_i)$                                                                      |
 | [Newton Coates Closed Form](#newton-coates-closed-form)                                   | $I = \int_a^b f(x) dx \approxeq \int_a^b f_n(x) dx \quad f_n(x) = a_0 + a_1 x + a_2 x^2 + \ldots + a_n x^n$                     |
 | [Newton Coates Error](#newton-coates-error)                                               | $E = \int_a^b f(x) dx - \int_a^b f_n(x) dx$                                                                                     |
