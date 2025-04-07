@@ -7,7 +7,7 @@
   - [Thread Level Parallelism](cs402/thread_level_parallelism.md)
   - [MPI](cs402/mpi.md)
   - [Programming Models & Performance Modelling](cs402/programming_models_performance_modelling.md)
-  - [GPUs](cs402/gpus.md)
+  - [GPUs & Parallel IO](cs402/gpus.md)
   - [Clusters](cs402/clusters.md)
 - [CS435 Advanced Computer Security](cs435/cs435.md)
   - [Introduction](cs435/introduction.md)
