@@ -125,7 +125,7 @@ $(".equations").each(function () {
 
     // Section Title
     // string += ` <a href="#${$("h2", thisHTMl).attr("id")}"> ${$("h2", thisHTMl).text()}</a>`;
-    string += `| [${$("h2", thisHTMl).text()}](#${$("h2", thisHTMl).attr("id")})  | | \n`;
+    string += `| [${$("h2", thisHTMl).prop('innerText')}](#${$("h2", thisHTMl).attr("id")})  | | \n`;
     string += `| ----------- | -----------  | \n`
 
 
