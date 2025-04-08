@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Introduction](#introduction)                                     |                                                                                     |
-| ----------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+|-------------------------------------------------------------------|-------------------------------------------------------------------------------------|
 | [Sensor definition](#sensor-definition)                           | A sensor is a device that converts a non-electrical physical or checmial quantit... |
 | [MEMS Defintion](#mems-defintion)                                 |                                                                                     |
 | [Microsensors and MST/MEMS](#microsensors-and-mstmems)            | Advantages:                                                                         |
