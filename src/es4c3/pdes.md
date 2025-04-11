@@ -2,21 +2,37 @@
 
 <equation-table>
 
-| [Partial Differential Equations (PDEs)](#partial-differential-equations-pdes)   |                                                                                                                                    |
-|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
-| [Genereal form](#genereal-form)                                                 | $A \frac{\partial^2 u}{\partial x^2} + B \frac{\partial^2 u}{\partial x \partial y} + C \frac{\partial^2 u}{\partial y^2} + D = 0$ |
-| [Categories](#categories)                                                       | Defined by the                                                                                                                     |
-| [Elliptic Equation](#elliptic-equation)                                         |                                                                                                                                    |
-| [Parabolic Equation](#parabolic-equation)                                       |                                                                                                                                    |
-| [Hyperbolic Equation](#hyperbolic-equation)                                     |                                                                                                                                    |
-| [Dirichlet Conditions](#dirichlet-conditions)                                   |                                                                                                                                    |
-| [Neumann Conditions](#neumann-conditions)                                       |                                                                                                                                    |
-| [Robin / Mixed (Generalised Neumann)](#robin--mixed-generalised-neumann)        |                                                                                                                                    |
-| [Problem](#problem)                                                             |                                                                                                                                    |
-| [Introduce Grid](#introduce-grid)                                               |                                                                                                                                    |
-| [Finite Difference Scheme](#finite-difference-scheme)                           |                                                                                                                                    |
-| [Implementation of boundary conditions](#implementation-of-boundary-conditions) |                                                                                                                                    |
-| [Algebraic Equations](#algebraic-equations)                                     | Leads to equations for interior nodes: All linear.                                                                                 |
+| [Partial Differential Equations (PDEs)](#partial-differential-equations-pdes) |                                                                                                                                    |
+|-------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| [Genereal form](#genereal-form)                                               | $A \frac{\partial^2 u}{\partial x^2} + B \frac{\partial^2 u}{\partial x \partial y} + C \frac{\partial^2 u}{\partial y^2} + D = 0$ |
+| [Categories](#categories)                                                     | Defined by the                                                                                                                     |
+| [Elliptic Equation](#elliptic-equation)                                       |                                                                                                                                    |
+| [Parabolic Equation](#parabolic-equation)                                     |                                                                                                                                    |
+| [Hyperbolic Equation](#hyperbolic-equation)                                   |                                                                                                                                    |
+| [Dirichlet Conditions](#dirichlet-conditions)                                 |                                                                                                                                    |
+| [Neumann Conditions](#neumann-conditions)                                     |                                                                                                                                    |
+| [Robin / Mixed (Generalised Neumann)](#robin--mixed-generalised-neumann)      |                                                                                                                                    |
+
+| [Finite Difference Approach](#finite-difference-approach)                       |                                                                                                                                                                |
+|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| [Problem](#problem)                                                             |                                                                                                                                                                |
+| [Introduce Grid](#introduce-grid)                                               |                                                                                                                                                                |
+| [Finite Difference Scheme](#finite-difference-scheme)                           |                                                                                                                                                                |
+| [Implementation of boundary conditions](#implementation-of-boundary-conditions) |                                                                                                                                                                |
+| [Algebraic Equations](#algebraic-equations)                                     | Leads to equations for interior nodes: All linear.                                                                                                             |
+| [Steps](#steps)                                                                 |                                                                                                                                                                |
+| [Parabolic PDE Solution](#parabolic-pde-solution)                               | $u_{i,j+1} = \frac{\alpha \Delta t}{\Delta x^2} u_{i-1,j} + (1 - 2 \frac{\alpha \Delta t}{\Delta x^2}) u_{i,j} + \frac{\alpha \Delta t}{\Delta x^2} u_{i+1,j}$ |
+| [Parabolic PDE Scheme Accuracy](#parabolic-pde-scheme-accuracy)                 | $O(\Delta x^2 + \Delta t)$                                                                                                                                     |
+| [Stability](#stability)                                                         | The scheme is                                                                                                                                                  |
+| [Steps](#steps-1)                                                               |                                                                                                                                                                |
+| [Hyperbolic Scheme](#hyperbolic-scheme)                                         | $u^{k+1}$                                                                                                                                                      |
+| [Hyberbolic Scheme Accuracy](#hyberbolic-scheme-accuracy)                       | $O(\Delta x^2 + \Delta t^2)$                                                                                                                                   |
+
+| [Finite Element Method](#finite-element-method) |   |
+|-------------------------------------------------|---|
+| [Discretisation Error](#discretisation-error)   |   |
+| [Forumlation Error](#forumlation-error)         |   |
+| [Numerical Error](#numerical-error)             |   |
 
 </equation-table>
 
@@ -114,8 +130,9 @@ Boundary conditions, vital to specify the area we want. Conditions should specif
   - Constant temperature of side edges, and flow through the edge.
 - ![alt text](imgs/pdes/image-6.png)
 
+</div>
 
-
+<div class="equations">
 
 ## Finite Difference Approach
 
@@ -145,7 +162,7 @@ Approach:
 ![alt text](imgs/pdes/image-9.png)
 
 #### Finite Difference Scheme
-- Consider reference node i, j $(x_i, y_j)$:  $u(x_i,y_j) = u_{i,j} $, $f(x_i,y_j) = f_{i,j}$
+- Consider reference node i, j $(x_i, y_j)$:  $u(x_i,y_j) = u_{i,j}$, $f(x_i,y_j) = f_{i,j}$
 - Use finite difference approximations for the derivitatves
 - In this case using *central-difference formulea for second derivateve*
   - As highest accuracy compared to backward and forward
@@ -187,3 +204,173 @@ Other option is iterative:
 - Approximate
 - Simple but have finite error
 - The finite-difference approximation has a descretisation error of $O(\Delta x^2 + \Delta y^2)$ so as long as the iterative error is smaller than the discretisation error it is fine.
+
+### Parabolic PDE
+Relaxation to an equilibirum
+
+Approach:
+- Finite difference approximation of PDE
+- Implementation of boundary conditions
+- Solving linear Matrix equation.
+
+Very similar to eliptic.
+
+- Given eqaution with second derivative and first derivative
+
+
+$$
+\alpha \frac{\partial ^2 u(x,t)}{\partial x^2} = \frac{\partial u(x,t)}{\partial t} \quad \text{where } \alpha \gt 0
+$$
+- Boundary and initial condiditons
+- See lecture 10 for more detail
+
+#### Steps
+- Use central finite difference for the second derivative and forward finite difference for the first derivative.
+- Substitute into PDE
+- Rearrange for $u_{i, j+1}$
+- Apply boundary conditions
+- Apply initial coniditons
+  - For first iteration - can sub in, therefore different equation
+  - For all other iterations have general equation
+
+#### Parabolic PDE Solution  
+$$
+u_{i,j+1} = \frac{\alpha \Delta t}{\Delta x^2} u_{i-1,j} + (1 - 2 \frac{\alpha \Delta t}{\Delta x^2}) u_{i,j} + \frac{\alpha \Delta t}{\Delta x^2} u_{i+1,j}
+$$
+
+#### Parabolic PDE Scheme Accuracy
+$$
+O(\Delta x^2 + \Delta t)
+$$
+- The error is combination of the error for central difference for x and t.
+
+#### Stability
+The scheme is **conditioanlly stable** for 
+$$
+1 - \frac{2\alpha \Delta t}{\Delta x^2} \geq 0 \quad \to \quad \Delta t \leq \frac{\Delta x^2}{2\alpha}
+$$
+
+Therefore, decreasing spatial interval leads to decreasing the time step at the cost of more computation. Thus room for improvement (with implcit methods).
+
+
+### Hyperbolic PDE
+Again similar, hyperbolic = oscilations
+
+- Finite difference approximation of PDE
+- Implementation of boundary conditions
+- Solving linear Matrix equation.
+
+- Given eqaution with two second derivative 
+$$
+A \frac{\partial ^2 u(x,t)}{\partial x^2} = \frac{\partial ^2 u(x,t)}{\partial t^2}
+$$
+
+#### Steps
+- Repalce second derivatives with central finite difference approximations
+- Rearrange for $u_{i,K+1}$ as looking for future time step (where k+1)
+- Apply initial conditions
+  - Need to use central difference for the first derivative and rearrange to get the scheme for the first iteration
+  - As scheme uses time -1, so for time 0, cant have negative.
+  - After k > 1, then we can use normal finte difference scheme.
+- Apply boundary conditions
+- 
+
+#### Hyperbolic Scheme
+$$
+u^{k+1}_i = r(u^k_{i+1} + u^k_{i-1}) + 2(1-r)u^k_i - u_{i}^{k-1}
+$$
+
+Where $r = \frac{\alpha \Delta t^2}{\Delta x^2}$
+
+First iteration:
+$$
+u_i^1 = r(u_{i+1}^0 + u_{i-1}^0) + 2(1-r)u_i^0 - (u_{i}^{1}-2i'_0(x_i) \Delta t)
+$$
+
+#### Hyberbolic Scheme Accuracy
+$$
+O(\Delta x^2 + \Delta t^2)
+$$
+
+### Hyperbolic Stability
+$$
+r = A \frac{\Delta t^2}{\Delta x^2} \leq 1
+$$
+Conditionally stable.
+
+
+</div>
+
+<div class="equations">
+
+## Finite Element Method
+
+### Framework
+- Very important development in computer methods
+- Has evolved to be use for many problems
+- Advantages to a design engineer
+  - Easilly applied to complex, irregular shaped objects (made of different matterials, with complex boundary conditions)
+  - Applicable to steady-state, time depenent and eigenvalue problesm
+  - Applicable to linear and nonlinear
+- A complex region defining a **continuum** is **descretised** into simple geopmetric shapes called **elements**
+- Properties and govenening relationships are assumed over the elements and expressed mathematically in terms of unknown values at specifci points **nodes**.
+
+![alt text](imgs/pdes/image-17.png)
+
+- Assembly process links the indivdual elements to the given system
+- Using inital and boundary conditions, creats a set of linear / nonlinear algebraic equations
+- Solution gives **approximate** behaviour
+
+### FEM Features
+- **Numerical procedure** - approximate solution
+- **Piecewise approximation** - of physical field (continuum) on finite elements - essentia step
+  - Tends to use simple approximating functions
+  - Increasing the number of elements, increases the precision
+- **Locality of approximation** - leads to sparse quations for discretized problem
+
+![alt text](imgs/pdes/image-18.png) 
+
+- Therfore, a specifc numerical result is obtained for a specifc problem. 
+- A general closed-from solutions ( which would allow you to examine system responses to various parameters ) is not produced.
+- FEM is applied to an approximation of the mathematical model (source of inherited errors)
+- So need expereince and judement to make good model
+- Powerful computer and reliabel software required.
+- Input and output data can be large and tedious to prepare and interpret..
+
+### FEM Errors
+3 sources of error
+
+#### Discretisation Error
+- Results from transforming physical system into finite element model
+- Can be related to modeling the boundary shape, conditions etc
+
+![alt text](imgs/pdes/image-19.png)
+
+#### Forumlation Error
+- From elements that dont precisily describe the behaviour of the physical problem
+- Elements my be ill-conditioned or matematically unsuitable
+
+![alt text](imgs/pdes/image-20.png)
+
+#### Numerical Error
+- Numerical caluclations - trncation erros + roundoff errors
+- Therefore main concern for FEM vendors and developers
+- Can be contributed to by user, say they do not give a constant to enough decimal places.
+- So task of uncertainty quantification is to determine the effect of these errors on the final solution.
+
+
+
+### Steps
+1) Discretisation of the domain using a finite element
+2) Selection of an interpolation or shape function for an element
+3) Derivation of elemtn characteristic matrices and vectors. The use of PDEs and boundary and inital conditions.
+   - Often the physcial problem can be formulated as the minimusation of a functional; then the **variational formulation** is used.
+4) Assemblage of elelment charatcteris matrices and vectors
+5) Soltuion of system equations.
+
+### Matlab PDE
+- PDE toolbox, GUI for solving the following types of PDE
+- Solves using FEM.
+- 
+![alt text](imgs/pdes/image-21.png)
+![alt text](imgs/pdes/image-22.png)
