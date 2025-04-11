@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Classical Cryptography](#classical-cryptography) |                                                                                     |
-|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| ------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [Modular Arithmetic](#modular-arithmetic)         |                                                                                     |
 | [Data Range](#data-range)                         |                                                                                     |
 | [Cipher](#cipher)                                 | Crypotgraphic algorithm to encrypt and decrypt data                                 |
@@ -17,11 +17,11 @@
 | [Shift Cipher](#shift-cipher)                     | ERR                                                                                 |
 | [Vigenere Cipher](#vigenere-cipher)               |                                                                                     |
 
-| [Stream Cipher](#stream-cipher)     |   |
-|-------------------------------------|---|
-| [Perfect Secrecy](#perfect-secrecy) |   |
-| [Recurrence](#recurrence)           |   |
-| [Weakness](#weakness)               |   |
+| [Stream Cipher](#stream-cipher)     |     |
+| ----------------------------------- | --- |
+| [Perfect Secrecy](#perfect-secrecy) |     |
+| [Recurrence](#recurrence)           |     |
+| [Weakness](#weakness)               |     |
 
 </equation-table>
 
@@ -200,3 +200,99 @@ $$
 
 ### Self-synchronising Stream Cipher
 - Able to recover from loss of synchronisation
+
+
+## Block Cipher
+
+### Overview
+
+#### Basic structure
+![alt text](imgs/cryptography/image-6.png)
+
+#### Iterated Construction
+![alt text](imgs/cryptography/image-7.png)
+Where R(K_x,. ) is a round function, K is the key, and n is the number of rounds.
+- DES 16 rounds, 3DES 48 rounds, AES128 10 rounds
+
+DES = Data Encryption Standard
+
+### Functions
+
+#### Pseudo Random Function (PRF)
+- Defined over (K, X, Y)
+- $F: K \times X \to Y$
+- Such that:
+  - Exists an "efficient" algorithm to evaluate F(k,x)
+
+#### Pseudo Random Permutation (PRP)
+- Defined over (K, X)
+- $E: K \times X \to X$
+- Such that:
+  - Exists an "efficient" algorithm to evaluate E(k,x)
+  - The function E(k,.) is **one to one**
+  - Exists an efficient inversion algorithm D(k,.)
+
+
+A PRP is a PRF where:
+- X=Y
+- It is invertible
+
+### Fiestel Network
+- Need better efficiency
+- Can we use the same circuit for both Encrypting and decrypting?
+![alt text](imgs/cryptography/image-8.png)
+
+![alt text](imgs/cryptography/image-9.png)
+
+#### Invertible Design
+- Can do the inverse operation by swapping L and R
+  
+![alt text](imgs/cryptography/image-10.png)
+
+On the last round, dont swap the left and right sides, so the decruption can be applied without swapping them.
+
+
+### DES 16 Round Fiestel Network
+![alt text](imgs/cryptography/image-11.png)
+
+![alt text](imgs/cryptography/image-12.png)
+
+- 32 bit input pddeded to 48 bits
+- Padded inpit added to the key
+- Input divided into 8 groups of 6 bits of input sent to S boxes (look up tables)
+  - $S_i: \{0,1\}^6 \to \{0,1\}^4$
+  - Take row corresponding to the outer 2 bits and the column corresponding to the inner 4 bits, and find where they intersect.
+  - Provides confusion. 
+![alt text](imgs/cryptography/image-13.png)
+
+- P box - defines permutation over 32 bits
+  - $P: \{0,1\}^{32} \to \{0,1\}^{32}$
+  - Provides diffusion
+  - ![alt text](imgs/cryptography/image-14.png)
+
+
+- Choosing S and P boxes
+  - Choosing random = results in insecure block cipher
+  - No ouput bit should be close to a linear function of the input bits
+  - S-Boxes are 4-1 mapping
+
+
+### More Secure DES
+- 56 bit DES is too weak - can be brute forced
+
+#### Double DES
+- Encrypt twice, with 2 keys
+- Double key = 112 bits
+- $c = E(k_2, E(k_1, m))$
+![alt text](imgs/cryptography/image-15.png)
+- But vulnerable to meet in the middle attack - knowing a few (m, c) pairs
+
+![alt text](imgs/cryptography/image-16.png)
+
+
+#### Triple DES
+- More secure combination
+- Few varients:
+  - $k_1 \neq k_2 \neq k_3$ - keysize of 168 bits, security 112 bits
+  - $k_1 = k_3$ - keysize of 112 bits, security 80 bits
+  - $k_1 = k_2 = k_3$ - keysize of 56 bits, security 56 bits
