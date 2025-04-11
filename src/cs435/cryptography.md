@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Classical Cryptography](#classical-cryptography) |                                                                                     |
-| ------------------------------------------------- | ----------------------------------------------------------------------------------- |
+|---------------------------------------------------|-------------------------------------------------------------------------------------|
 | [Modular Arithmetic](#modular-arithmetic)         |                                                                                     |
 | [Data Range](#data-range)                         |                                                                                     |
 | [Cipher](#cipher)                                 | Crypotgraphic algorithm to encrypt and decrypt data                                 |
@@ -17,11 +17,18 @@
 | [Shift Cipher](#shift-cipher)                     | ERR                                                                                 |
 | [Vigenere Cipher](#vigenere-cipher)               |                                                                                     |
 
-| [Stream Cipher](#stream-cipher)     |     |
-| ----------------------------------- | --- |
-| [Perfect Secrecy](#perfect-secrecy) |     |
-| [Recurrence](#recurrence)           |     |
-| [Weakness](#weakness)               |     |
+| [Stream Cipher](#stream-cipher)                                   |     |
+|-------------------------------------------------------------------|-----|
+| [Perfect Secrecy](#perfect-secrecy)                               |     |
+| [Recurrence](#recurrence)                                         |     |
+| [Weakness](#weakness)                                             |     |
+| [Basic structure](#basic-structure)                               | ERR |
+| [Iterated Construction](#iterated-construction)                   | ERR |
+| [Pseudo Random Function (PRF)](#pseudo-random-function-prf)       |     |
+| [Pseudo Random Permutation (PRP)](#pseudo-random-permutation-prp) |     |
+| [Invertible Design](#invertible-design)                           |     |
+| [Double DES](#double-des)                                         |     |
+| [Triple DES](#triple-des)                                         |     |
 
 </equation-table>
 
