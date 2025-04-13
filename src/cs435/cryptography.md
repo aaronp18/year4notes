@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Classical Cryptography](#classical-cryptography) |                                                                                     |
-|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| ------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [Modular Arithmetic](#modular-arithmetic)         |                                                                                     |
 | [Data Range](#data-range)                         |                                                                                     |
 | [Cipher](#cipher)                                 | Crypotgraphic algorithm to encrypt and decrypt data                                 |
@@ -18,7 +18,7 @@
 | [Vigenere Cipher](#vigenere-cipher)               |                                                                                     |
 
 | [Stream Cipher](#stream-cipher)                                   |     |
-|-------------------------------------------------------------------|-----|
+| ----------------------------------------------------------------- | --- |
 | [Perfect Secrecy](#perfect-secrecy)                               |     |
 | [Recurrence](#recurrence)                                         |     |
 | [Weakness](#weakness)                                             |     |
@@ -29,6 +29,16 @@
 | [Invertible Design](#invertible-design)                           |     |
 | [Double DES](#double-des)                                         |     |
 | [Triple DES](#triple-des)                                         |     |
+| [Sub Bytes](#sub-bytes)                                           |     |
+| [Shift Rows](#shift-rows)                                         |     |
+| [Mix Columns](#mix-columns)                                       |     |
+| [Key Schedule (AES128)](#key-schedule-aes128)                     |     |
+| [Varietns of AES](#varietns-of-aes)                               |     |
+| [Electronic Code Book (ECB)](#electronic-code-book-ecb)           |     |
+| [Cipher Block Chaining (CBC)](#cipher-block-chaining-cbc)         |     |
+| [Cipher Feedback (CFB)](#cipher-feedback-cfb)                     |     |
+| [Output Feedback (OFB)](#output-feedback-ofb)                     |     |
+| [Counter (CTR)](#counter-ctr)                                     |     |
 
 </equation-table>
 
@@ -303,3 +313,334 @@ On the last round, dont swap the left and right sides, so the decruption can be 
   - $k_1 \neq k_2 \neq k_3$ - keysize of 168 bits, security 112 bits
   - $k_1 = k_3$ - keysize of 112 bits, security 80 bits
   - $k_1 = k_2 = k_3$ - keysize of 56 bits, security 56 bits
+
+
+### AES
+- Advanced Encryption Standard
+- Substituiton permutation network (not feistel
+  - Mix together all the bits rathaer than just half at each round
+  - Needs fewer rounds as a result
+
+![alt text](imgs/cryptography/image-17.png)
+
+![alt text](imgs/cryptography/image-18.png)
+
+#### Sub Bytes
+- Substitiion cipher
+- See lectures for math backing (Block Cipher II)
+- $a$ is an element of $GF(2^8)$ (finite field)
+  - inverse = $a^{-1} = {a_7 a_6 a_5 a_4 a_3 a_2 a_1 a_0}$ 
+- For $i = 0, 1,2, \ldots, 7$,
+  - $b_i = (a_i + a_{i+4} + a_{i+5} + a_{i+6} + a_{i+7} +c_i) \mod 2$
+- Output:
+  - $b_7 b_6 b_5 b_4 b_3 b_2 b_1 b_0$
+- Can be proven to be **one to one** mapping
+- Not random unlike DES
+  - Defined in a finite field
+- Doesnt have to be hard coded (like DES)
+  - Compact software implementation
+- Flexible tradeoff between code size and perforamnce.
+
+#### Shift Rows
+- Shift each row by a number of bytes
+- ![alt text](imgs/cryptography/image-19.png)
+
+#### Mix Columns
+- Each byte in a column is replaced by 2 times that byte plus 3 times the next byte plus the byte that comes next plus that byte that follows
+- $u_i$ = f(s_0, s_1, s_2)
+
+![alt text](imgs/cryptography/image-20.png)
+
+
+#### Key Schedule (AES128)
+- Expanding 16 bytes eleven times to 176 bytes
+- Defines a word as consistending of 4 bytes
+
+![alt text](imgs/cryptography/image-21.png)
+
+- Function: 
+  - Rotate a byte to the left
+  - Substitute each byte with the S-box
+  - XOR the result with some constant
+![alt text](imgs/cryptography/image-22.png)
+
+
+#### Varietns of AES
+- Block size = 128 bits
+- Different key sizes: 128, 192, 256
+  - AES128 = 10 rounds
+  - AES192 = 12 rounds
+  - AES256 = 14 rounds
+- AES128 is the most common
+  - Key scheduling algorithm is the best 
+
+### Modes of Operation
+- Defines how a block cipher is applied to encrupt data
+- Electronic Code book (ECB)
+- Cipher Block Chaining (CBC)
+- Cipher Feedback (CFB)
+- Output Feedback (OFB)
+- Counter (CTR)
+
+#### Electronic Code Book (ECB)
+- Simplest
+- Encrypt each block independently
+- Deterministic - same plaintext block will always encrypt to the same ciphertext block
+- Problem: blocks of plaintext that are the same will encrypt to the same ciphertext
+- Therefore, if the same block is used multiple times, it will be easy to see.
+![alt text](imgs/cryptography/image-23.png)
+
+![alt text](imgs/cryptography/image-24.png)
+
+
+#### Cipher Block Chaining (CBC)
+- Most common
+- Ciphertext of the previous block is XORed with the plaintext of the current block before encryption
+- Therefore, the ciphertext of each block depends on all previous blocks
+- Uses initialisation vector (IV) to ensure that the first block is different
+- IV is random, and not secret
+  - Therefore same plaintext will encrypt to different ciphertext
+![alt text](imgs/cryptography/image-26.png)
+$$
+c = E(k, IV \oplus m) \to m = IV \oplus D(k, c)
+$$
+- Padding
+  - Padd the last block with $n$s where $n$ is the number of bytes used to pad 
+  - If the plaintext is a multiple of the block size, then pad with block size (one whole block)
+- If a plaintext block is changed, all subsequent blocks will be changed
+- If a whole block of ciphertext is lost, cbc can synchronise itself ( but not if a byte is lost.)
+- Cannot be parallelised (as serial chain)
+- If the decrypted padding is found to be invalid, the server rejects the whole message with an invalid padding error.
+
+**Padding Error Attack**
+- Feed modified ciphertext to the server
+  - IV, C1, C2 $\oplus$ R, C3
+- Where R is 16 bytes: $R = {r0, r1 \ldots, r15}$
+- So try r15 from 0 to 255
+- 255 times will decryption fail, expect when p3 ends with 01. 
+- Therefore last byte of p3 is $r15 \oplus 0x01$
+
+![alt text](imgs/cryptography/image-27.png)
+
+- Then recover the second last byte of P3
+  - Fix last byte to $r15 \oplus 0x01 \oplus 0x02$
+  - Try r14 from 0 to 255
+  - 255 times will decryption fail, expect when p3 ends with  02 02.
+  - Therefore the second last byte of p3 is $r14 \oplus 0x02$
+- Repeat
+- Total calls = 16x256 (instead of random 2^128)
+
+**Countermeasures**
+- Remove padding-error oracle
+- Generic erro
+- (Could still use timeing attack)
+- Use authenticated encryption
+
+#### Cipher Feedback (CFB)
+- Turning block cipher into a stream cipher
+- ![alt text](imgs/cryptography/image-28.png)
+- If a whole block size of ciphertext is lost, CFB will synchronise by itself
+- But if a byte or a bit is lost, CFB will lose synchronisation
+- Only encryption operation is used for ENC/DEC
+- Encryption cannot be parallelised, but decryption can
+
+
+#### Output Feedback (OFB)
+- Essentially a stream cipher
+- Encryption and decryption are the same - same as ontime pad
+  
+![alt text](imgs/cryptography/image-29.png)
+
+
+#### Counter (CTR)
+- Increasingly popular
+- Also essentaially stream cipher
+- Encryption and decryption are the same 
+- Both encryptioon and decription can be parallelised (big avantage over CBC).
+
+
+## Hash
+- Compress an arbitrary message into an output of fixed length
+- To facilitate detecting errors or data compression
+- Cryptographic hash function invented for digital signature
+  - Provide assurance of integrity
+- Ideally we want the output to be completely randomly distributed (each output represents only one input message), but this is theoretically impossible
+  - Message space size is much larger than the output space size
+- Practical solution - ensure that it is computationally infeasible to find two messages with the same output
+
+### Security Requirements for Hash
+- Pre-image resistance
+  - Given a hash value, it is computationally infeasible to find a message that hashes to that value
+  - $H(m)$ cant find $m$
+- Second pre-image resistance
+  - Given a message, it is computationally infeasible to find a different message that hashes to the same value
+  - $H(m_1)$ cant find $m_2$ such  that $H(m_1) = H(m_2)$
+- Collision reistance
+  - Cant fiind two different messages that given the same hash
+  - $H(m_1) = H(m_2)$
+
+### Birthday Paradox
+- Probability of two people having the same birthday is much higher than you would expect
+- To guarantee a collision, you only need 366 people
+
+#### Birthday Attack on Collision Resistnance
+- Assume hash function with n bits
+- Use Birthday attack algorithm
+  - Select $2^{n/2}$ random messages
+  - Hash each message
+  - Look for collisions
+    - If not found then go back to step 1
+- For n-bit security, the output has must be at least 2n bits long.
+  - Standard is 128 bits - output must be atleast 256 bits long
+  
+### Hash Function Design
+- 3 key components:
+  - Operation Mode
+  - Compression function Structure
+  - Confusion-diffusion operations
+#### Merkle-Damgard constructions:
+Theorem: If teh compression is collision-resistant, then the hash function is collision resistent.
+![alt text](imgs/cryptography/image-30.png)
+
+Proof
+![alt text](imgs/cryptography/image-31.png)
+
+#### Compression Functions - Davies Meyer
+- E is a block cipher
+- Use message as key
+- Compression
+  - Input size: keysize + block size
+  - Output size: block size
+$$ 
+h(H,m) = E(m, H) \oplus H
+$$
+
+![alt text](imgs/cryptography/image-32.png)
+
+
+#### SHA256 - Example
+- Merkle-Damgard function
+- Davies-Meyer compression function
+- Block cipher = SHACAL-2
+- 
+
+![alt text](imgs/cryptography/image-33.png)
+  
+
+#### Hash Applications
+- Digital Signatures
+  - Hash the message, then encrypt the hash with the private key
+  - Send the hash and the message
+  - The receiver decrypts the hash with the public key and compares it to the hash of the message
+- Data integrity
+  - Hash the data and store the hash
+  - When the data is retrieved, hash it again and compare it to the stored hash
+- Random number generator
+- Data privacy
+  - Protect plain password
+  - Hash the password and store the hash
+  - When the user logs in, hash the password and compare it to the stored hash
+- Mining cryptocurreny
+
+#### Dictionary Attacks
+- Given H(pw, salt) and salt
+- Try all possible passwords
+- Hash each password with the salt
+- Compare the hash to the stored hash
+- If a match is found, the password is found
+- This is a brute force attack
+- The attack is feasible because passwords have low entropy 
+
+
+## Message Authentication Code (MAC)
+- Goal: **Integrity** not confidentiallity
+  - Integrity = data has not been modified
+  - Confidentiality = data is not readable
+- Example
+  - Protecting binaries of a program
+
+### Message Integrity
+![alt text](imgs/cryptography/image-34.png)
+- MAC $I = S(k, m)$ defined over (K, M, T)
+  - S(k,m ) outputs t in T
+  - Verify: $V(k, m, t)$ outputs "yes" or "no"
+  - Integrity requies a key - otherwise an attacker can easily modify message m and recompute MAC.
+- Eg:
+  - CRC (Cyclic Reduncancy code) - detects **random** errors (not malicious)
+  - No key, so attacker could modify and recompute crc.
+  
+
+### Secure MACs
+- Attackers power: chosen message attack
+  - For $m_1, m_2, \ldots, m_n$ attacker is given $t_i \leftarrow S(k, m_i)$
+- Attackers goal
+  - Existential forgery
+  - Produce some new valid message /tag pair (m,t)
+  - Such that not in the set of messages or tags chosen
+- Example:
+  - System files
+  - Tag for each system file, with tag stored on tamper resistant chup
+  - late a virus infects the system and modifies files
+  - If the MAc is secure, the virus cannot forge a valid tag for itself.
+  - All modified files will be detected by the chip
+
+### MAC Constructions
+
+#### CBC-MAC
+![alt text](imgs/cryptography/image-35.png)
+- Always use a fixed IV - otherwise attacker can modify the first part of the message to produce a new (message, tag) pair, violating the secure MAC definition
+
+#### Hash Based MAC
+- Build a MAC from a hash function
+  - EG SHA256
+- Suppose:
+  - MAC Tag = $H(k, m[0] || m[1] || m[2])
+    - Could append another blocjk m[3] and compute
+      - $H(k, m[0] || m[1] || m[2] || m[3])$
+      - But this is not secure 
+      - As it's a new message tag pair
+- Securing
+  - Need to have a secret key to protect the **front**
+  - Need to have a secret key to protect the **end**
+- EG:
+  - $H(k1, H(k2, m))$ where k1 and k2 are different keys
+- Or HMAC.
+  - Use only one secret key (more efficient)
+  - Define ipad and opad constants
+  - $HMAC(k, m) = H(k \oplus opad || H(k \oplus ipad || m ))$
+![alt text](imgs/cryptography/image-36.png)
+
+
+#### Verification Timing Attack on HMAC:
+* Example:
+```python
+def verify(key, msg, sig_bytes):
+    return HMAC(key, msg) == sig_bytes
+```
+* The problem: `==` is implemented as a byte-by-byte comparison
+   * Comparator returns false whent the first inequality is found
+* Timing attack:
+   * Step 1: Query server with random tag
+   * Step 2: Loop over all possible first bytes and query server. Stop when verification takes a little longer than step 1
+   * Step 3: Repeat for all tag bytes until a valid tag is found
+* Defence 1: make string comparator always take the same time
+```python
+def verify(key, msg, sig_bytes):
+    result = 0
+    for x, y in zip(HMAC(key, msg), sig_bytes)
+        result |= ord(x) ^ ord(y)
+    return result == 0
+```
+* Can be difficult to ensure due to compiler optimising
+* Defence 2: as above
+```python
+def verify(key, msg, sig_bytes):
+    mac = HMAC(key, msg)
+    return HMAC(key, mac) == HMAC(key, sig_bytes)
+```
+* Attacker doesn't know values being compared
+* Lesson: an attacker often bypasses cryptography and exploits weaknesses in the implementation
+* In the real world, encryptions are often done in authenticated mode
+   * Produce a MAC as part of the encryption process
+   * Provides both confidentiality and integrity
+* Examples of authenticated encryption: CBC mode encryption + CBC-MAC, Counter mode encryption + CBC-MAC
