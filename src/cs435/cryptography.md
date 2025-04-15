@@ -644,3 +644,80 @@ def verify(key, msg, sig_bytes):
    * Produce a MAC as part of the encryption process
    * Provides both confidentiality and integrity
 * Examples of authenticated encryption: CBC mode encryption + CBC-MAC, Counter mode encryption + CBC-MAC
+
+
+## Key Agreement
+
+### Goal of Key Exchange
+- Shared key for secure communication
+- Is it possible to share a secret key when the evesdropper can hear everything?
+
+### Merkle Puzzles
+- Main tool: puzzle
+- Problems that can be solved with some effort
+- EG:
+  - E(k,m) - symetric cipher with 32 bit key
+  - Puzzle P = E(k, "message")
+  - Goal: find k by trying all 2^32 posibilities
+- Alice:
+  - Prepare 2^32 puzzles
+  - For i 1 to 2^32
+    - random 32 bit k_i and 128 bit x_i (identifier), m_i (key)
+    - Send all 2^32 puzzles to Bob
+- Bob:
+  - Chose a random puzzle and solve it
+  - Obtain (x_j, m_j)
+  - Send x_j to Alice.
+- Alice:
+  - Lookip puzzle with number x_j
+  - Use m_j as the shared key.
+
+![alt text](imgs/cryptography/image-37.png) 
+- Alice's work
+  - O(n) prepare n puzzels
+- Bobs work
+  - Solve one puzzle
+- Evesdrooper
+  - O(n^2)
+  - Quadratic gap
+
+
+### Basic Discrete Logarithm
+- A primative root modulo p is a number whose powers generate all the nonzero numbers mod p.
+- $g^x mod p = y$
+- ![alt text](imgs/cryptography/image-38.png)
+- ![alt text](imgs/cryptography/image-39.png)
+
+### Diffie Hellman Key Exchange Protocol
+- Let p a prime and g a primative root modulo p
+- ![alt text](imgs/cryptography/image-40.png)
+- Evesdropper can see  p, g, A=g^x (mod p), B=g^y (mod p)
+
+#### Security
+- Supose prime p is n bits long
+- Best known algorith m(GNFS) run time exp(O(n^(1/3)))
+- ![alt text](imgs/cryptography/image-41.png)
+- So stransitioning away from mod p to elliptic curve.
+
+#### Man in the middle attack
+
+![alt text](imgs/cryptography/image-42.png)
+
+
+#### How to prevent
+- Fundementally unauthenticaed
+- So needs authentication
+- Not easy
+- Lots of authenticated key echange protocols proposed and broken
+![alt text](imgs/cryptography/image-43.png)
+
+#### Encrypted Key Exchange 1992
+- Each player uses password s to encrypt the Diffie-hellman key exchange process
+- ![alt text](imgs/cryptography/image-44.png)
+- Can be used to narrow down the password range if evesdropper can see the key exchange
+- The assumption in EKE is that the content in the encryptuon is random
+- But it is not:
+  - A = g^x mod p, value falls between 0 and p-1
+  - In practice A is preresented as {0,1}^n eg n = 2048
+  - If the decrypted result falls in the [p, 2^2048] can be rulled out
+  - Problem is worst if elliptic curve is used.

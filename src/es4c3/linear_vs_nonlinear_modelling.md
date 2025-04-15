@@ -91,3 +91,153 @@
   - ![alt text](imgs/linear_vs_nonlinear_modelling/image-8.png)
 
 ![alt text](imgs/linear_vs_nonlinear_modelling/image-9.png)
+
+
+### More Realistic Model
+- More realistic model with damping and interia.
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-10.png)
+- Therefore now:
+  - Second-order ODE, non linear
+  - 2 dependent variables (u and $\dot u$)
+  - 1 independent variable (t)
+  - **6 independent parameters**: m, b, k d, L, k_0
+- Therefore how do we do a bifurcational diagram as a function of parameters?
+- Have to do direct (brute force) numerical modelling to explore the **6D** space.
+
+#### Reduction of Parameters (Analytical - expert approach)
+- OR can introudce new variables to reduce parameters
+- Large damping (from problem), therfore can eplison is small in comparison to 1, 
+- Arrive at one parameter equation
+- (see lecture 13 page 4 for more details)
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-11.png)
+- CAn apply, and get something similar.
+
+
+### Asymmetry
+- General case, different equlibirium states
+![alt text](imgs/linear_vs_nonlinear_modelling/image-12.png)
+
+EG:
+- Simple model with 2 parameters r and h
+- $\dot x = h + rx - x^3$
+- Where h is the **asymmetry (imperfection) parameter**
+- Equlibilrium states are solutions of = 0.
+- Therefore 2 solutions
+- $y = rx -x^3$ and $y = h$
+- Therefore equlibirium states correspond to **intersections of the two curves**
+- Graphic approach, applied for modified "x-axis" (y=-h) to find equilibirum states and define stability
+![alt text](imgs/linear_vs_nonlinear_modelling/image-13.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-14.png)
+- There is **saddle node birfurcation** at $h_c(r) = \pm \frac{2r}{3} \sqrt{\frac{r}{3}}$ where $r \geq 0$
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-15.png)
+
+#### Saddle-node bifurcation
+- Leads to the appearence of two equlibirium states with different stability
+- Bifurcation can be analysed using graphical approach and linearisation
+- Eigenvalue of states is zero at bifurcation point
+
+
+#### Pitchfork bifurcation
+- Pitchfork shape
+- Super critcal: change of **stable state**
+- Subcritical: change of **unstable state**
+![alt text](imgs/linear_vs_nonlinear_modelling/image-16.png)
+
+
+#### Hysteresis
+- Experimentally unstable states are inaccessible
+- In real systems, there must be stable states for any value of a parameter.
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-17.png)
+- Therefore do not give a clear view of birfocation
+
+
+### 2D Linear Oscillator
+$$
+\ddot y + b \dot y + k y = 0
+$$
+- Generalised form: $\ddot x + 2 \zeta w_n \dot x + w_n^2 x = 0$
+- Write in state space form, as 2 first order equations
+- Into matrix form
+- Eigen values of matrix define stability of station state and trajectories
+- See lecture 13 pg 26.
+![alt text](imgs/linear_vs_nonlinear_modelling/image-18.png)
+
+#### Undamped Linear Oscillator - Elliptic Points
+- Centre (**ellipitic point**) is the equilibirium state
+- Neutral stability
+- No damping, b = 0, conservative oscillations
+- Green trajectories start from line x1 =0
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-19.png)
+- Solutions oscillations with freequency $w_0 = \sqrt{k}$
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-20.png)
+
+#### Over Damped Linear Oscillator - Spiral Points
+- $b^2 \gt 4k$ => $\lambda_2 \gt \lambda_1 0$
+- **Steady node (sink)** = steady state
+- Egieng values are real
+- After a short relaxation period, trajectories follow a line (eigenvector v1) motion is one-dimensional
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-21.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-22.png)
+
+
+#### Underdamped (Weak Damping) - Spiral Points
+- **Stable Focus (sink)** - equlilbirum state
+- Eigenvalues are complex
+- Beta of complex eigenvalue defines the frequency of damped oscialltions
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-23.png)
+![alt text](imgs/linear_vs_nonlinear_modelling/image-24.png)
+
+
+
+#### Negative Damping - Over Damped
+- Unsable solution
+- Steady state is **unstalbe node** (repeller)
+- Eigen values are real
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-25.png)
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-26.png)
+- Exponentially go to infinity
+
+
+#### Negative Damping - Underdamped
+- Weak damping
+- **Unstable Focus** (repeller)
+- Complex eigen values
+- Spiral out trajectories rotating with frequnecy of B (eigen value complex)
+  
+  ![alt text](imgs/linear_vs_nonlinear_modelling/image-27.png)
+
+  ![alt text](imgs/linear_vs_nonlinear_modelling/image-28.png)
+
+
+#### Negative Damping Negative Stiffness
+- Saddle (huperbolic point)
+- Egienvalues are real
+- Trajectories can come to station state along v2 and go away along v1.
+- v1 and v2 correspond to manifolds of the sadle
+- v2 is a **separatrix**
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-29.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-30.png)
+
+#### Postivie Damping, negative stiffness
+- Saddle (hyperbolic point)
+- Eigenvalues are real
+- Trajectories tend to the stationay state along v2 and go away along v1
+- v1 and v2 corespond to manifolds of the saddle
+- v2 is a separatrix
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-31.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-32.png)
+
+
+
+#### States on Parametric Plane Summary
+Relationship between types of solution and eigne values
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-33.png)

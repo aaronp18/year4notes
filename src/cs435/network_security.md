@@ -205,3 +205,127 @@ TCP = Transmission Control Protocol
 - Encrypting payload
   - Mitages TCP session hijacking
   - But not effective against SYN flooding and TCP reset attacks. 
+  
+
+  ## Firewalls
+
+  ### What is a Firewall
+  - Designed to stop unauthorised traffic flowing from one network to another
+  - Main goal is to sperate trusted and untrusted components of a network
+
+### Requirements (1994)
+- All traffic between trust zones should pass through firewall
+- Only authorised traffic as defined by the security policy should be allowed to pass through
+- The firewall itself must be immune to penetration
+  - Hardened system with secured operating system
+
+### Firewall Policy
+
+#### User Control
+Controls access to the data beased on the role of the user who is attempting to access it
+Applied to users inside the firewall perimeter
+
+#### Service Control
+Controls access by the type of service offered by the host.
+Applied on the basis of network address, protocol of connection and port numbers
+
+#### Direction Control
+- Determienes the diretion in which requesuts may be initiaed and are allowed to flow through the firewall
+- Tells wheter the traffic is inbound or outbound
+
+### Firewall Actions
+- Accepted
+  - Allowed to enter the connected network  host through firewall
+- Denied
+  - Not allowed to enter the connected network or host through firewall
+- Rejected
+  - Similar tot denied - but tells the source about the decision through the a ICMP packet
+
+### Filtering
+
+#### Ingress Filtering
+Inspects incomping traffic to safeguard the internal network and prevent attacks from outside
+
+#### Egress Filtering
+Inspects outgoing traffic to prevent users in internal network from reacing outside network
+- EG, blocing social media at school
+
+
+### Types of Firewall
+
+#### Packet Filtering Firewall
+- Controls based on information in packet headers, wihtout looking at payload
+- Doesnt care about stream or traffic
+- **Stateless** firewall, doesnt maintain state about packets
+
+![alt text](imgs/network_security/image-15.png)
+
+
+#### Stateful Firewall
+- Keeps track of the state of active connections
+- Connection state table is maintednt to keep track of the state of the connection
+- Example, only allowing packets that belong to an established connection
+  ![alt text](imgs/network_security/image-16.png)
+
+
+#### Application / Proxy Firewall
+- Controls input and output from / to an application or service
+- Client connection terminates at the proxy, and a seperate connection is initiated to the destination host.
+- Data is analysed up to the application layer
+- Acs as intermediary impersonating the intended recipient
+- ![alt text](imgs/network_security/image-17.png)
+
+- Anonymising Proxy:
+  - Use proxies to hide the origin of a network request from servers
+- Proxy to evade egress filtering
+  - If firewall filters based on destination address
+  - Can proxy to bypass the firewall
+  - 
+
+### Building Firewalls
+- Packet filter builtin into the kernel: `iptables`
+- Or ca build own 
+- Statful firewall using conneciton tracking
+  - NEW: starting new connection
+  - ESTABILISHED: part of an existing connection
+  - RELATED: related to an existing connection
+  - INVALID: not part of any connection
+
+
+### Evading Firewalls
+
+#### SSH Tunneling
+- SSH tunnel between home and work server, then can telnet to blocked machine
+- Using SSH tunneling `-L`
+- ![alt text](imgs/network_security/image-18.png)
+- Also can be used to bypass firewalls
+  - IE piping to server outside that has access to a website like facebook.
+  - Statc port forwarding
+- Dynamic port forwarding
+  - Socks proxy
+  - SSH send tpc data over tunnel to home machine that 
+
+#### Reverse SSH Tunneling
+- Firewall may block incoming SSH session
+- So create reverse SSH tunnelling
+![alt text](imgs/network_security/image-19.png)
+
+
+#### Using VPN
+![alt text](imgs/network_security/image-20.png)
+
+
+#### IP tunneling
+![alt text](imgs/network_security/image-21.png)
+
+- IPSec Tunneling
+  - Uses Internet protocol security protcol
+  - Has a mode called tunneling mode
+  - Where original IP packet is encapsulated into a new IP packet
+- TLS / SSL tunneling
+  - Tunneling done outside kernal at applicaiton level
+  - Idea to put each VPN bound IP packet inside a TCP packet
+  - Other end of the tunnelextracts  IP tpacket
+  - To ecure, bot ends will use TLS/SSL ontop of TCP UDP
+
+![alt text](imgs/network_security/image-22.png)
