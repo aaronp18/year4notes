@@ -241,3 +241,243 @@ $$
 Relationship between types of solution and eigne values
 
 ![alt text](imgs/linear_vs_nonlinear_modelling/image-33.png)
+
+### 2D Order Autonomus Non Linear Oscillator ODE
+
+$$
+\ddot x + b \dot x + k(x) x = 0
+$$
+- Non linear (k(x) is non linear)
+- b, Constant damping (dissipation) term
+- 2 dependent variables
+- 1 independent variable
+- no forcing terms 
+- b = const
+- Model has potential $U(x) = \int k(x) x dx$
+
+#### Steps:
+1. Find all stationary states via solving $k(x) x = 0$
+2. Linearise the model about each state $\boldsymbol{\dot x}_L = J \boldsymbol{x}_L$
+3. Locally states are similar to linear case
+4. Could expect multistability and bifurcastions
+
+#### Example: Duffing Oscillatory Model
+$$
+\ddot x + b \dot x + \alpha x + \beta x^3 = 0 \quad b \gt 0
+$$
+
+$$
+U(x) = \int k(x)x dx = \alpha \frac{x^2}{2} + \beta \frac{x^4}{4}
+$$
+
+**Task** = Find equlibrium states and stability
+- With two cases: $\alpha \gt 0, \quad \beta \gt 0$ and $\alpha \lt 0, \quad \beta \gt 0$
+
+First, assume $\beta \gt 0$ and $\alpha \gt 0$ 
+- Rewrote equation to state space form
+- Graphical approach for const b,
+- Find equlibrium states where $\dot x = 0$
+- Has to be real, therefore one equilibirium state
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-34.png)
+![alt text](imgs/linear_vs_nonlinear_modelling/image-35.png)
+
+
+- Stability:
+  - Calculate jacobian
+  - Remove nonlinear components (as linear approximation at close to state)
+  - Calculate eigenvalues
+  - ![alt text](imgs/linear_vs_nonlinear_modelling/image-36.png)
+  - ![alt text](imgs/linear_vs_nonlinear_modelling/image-37.png)
+  - ![alt text](imgs/linear_vs_nonlinear_modelling/image-38.png)
+
+
+#### Duffing Bi Stable State
+![alt text](imgs/linear_vs_nonlinear_modelling/image-39.png)
+- Linear and non linear have different signs.
+- Assume $\alpha \gt 0$ and $\beta \gt 0$
+- Equilibirium state at 0, 0 is a saddle, and unstable since eigen value, one is positive, one is negative
+- Other two states are stable, and have negative eigen values
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-40.png)
+![alt text](imgs/linear_vs_nonlinear_modelling/image-41.png)
+![alt text](imgs/linear_vs_nonlinear_modelling/image-42.png)
+
+
+#### Duffing Model - Varying Parameters
+- Varying alpha
+- $b \gt 0$ and $\beta \gt 0$
+- Rewrite eqaution
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-43.png)
+- Jacboian and find eigna values
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-44.png)
+![alt text](imgs/linear_vs_nonlinear_modelling/image-45.png)
+
+### Frequency response
+- Different test signals to characterise the system
+- The test signal in the from of harmonic functions $A\sin(\omega t)$
+- Typically amplitude fixed, and frequency swep
+- Fundemental technique
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-46.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-47.png)
+
+
+#### Frequency Response - Polar Form
+$$
+H(\omega j) = | H(\omega) | e ^ j\angle {H(w)}
+$$
+
+- Where $|H(\omega)|$ is the **modulus (gain)**, the ratio of amplitiudes of the input and output
+- And $\angle H(\omega)$ is the **phase shift** between the input and output signals
+- Both are experimentally accessible.
+
+#### Forced Vibration
+- Forced vibration is a response to an external force
+- Sinusoidal force
+![alt text](imgs/linear_vs_nonlinear_modelling/image-48.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-49.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-50.png)
+
+Phase is linear with time, thereforemake 3rd state z, 
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-51.png)
+
+#### Non Autonomous Linear Oscialtor
+![alt text](imgs/linear_vs_nonlinear_modelling/image-52.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-53.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-54.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-55.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-56.png)
+
+
+### Resonance
+
+#### Linear Resonance
+- Linear oscillatory model - external additive harmonic force
+$$
+\ddot x + b \dot x + kx = A \sin(\omega t)
+$$
+- Frequency response does not depned on the value of the amplitude
+- Frequeny respons depends on b and k, properties of the system.
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-57.png)
+
+
+#### Non Linear Oscillator - Types of Nonlinearity
+- Non linear oscialltor has k(x) as a function of x
+![alt text](imgs/linear_vs_nonlinear_modelling/image-58.png)
+
+
+#### Duffing Oscialator - Soft Nonlinearity
+- Saddle node bifurcation of cylce leads to jump phenomenon, bistability and hysteresis
+- **Maximum moves to lower frequencies** (as depneds on amplitude)
+- As amplitiude increases, the repsonse changes from linear to non linear
+- Region on bistability
+![alt text](imgs/linear_vs_nonlinear_modelling/image-59.png)
+![alt text](imgs/linear_vs_nonlinear_modelling/image-60.png)
+
+
+#### Duffing Osicallator Hard Nonlinearity
+- As amplitude increases, the response changes from linear to non linear
+- Maximum depends on amplitiude
+- **Maximum moves to higher frequencies**
+- Region fo bistability
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-61.png)
+
+
+#### Non Linear vs Linear Resonance
+Non linearity signficianyly affect response.
+![alt text](imgs/linear_vs_nonlinear_modelling/image-62.png)
+
+
+#### Role in Engineering
+- Eg conical springs, or modern racing equipment
+  - Strongly non linear after some displacement
+- Eg: MEMS
+  - Bistable between two equilibirium  
+
+### Modelling Swing Experiments
+- Additive vs parametric force
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-63.png)
+
+#### Conventional Linear Resonance
+![alt text](imgs/linear_vs_nonlinear_modelling/image-64.png)
+![alt text](imgs/linear_vs_nonlinear_modelling/image-65.png)
+- Natural frequncy (A=0) is nearly one
+- Expect output x(t) = Xsin(wt)
+- Steady state is a cycle of the finite amplitude
+- Cycle amplitude depends on the forcing ferquency
+  
+#### Linear Parametric Resonance
+![alt text](imgs/linear_vs_nonlinear_modelling/image-66.png)
+![alt text](imgs/linear_vs_nonlinear_modelling/image-67.png)
+
+
+#### Non linear parametric resonance
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-68.png)
+
+
+
+## Nonlinear - Self oscillation to nonlinear damping
+![alt text](imgs/linear_vs_nonlinear_modelling/image-81.png)
+
+### Modelling in Engineering
+
+
+#### Tacoma bridge
+- Torsional Self Oscillations
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-69.png)
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-70.png)
+
+#### Millennium Bridge
+- Linear model does not show self oscillations
+- ![alt text](imgs/linear_vs_nonlinear_modelling/image-71.png)
+- Footfall created small side to side movement 
+- "positive feedback" - synchronous lateral excitiation
+
+### Self Oscillation
+![alt text](imgs/linear_vs_nonlinear_modelling/image-72.png)
+
+### Van der Pol Oscillator
+$$
+\ddot x + b(x) \dot x + k x = 0
+$$
+
+- Non linear damping, self oscillation
+  - Self excitied osciallations
+  - Self sustained oscilaltion
+- Basic model in electrical engineering: circuit with a tunnel diode
+- Sign of damping can be negative and positive
+  
+![alt text](imgs/linear_vs_nonlinear_modelling/image-73.png)
+
+#### Self Oscillations
+- Undamped oscillations whihc exist in the system in the absence of varaible external influences
+- Whereby the amplitude and period of the oscillations are determined by the properties of the system
+![alt text](imgs/linear_vs_nonlinear_modelling/image-74.png)
+
+#### States
+![alt text](imgs/linear_vs_nonlinear_modelling/image-75.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-76.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-77.png)
+
+![alt text](imgs/linear_vs_nonlinear_modelling/image-78.png)
+
+
+#### Poincare-Andronov-Hopf Birfurcation
+![alt text](imgs/linear_vs_nonlinear_modelling/image-79.png)
+
+
+### Syncronisation
+![alt text](imgs/linear_vs_nonlinear_modelling/image-80.png)
+
+
