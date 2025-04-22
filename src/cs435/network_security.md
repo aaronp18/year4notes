@@ -329,3 +329,155 @@ Inspects outgoing traffic to prevent users in internal network from reacing outs
   - To ecure, bot ends will use TLS/SSL ontop of TCP UDP
 
 ![alt text](imgs/network_security/image-22.png)
+
+
+## DNS Attacks
+
+### DNS History
+- Translates Ip and domain names
+- Organised in tree like structure
+
+![alt text](imgs/network_security/image-23.png)
+
+#### DNS Zone
+- DNS organised into zones
+- Zone groups contiguous domains and subdomains on domain tree 
+- Multiple zones for each country
+- Zone keeps records of who the authority is for each of it's subdomains
+  - only contains portion of the DNS data for the domain
+- IF a domain is not divided into subdoains, the zone and domain are essentially the same
+  - The zone contains all the dns data for the domain
+- When domain is divided into subdomains, the DNS data can still put into the same zone (so domain and zone are still the same)
+- But subdomains can have their own zones.  
+![alt text](imgs/network_security/image-24.png)
+
+
+#### Authoriative Name Servers
+- Each DNS zone has atleast one **authoritative name server** that publishes information about the zone
+- Provides origianl and definitive answers to DNS querues
+- Can be master (primary) or slave (secondary)
+- Master stores the master copies of alll zone records
+  - Slave uses automatic updating to maintain an idendical copy of the master records
+- Zone can have multuple Authoritative name servers (redundancy).
+
+
+#### Root Servers
+- Root zone is called ROOT
+- 13 authoriative nameservers for this zone
+- Provide nameserever information about all TLD
+- Starting point for DNS queries
+
+
+#### TLD Types
+- Infrastructure TLD: .arpa
+- Generic TLD: .com, .net
+- Sponsored (sTLD): .edu, .gov, .mil,etc
+- Country code (ccTLD): .uk, .fr, .de
+- Reserved TLD: .test, .example, .localhost
+
+### DNS Query Process
+- If client knows the IP address just use it (from local DNS files)
+- If not, ask local DNS server
+- If local DNS server has the IP address, it will return it
+- If not, it will ask DNS servers on the internet
+
+#### Local DNS server and Iterative Query Process
+- Iterative starts from root server, if it doesnt know, sends back IP of namesvers of the next level server 
+![alt text](imgs/network_security/image-25.png)
+
+
+#### DNS Reponse
+- 4 sections
+- Question: describes a question to a nameserver
+- Answer: Records that asnwer to the question
+- Authority: records that point to authoritative nameservers
+- Additional: records related to query
+
+#### DNS Caching
+- Caches DNS server information
+- Time to live value
+- When expired, timed out and removed
+
+### Attacks
+
+#### Denial of Service Attacks (DOS)
+- When local DNS servers and the authoritive name servers do not respond the DNS quereies
+- Machines cannot retrive IP addresse. cuts down communication
+- Attack on Root:
+  - If attacker can bring down root zone servers, could bring down entire internet
+  - However highly distributed and redundant (13 servers)
+  - Nameservers for TLD cached, 
+  - So attack needs to last long to see significant effect
+- TLD servers
+  - Gov, com net etc have resiliant infrastructure
+  - But some countyr code TLDs are not as resiliant
+
+#### DNS Spoofing
+- Goal: Provide fradulaent IP address to victims, tricking them to communicate with malicious server
+- If have root privileges, can modify the local DNS files (`/etc/hosts`)
+
+Lan spoofing:
+- Spoof UDP packet
+- Forge DNS replies after seeing query from local DNS
+
+
+#### Remote DNS Cache Poisoning Attack
+- Challenges:
+  - Difficult for attacker when not on the same network
+  - Source port number (random 16 bit number)
+  - Transaction ID (random 16 bit number)
+- Random guess: 2^32
+- Cached effect: The actual reply will be cached by local DNS seeer, so the attacker needs to wait for the cache to timeout
+
+
+
+#### Kaminsky Attack 2008
+- How to not worry about cache effect?
+- Ask a different question each time
+- So caching does not matter
+- Local DNS witll send out new query each time
+- Provide forged answer in authority section
+![alt text](imgs/network_security/image-27.png)
+![alt text](imgs/network_security/image-26.png)
+
+
+#### Attacks from Malicious DNS server
+- When a user visits a website
+- A DNS query will eventrually come to authorative nameserver
+- In adttion to providing IP address in answer section of response, DNS server can provide information in authority and additional sections
+- Malicous DNS server can use these secitons to provide fraudulent information
+  
+
+In additonal Section:
+- Additoanl information will be discard because **out of zone**
+- Cause secutiryt problems if not discarded
+
+In Authority section:
+- Out of zone is discarded, but same zone is not
+
+
+#### Reverse DNS Lookup
+- DNS query tries to find out hostname for given IP address
+- If a packet comes from the attacker, the reverse DNS loopkup will go back to the attackers namesever
+- Attacker can reply with whatever hostnames they want
+
+
+#### DNS Rebinding attack
+- Malicious DNS server can provide fake IP address
+- Howver, can be used to bypass **same origin polcicy**
+![alt text](imgs/network_security/image-28.png)
+
+![alt text](imgs/network_security/image-29.png)
+
+
+
+
+### Protecting against DNS attacks
+
+#### DNSSEC
+- Set of extensions
+- Provides authentication and integrity
+- All answers digitally signed
+- Any fake data will be detected
+
+![alt text](imgs/network_security/image-30.png)
