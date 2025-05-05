@@ -1,0 +1,895 @@
+*Define vulnerability, threat, and countermeasure*
+#pagebreak()
+Vulnerability: a weakness in a system that could be exploited to cause harm.
+
+Threat: Set of circumstances that has the potential to cause loss or harm.
+
+Countermeasure: prevents threats from exercising vulnerabilities.
+
+#pagebreak()
+
+*What is the CIA triad?*
+
+#pagebreak()
+Confidentiality, Availability, Integrity.
+
+The 3 fundamental aspects of Computer Security.
+
+#pagebreak()
+
+*Give 2 non-CIA security requirements*
+
+#pagebreak()
+1. Authentication
+2. Non-repudiatioin
+
+#pagebreak()
+
+*What is the weakest link property?*
+
+#pagebreak()
+
+The overall strength of a security system is the strength of its weakest link.
+
+#pagebreak()
+
+*What is a 2-time pad attack?*
+
+#pagebreak()
+
+If using an XOR operation on a "one-time pad" over 2 different messages. You get the following results
+
+$M_1 xor K = C_1$
+
+$M_2 xor K = C_2$
+
+It is the case that $C_1 xor C_2 = M_1 xor M_2$ which you can then break into based on language redundancies.
+#pagebreak()
+
+*What is phishing?*
+
+#pagebreak()
+
+Is when an attacker attempts to "lure" a user to give them private information willingly. 
+
+Usually done via emails or messages asking for personal information.
+
+#pagebreak()
+
+*What is a spoof site, and how can you recognise one?*
+
+#pagebreak()
+
+A spoof site is a fake site that aims to imitate a real site. The goal is to convince users they are on the real site so they provide private personal information.
+
+Usually there are issues on the page such as:
+- Don't use SSL
+- Inconsistencies
+- Grammatical Errors
+- Odd URLs
+
+#pagebreak()
+
+*Give 3 ways you can disguise a url?*
+
+#pagebreak()
+
+Typejacking - using similar (but not the same) unicode characters
+
+Using IP Address
+
+Have the real site be a substring in the url.
+
+#pagebreak()
+
+*How can you defend against phishing attacks?*
+
+#pagebreak()
+
+Anti-spam software
+
+Security plugins
+
+Trusted Path (Windows)
+
+Two-factor authentication
+
+#pagebreak()
+
+*What is Smishing?*
+
+#pagebreak()
+
+SMS + phishing
+
+
+#pagebreak()
+
+*What is CAPTCHA?*
+
+#pagebreak()
+
+Completely Automated Public Turing Test to Tell Computers and Humans Apart.
+
+The goal is to determine wheteher a user is human or not.
+
+
+#pagebreak()
+
+*Give an example of an attack on CAPTCHA? and what is the CAPTCHA "sweet spot"*
+
+#pagebreak()
+
+An attack on CAPTCHA is when each character always had the same number of pixels. This meant you could encode a character look up table.
+
+Protocol Attack:
+ - Man in the middle
+ - Outsourcing
+
+A sweet spot is a term to reference the idea difficulty of a Captcha to distinguish humans from computers.
+
+
+#pagebreak()
+
+*How is reCAPTCHA different to CAPTCHA?*
+
+#pagebreak()
+
+reCAPTCHA gives site admins the flexiblity to decide whether a user is given a CAPTCHA test, where as CAPTCHA is the test itself.
+
+#pagebreak()
+
+*Define:*
+
+* - Cipher*
+
+* - Key*
+
+* - Keyspace*
+#pagebreak()
+
+- Cipher: a cryptographic algorithm to perform encryption and decryption
+- Key: Used for encryption and decryption
+- Keyspace: the range of the key
+
+#pagebreak()
+
+*What are the 4 general types of attack on cryptography schemes?*
+
+#pagebreak()
+
+1. Ciphertext-only
+2. Known-plaintext
+3. Chosen-plaintext
+4. Chosen-ciphertext
+
+#pagebreak()
+
+*Explain confusion and diffusion*
+
+#pagebreak()
+
+- confusion: Obsecures relationship between plaintext and ciphertext
+- diffusion: Dissipates redundancy of plaintext by spreading it over ciphertext.
+
+#pagebreak()
+
+*What is a substitution cipher? And what is it's formal definition*
+
+#pagebreak()
+
+A cipher that replaces a refernce of 1 character with another via a mapping.
+
+e.g. Monoalphabetic cipher, polyalphabetic cipher.
+
+Let $P=C=Z_26$. $K$ consists of all possible permutations of the 26 symbols. For each permutation $pi in K$, define
+
+$e_pi (x) = pi(x) mod 26$
+
+$d_pi (y) = pi^(-1) (x) mod 26$
+
+keyspace = 26!
+#pagebreak()
+
+*What is the formal definition of a shift cipher?*
+
+#pagebreak()
+
+Let $P = C = K = Z_26$ For $0<=K<=25$ define
+
+$e_k(x) = (x+K) mod 26$
+
+$d_k(y) = (y - K) mod 26$
+
+#pagebreak()
+
+*Why is a shift cipher no good?*
+
+#pagebreak()
+
+Keyspace is only 26. Easy to brute force.
+
+#pagebreak()
+
+*Why is a substitution cipher no good?*
+
+#pagebreak()
+
+Can analyse frequency of characters to gain information between the ciphertext and plain text.
+
+#pagebreak()
+
+*What is a vigenere cipher?*
+
+#pagebreak()
+
+A polyalphabetic cipher based on the idea of combining multiple caeser ciphers.
+
+e.g.
+
+K = 1 2 3 1 2 3 1 2 3
+
+M = B E R E A D Y O K
+
+c = C G U F C G Z Q N
+
+#pagebreak()
+
+*How do you break a vigenere cipher?*
+
+#pagebreak()
+
+1. Find key length
+Use Kasiski test.
+
+Search for identical segments and count the number of positions apart. Find common divisors.
+
+Or use index of coincidence.
+
+$I_c (x) = (sum_(i = 0)^25mat(f_i;2))/mat(n;2) = (sum_(i = 0)^25f_i(f_i - 1))/n(n-1) approx sum_(i=0)^25 p_i^2$
+
+In English text this value is usually 0.065. So can iterate through keylengths and separate text into groups until all groups have roughly 0.065 index of coincidence.
+
+2. Find rotation values
+
+Once you have the keylength you can brute force through all possible keys in $26^("key length")$ iterations.
+
+#pagebreak()
+
+*What is a one-time pad?*
+
+#pagebreak()
+
+A "perfect" cryptography scheme where $c_i = k_i xor m_i forall i in 1,2,3...$ 
+
+It is impractical as you would need an infinitely long key.
+
+#pagebreak()
+
+*Bayes' theorem*
+
+#pagebreak()
+
+$p(E_1 | E_2) = (P(E_1)P(E_2 | E_1))/P(E_2)$
+
+#pagebreak()
+
+*Define perfect secrecy*
+
+#pagebreak()
+
+A cryptosystem has perfect secrecy if
+
+$p(m|c) = p(m) forall m in M, c in C$
+
+#pagebreak()
+
+*How can we make OTP practical?*
+
+#pagebreak()
+
+Stream Ciphers.
+
+Basic idea is to use a shorter key to generate a really long key.
+
+#pagebreak()
+
+*Explain Synchronous stream ciphers*
+
+#pagebreak()
+
+Construct the key stream from the key only.
+
+Can use a recurrence algorithm to construct the cipher e.g.:
+
+$k_(i+m) = sum_(j=0)^(m-1)c_j k_(i+j) mod 2$
+
+#pagebreak()
+
+*What's the issue with a synchronous stream cipher?*
+
+#pagebreak()
+
+After a period, the key will repeat.
+
+#pagebreak()
+
+*How is a synchronous stream cipher implemented in hardware?*
+
+#pagebreak()
+
+Using a Lienar Feedback Shift Register (LFSR)
+
+#image("lfsr.png")
+
+#pagebreak()
+
+*Give 3 attacks on stream ciphers*
+
+#pagebreak()
+
+two-time pad attack
+
+No Integrity;
+- m = "Transfer £100 to Alice"
+- c' = $c xor "Alice" xor "Eve"$
+- c = $K xor "Alice"$
+- so c' = $K xor "Eve"$
+
+Algorithmic weakness e.g. Content Scramble System for MPEG-2
+
+#pagebreak()
+
+*How was Content Scramble System (CSS) broken?*
+
+#pagebreak()
+
+1. Try all possible 17-bit LFSR to get 20 bytes output
+2. Subtract from the first 20 bytes of stream output
+3. If consistent with 25-bit LFSR, found the key!
+
+#pagebreak()
+
+*What is Iterated Key Construction in a Block Cipher*
+
+#pagebreak()
+
+Take a key K, and break into n keys via a scheduling algorithm. Use each $k_i$ to encrypt successive blocks of plaintext.
+
+#pagebreak()
+
+*What is a Pseudo Random Function? and what is a Pseudo Random Permutation?*
+
+#pagebreak()
+
+PRF: 
+
+$F: K times X -> Y$
+
+s.t. Exists "efficient" algorithm to evaluate $F(k, x)$
+
+PRP:
+
+$E: K times X -> X$
+
+s.t.
+1. Exists "efficient" deterministic algorithm to evaluate $E(k, x)$
+2. The function $E(k,.)$ is one-to-one
+3. Exists "efficient" inversion algorithm $D(k,.)$
+
+#pagebreak()
+
+*When is a PRP equal to a PRF?*
+
+#pagebreak()
+
+1. X = Y
+2. It is invertible
+
+#pagebreak()
+
+*What is a feistel network?*
+
+#pagebreak()
+
+```
+For i = 0,1,...,n-1
+  L_i_1 = R_i
+  R_i_1 = L_i xor F(k_i, R_i)
+End
+```
+
+Should not swap R and L in last layer so it's easier to invert.
+
+#pagebreak()
+
+*Explain the steps of the F function in a Feistel network?*
+
+#pagebreak()
+
+1. The input (32 bits) is expanded to 48 bits and then XOR'd with the key k.
+2. S-boxes
+  - 48 bits are split into 8 6-bits, which then go through an S-box to become 8 4-bits
+  - #image("s-box.png")
+3. P-box
+  - (statically) randomly changes the output of the S-boxes.
+
+#pagebreak()
+
+*What to keep in mind when choosing S and P boxes?*
+
+#pagebreak()
+
+Should not be random.
+
+Choose boxes s.t.
+- No output bit should be close to a linear function of the input bits.
+- S-boxes area 4-to-1 mapping.
+
+#pagebreak()
+
+*Why is double encryption DES not much more secure than DES?*
+
+#pagebreak()
+
+It is susceptible to a Meet in the Middle Attack.
+
+If an attacker knows a pair of ciphertext and plaintext. They can attempt to encrypt the plaintext with all $2^56$ keys and decrypt the ciphertext with all $2^56$ keys. Can then look for a match.
+
+Although the key is 112 bits, it only had 57-bits of entropy.
+
+#pagebreak()
+
+*What is a better alternative to Double DES?*
+
+#pagebreak()
+
+Triple DES - 168 bit key size = 112 bit security.
+
+#pagebreak()
+
+*What is the fundamental difference between AES and DES*
+
+#pagebreak()
+
+DES = Feistel
+
+AES = Substitution-Permutation
+
+#pagebreak()
+
+*Overview of AES*
+
+#pagebreak()
+#image("aes-overview.png")
+#pagebreak()
+
+*What are the 3 main steps in each round of Substitution-Permutation*
+
+#pagebreak()
+
+1. SubBytes
+ - A mapping from input bytes to output bytes
+ - input is an element of a finite field $G F(2^8)$
+ - Compute the inverse
+ - For i = 0, 1, .., 7
+  
+ $quad quad$do $b_i = (a_i + a_i_4 + a_i_5 + a_i_6 + a_i_y + c_i) mod 2$
+
+2. ShiftRows
+  - #image("shift-rows.png")
+
+3. MixColumns
+  - Each byte in a column is replaced by 2 times that byte, plus 3 times the next bytem plus the byte that comes next, plus the byte that follows. (obviously, duh).
+
+
+#pagebreak()
+
+*How does AES key scheduling work?*
+
+#pagebreak()
+
+Expanding the 16 byte key eleven times to 176 bytes (or 44 words).
+
+#image("AES-Key-Scheduling.png")
+
+#pagebreak()
+
+*What are the 5 Modes of operation for AES covered in this module?*
+
+#pagebreak()
+
+- Electronic Code Book
+- Cipher Block Chaining
+- Cipher Feedback
+- Output Feedback
+- Counter
+
+#pagebreak()
+
+*Explain Electronic Codebook*
+
+#pagebreak()
+
+Each plaintext block is encrypted independently to generate ciphertext.
+
+Can cause data leakage by identifying patterns between blocks.
+
+#pagebreak()
+
+*Explain Cipher block chaining*
+
+#pagebreak()
+
+The input to each encryption block is:
+ - previous blocks ciphertext (or initialisation vector) xor plaintext
+ - key
+
+Input is padded so the entire input is a multiple of 16 bytes.
+
+Encryption can then not be parallelised.
+
+Can recover from losing a whole block, but not a single byte.
+
+#pagebreak()
+
+*How does PKCS7 Padding work?*
+
+#pagebreak()
+
+The value of each byte added, is the total number of pad bytes used.
+
+e.g. if 4 bytes are padded, the padding looks like: 04040404
+
+#pagebreak()
+
+*What is the padding oracle attack?*
+
+#pagebreak()
+
+If a server errors if the padding is incorrect, an attacker can use this information to figure out the plaintext.
+
+Can cycle through XORing a random R to the penultimate block and feeding the input to the server. cycle the final byte $r_15$ until the server accepts. We know that $d_15 xor r_15 = 01$, and so $d_15 = 01 xor r_15$. We can then use the IV/original ciphertext to calculate $p_15 = d_15 xor "iv"_15$. 
+
+#pagebreak()
+
+*What is cipher feedback mode?*
+
+#pagebreak()
+
+Similar to CBC, but we encrypt before xoring with plaintext.
+
+#image("cipher-feedback.png")
+
+#pagebreak()
+
+*What is output feedback mode?*
+
+#pagebreak()
+
+Similar to CFB, but we chain the output of encryption, not the XOR of encryption and plaintext.
+
+This is essentially a stream cipher.
+
+#pagebreak()
+
+*What is counter mode?*
+
+#pagebreak()
+
+The input to each encryption is a counter, that was randomly initialised. The output is then XOR'd with the plaintext.
+
+Easily parallelisable, acts as a stream cipher.
+
+#pagebreak()
+
+*How does the NIC receive a packet? What does promiscuous mode do? What is the WiFi equivalent of promiscuous mode, and what are its limitations?*
+
+#pagebreak()
+
+NIC hears all frames on a wire, when it finds a packet addressed to it (by comparing MAC addresses), the frame is copied into a buffer and dispatched to user programs. Frames that aren't destined to the NIC are discarded.
+
+In promiscuous mode, the NIC passes every frame from the network to the kernel.
+
+The WiFi equivalent is monitor mode. Limitations: interference means that the WiFi card can't copy everything, only captures 802.11 frames on the channel the device is listening to so may miss info on other channels.
+
+#pagebreak()
+
+*What does a BSD packet filter (BPF) do? What are the limitations of receiving packets using raw sockets, and what is the solution?*
+
+#pagebreak()
+
+BPF allows a user program to attach a (combination of) filter(s) to a socket, which tells the kernel to discard unwanted packets.
+
+Limitations of raw sockets are: portability issues, lack of optimisation, & difficulty in setting filters. Solution is to use the pcap library, which has a standard API across all platforms & allows programmers to specify rules using human-readable Boolean expressions.
+
+#pagebreak()
+
+*Define packet spoofing. Why are raw sockets preferred for this? What's the procedure to spoof a UDP packet?*
+
+#pagebreak()
+
+Packet spoofing is when some critical information in the packet is forged.
+
+Raw sockets allow us to construct the entire packet (including header fields) before sending it out.
+
+Procedure for UDP:
+- Capture UDP packet of interest
+- Make a copy
+- Replace the UDP data field with a new message & swap the source & destination fields
+- Send the spoofed reply
+
+#pagebreak()
+
+*List the pros of using C vs Scapy for constructing a spoofed packet.*
+
+#pagebreak()
+
+Simpler in Scapy but faster in C.
+
+#pagebreak()
+
+*Define endianness.*
+
+#pagebreak()
+
+The order in which a given multi-byte data item is stored in memory.
+
+#pagebreak()
+
+*What's the difference between little endian & big endian? Which is network order? Why is a standardised network order needed?*
+
+#pagebreak()
+
+Little endian puts the small end in memory first; big endian puts the big end in memory first.
+
+Network order is big endian.
+
+Standard required as computers using different byte orders to each other will misunderstand the communications.
+
+#pagebreak()
+
+*Describe the steps in the TCP handshake.*
+
+#pagebreak()
+
+SYN - client sends a packet to the server using a randomly generated number as its sequence number. Server will use a TCB to store information about the connection.
+
+SYN-ACK - server replies using its own randomly generated number as its sequence number.
+
+ACK - client sends an ACK packet to conclude the handshake. The ACK prompts the server to take the TCB out of the queue. SYN-ACK will be resent if the ACK doesn't arrive. Eventually the TCB is discarded once it times out.
+
+#pagebreak()
+
+*Describe a SYN flooding attack. What is a countermeasure?*
+
+#pagebreak()
+
+Continuously send a lot of SYN packets to the server so that queue space is consumed by more and more TCB records. Use random source IP addresses to avoid being blocked by firewalls.
+
+Countermeasure is a SYN cookie - calculate a keyed hash from the information in the packet using a secret key and send to the client, don't store the TCB. When the client sends the ACK, they will respond with cookie+1. An attacker will never receive the cookie.
+
+#pagebreak()
+
+*There's two ways to close a TCP connection. What are they?*
+
+#pagebreak()
+
+TCP FIN
+- The #emoji.star.arc civilised #emoji.star.arc way
+- A sends a FIN packet to B
+- B ACKs, which closes the A-to-B communication
+- B repeats to close the entire connections
+
+TCP RST
+- One of the parties sends an RST packet to immediately break the connection
+- Only meant to be for emergency/error
+
+#pagebreak()
+
+*What's the idea behind a TCP reset attack? Where can you get any info needed?*
+
+#pagebreak()
+
+Break up a TCP connection between A and B by sending an RST packet with the following fields set correctly:
+- Source IP address & port
+- Destination IP address & port
+- A sequence number within the receive window
+
+Use Wireshark to get the necessary window.
+
+#pagebreak()
+
+*How does a TCP Reset attack work on Telnet, SSH and Video-streaming connections? Are there any situations where the attack isn't possible/there could be actions taken?*
+
+#pagebreak()
+
+- Telnet: use an existing netwox tool or write your own program
+- SSH: impossible if encryption is done below the transport layer. O/w same as Telnet.
+- Video-streaming: use netwox 78 to reset each packet that comes from the user machine. If RST packets are sent continuously to a server, the behaviour is suspicious & punitive actions may be taken against the user.
+
+#pagebreak()
+
+*Describe a TCP session hijacking attack.*
+
+#pagebreak()
+
+Inject data into an established connection. Spoof a TCP packet with these fields set correctly:
+- Source IP address & port
+- Destination IP address & port
+- Sequence number within the receive window
+
+#pagebreak()
+
+*How do you hijack a Telnet connection? What are the consequences of a highjacked TCP connection?*
+
+#pagebreak()
+
+Steps:
+- User establishes a telnet connection with the server
+- Use Wireshark to sniff the traffic
+- Retrieve the destination port, source port & sequence number
+
+Consequences:
+- User program freezes
+- Retransmission packets between user & server
+- Deadlock: client will think the packets are out-of-order and retransmit, server will discard the retransmitted packets as duplicates
+- Arbitrary command execution, including getting a reverse shell
+
+#pagebreak()
+
+*How can you defend against TCP attacks? What are these defences effective/ineffective against?*
+
+#pagebreak()
+
+- Make it difficult to spoof packets: not effective against local attacks.
+- Encrypt the payload: effective against TCP session hijacking, not effective against SYN flooding and TCP reset attacks.
+
+#pagebreak()
+
+*Define a firewall. What are the requirements?*
+
+#pagebreak()
+
+Part of a computer system/network designed to stop unauthorised traffic flowing from one network to another, allowing the separation of trusted & untrusted components of a network, and the differentiation of networks within a trusted network.
+
+Requirements
+- All traffic between trust zones should pass through the firewall
+- Only authorised traffic (defined by the security policy) should pass through
+- The firewall itself must be immune to penetration, which is achieved by using a hardened system with secured OSs
+
+#pagebreak()
+
+*What are the 3 access policies of a firewall? What are the 3 actions a firewall can take?*
+
+#pagebreak()
+
+Policies
+- User control: control access to data based on user role
+- Service control: control access by the type of service offered by the host
+- Direction control: determine the direction in which a request may be initiated & are allowed to flow through the firewall
+
+Actions
+- Accepted: allow the connected network/host through
+- Denied: don't allow entry to the other side of the firewall
+- Rejected: denied, but you're told through an ICMP packet
+
+#pagebreak()
+
+*What are the 2 types of filtering and 3 types of firewall?*
+
+#pagebreak()
+
+Types of filtering
+- Ingress: inspect incoming traffic to safeguard an internal network & prevent external attacks
+- Egress filtering: inspect outgoing traffic & prevent users reaching the outside
+
+Packet Filter/Stateless Firewall: control traffic based on information in the packet headers, don't pay attention to whether the packet is part of a stream, don't maintain the packet states.
+
+Stateful Firewall: track the state of the traffic in a connection state table by monitoring all connection interactions until they close.
+
+Application/Proxy Firewall: control input, output & access from/to an application/service by impersonating the intended recipient. Data on the connection is analysed up to the application layer to determine whether the packet should be allowed/rejected.
+
+#pagebreak()
+
+*How do you build a packet filter?*
+
+#pagebreak()
+
+Can be done inside the kernel, using either:
+- Netfilter: provides hooks at critical points on the packet traversal path inside a Linux kernel
+- Loadable kernel modules: allow privileged users to dynamically add/remove modules to the kernel
+- Built-in packet filters
+
+#pagebreak()
+
+*How do you build a stateful firewall?*
+
+#pagebreak()
+
+`nf_conntrack` is a connection tracking framework in the Linux kernel built on top of netfilter, able to store context in memory.
+
+Each packet will be marked as one of:
+- NEW: connection is starting & the packet is part of a valid sequence. Only exists for a connection if the firewall has only seen traffic in one direction
+- ESTABLISHED: connection has been established & is two-way
+- RELATED: special state that helps to establish relationships among different connections
+- INVALID: packet doesn’t follow the expected behaviour of a connection
+
+#pagebreak()
+
+*How do you build a application/proxy firewall? What is a key challenge in doing this and what are potential solutions?*
+
+#pagebreak()
+
+Typical implementation is a proxy.
+
+Critical challenge is ensuring all web traffic goes through the proxy server
+
+Solutions:
+- Configure each host to redirect all web traffic to the proxy
+- Place web proxies on a network bridge that connects internal & external networks
+
+#pagebreak()
+
+*What are other applications of a web proxy?*
+
+#pagebreak()
+
+Anonymising proxy: hide the origin of a network request from servers
+
+Evade egress filtering
+
+#pagebreak()
+
+*Describe the Static Port Forwarding/SSH Tunnelling technique for firewall evasion.*
+
+#pagebreak()
+
+- 2 devices, home & inner, want to communicate but there's a firewall that blocks access between the two, but not between home and a secret 3rd machine called outer.
+
+- Set up a tunnel between home and outer
+- On the home end, the tunnel receives TCP packets from the telnet client
+- Forwards TCP data to outer, which places the data in another TCP packet set for inner, which will be invisible to the firewall
+
+#pagebreak()
+
+*Describe the Dynamic Port Forwarding technique for firewall evasion. What is the advantage of this method over static port forwarding?*
+
+#pagebreak()
+
+Set up an ssh tunnel between a localhost port and the home machine
+
+Redirect all web requests to go through this port
+
+Set up a SOCKS proxy on the localhost: ssh will send the TCP data over the tunnel to the home machine, which will communicate with the blocked site.
+
+Advantage: static has to be done on a per-website basis
+
+#pagebreak()
+
+*Describe the Reverse SSH Tunnelling technique for firewall evasion.*
+
+#pagebreak()
+
+A firewall may block incoming ssh sessions. Assuming it doesn't block outgoing ssh sessions, reverse ssh tunnelling can be used to access an internal website.
+
+#pagebreak()
+
+*Describe the VPN technique for firewall evasion.*
+
+#pagebreak()
+
+Create a tunnel between a computer inside the network & another one outside
+
+IP packets sent via this tunnel
+
+Tunnel traffic is encrypted, so firewalls can't see what is inside & can't filter.
+
+#pagebreak()
+
+*Describe the two methods for IP Tunnelling.*
+
+#pagebreak()
+
+IPSec Tunnelling
+- 

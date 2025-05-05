@@ -1,3 +1,15 @@
+
+## Exam Topics:
+- **Classes of entropy**
+- **Discrete Examples**
+- **Continuous Entropy**
+- Principle of Maximum Entropy
+- **Conditional Entropy; Joint Entropy**
+- **Chain Rules**
+- Convex and COncave functions; Jensens inequality
+- Relative Entropy
+
+
 # Entropy
 Entropy is the expected information given an alphabet and a probability distribution. Units: bits per symbol
 $$
@@ -63,6 +75,7 @@ $$
 
 ### Principle of Maximum Entropy (POME)
 - To find the distribution with the maximum possible entorpy with constraints, use POME.
+- **We do not need to memorise this!**
 
 
 #### Discrete Case
@@ -116,3 +129,70 @@ Solution metho is the same, but **constraints are now continuous** - and need to
 
 **Power Limit**
 ![alt text](imgs/entropy/image-5.png)
+
+### Conditional Entropy
+COndition X on one observed y
+$$ 
+H(X|y) = -\sum_{i=1}^{n} p(y) \lg p(x|y) 
+$$
+
+So over all y:
+$$
+H(X|Y) = -\sum_{y}^{n} p(y)  \sum_x p(x|y) \lg  p(x|y) = -\sum_{y,x} p(y) p(x|y) \lg  p(x|y) 
+$$
+
+#### Conditional Entropy Chain Rule
+$$
+H(Y|X) = H(X,Y) - H(X)
+$$
+Can be rearranged to:
+$$
+H(X,Y) = H(X) + H(Y|X)
+$$
+
+Therefore:
+$$
+H(X|Y) = -\sum_{x,y} p(x,y) \lg p(x|y) 
+$$
+
+
+### Joint Entropy
+$$
+H(X,Y) = H(X) + H(Y|X)
+$$
+
+or, can swap
+$$
+H(X,Y) = H(Y) + H(X|Y)
+$$
+
+$$
+H(X,Y) = -\sum_{x,y} p(x,y) \lg p(x,y)
+$$
+
+#### Chain Rules
+- Expression can be extended
+
+$$
+H(X_1, X_2, \ldots, X_n) = H(X_1) + H(X_2|X_1) + H(X_3|X_1, X_2) + \ldots + H(X_n|X_1, X_2, \ldots, X_{n-1})
+$$
+
+
+### Relative Entropy
+
+#### Strictly Convex & Concave Functions
+- f(x) is strictly convex over (a,b) if every chord of f(x) lies above the graph of f(x)
+- Concave is the opposite
+
+![alt text](imgs/entropy/image-6.png)
+- Strictly convex (x>0) f(x) = x^2 and f(x) = e^x
+- Strictly concave (x>0) f(x) = lnx and log_10 (x)
+
+### Jensen's Inequality
+![alt text](imgs/entropy/image-7.png)
+
+![alt text](imgs/entropy/image-8.png)
+
+![alt text](imgs/entropy/image-9.png)
+
+![alt text](imgs/entropy/image-10.png)

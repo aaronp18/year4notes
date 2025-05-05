@@ -1,0 +1,994 @@
+*What are most HPC machines*
+#pagebreak()
+Collection of many smaller machines
+#pagebreak()
+*Moore's Law*
+#pagebreak()
+For a given chip size, the number of components would double every year.
+
+Revised to doubling every 2 years.
+#pagebreak()
+*Amdahl's Law*
+#pagebreak()
+$S = 1/((1-p) + p/n)$
+
+Shows the relation between serial portions and parallel portions in a program.
+#pagebreak()
+*What are the 4 main "stream" paradigms? and explain them.*
+#pagebreak()
+- SISD
+  - To improve these processor need to: increase clock speed, decrease transistor size, or increase complexity
+  - Very Expensive
+- SIMD
+  - One instruction is applied to multiple pieces fo data in the same clock cycle
+  - Common implementations are SSE or AVX
+  - Also seen in GPU computing
+- MISD
+  - One piece of data is operated upon by multiple instructions within the same clock cycle.
+  - Not often used in HPC
+- MIMD
+  - Multiple instructions can be applied to multiple pieces of data in the same clock cycle.
+  - Commonly used in HPC
+#pagebreak()
+*What are the 4 levels of parallelism?*
+#pagebreak()
+1. Instruction
+  - Pipelining
+  - Vectorisation
+2. Thread
+  - OpenMP
+3. Process
+  - MPI
+4. Job
+  - Independent codes
+  - Queue-based clusters
+#pagebreak()
+*What are the main ways we can make a super computer faster?*
+#pagebreak()
+Improve computer Architecture
+
+Improve interconnects between compute nodes
+
+Improve compiler optimisations
+
+Improve the algorithm used
+
+Allow for multiple jobs and resources to be used at the same time
+#pagebreak()
+*How can computer architecture change to improve performance?*
+#pagebreak()
+Increase clock speed
+
+Smaller/more transistors
+
+More cores
+
+Multiple processors.
+
+Faster interconnect between cores, cache, and main memory.
+
+Use of GPUs
+#pagebreak()
+*Common interconnect types in HPC*
+#pagebreak()
+
+100 Gigabit Ethernet
+- New
+- Fibre optics
+
+Infiniband
+- 80GB/s
+- Older and more common
+- Fibre optics
+#pagebreak()
+*Common Networking paradigms*
+#pagebreak()
+#image("network-topologies.png")
+#pagebreak()
+*There is useful information on compilers?*
+#pagebreak()
+I promise
+#pagebreak()
+*How can algorithms be designed to exploit HPC compute?*
+#pagebreak()
+Ensure loops have no dependencies
+
+Design so loops can be run simultaneously
+
+Sometimes it may not be possible.
+#pagebreak()
+*What are the 3 main loop dependencies?*
+#pagebreak()
+- Flow dependency
+  - a=x+y; b=a+c;
+- Anti-dependency
+  - b=a+c; a=x+y;
+- Output dependency
+  - a=2; x=a+1; a=5;
+#pagebreak()
+*Explain what control dependencies are?*
+#pagebreak()
+Conditional branching statements
+#pagebreak()
+*Discuss 2 options for workload management in HPC*
+#pagebreak()
+SLURM
+- very common
+- Open source
+- allocate jobs to queue and when resources are free it runs
+- can define limits and priority to queues
+
+Portable Batch System (PBS)
+- proprietary
+- OpenPBS is an opensource version
+- Has more control over how the queue is managed
+- More difficult for newer users
+#pagebreak()
+*What is a thread?*
+#pagebreak()
+An execution context for a processor
+
+Not a physical thing!!!
+
+Limited to a particular NUMA region
+#pagebreak()
+*Explain a way to fix control dependencies*
+#pagebreak()
+Remove branches and instead create a mask that can be applied to select the correct side of the condition.
+#pagebreak()
+*Give 3 ways in which you can assist the compiler in optimising code*
+#pagebreak()
+Add flags to the code
+
+Use libraries such as OpenMP
+
+Use specific compiler flags such as -O3
+#pagebreak()
+*Explain synchronisation with respect to threads and global variables*
+#pagebreak()
+When threads need to access global variables they need to make sure the data isn't altered and all other threads have the same data.
+
+Utilise Mutex locks to stop threads from accessing the data.
+#pagebreak()
+*Give 3 main problems with respect to synchronisation in multithreaded applications*
+#pagebreak()
+Race Conditions
+
+Deadlocks
+
+Starvation
+#pagebreak()
+*What is the difference between Multithreading and Multiprocessing?*
+#pagebreak()
+Process records running state, a thread is just concerned with the memory stack
+
+Threads exist within a process
+
+Threads switch faster than processes
+
+Threads can hold all the time, starve other threads.
+#pagebreak()
+*What is superthreading?*
+#pagebreak()
+Each clock cycle contains only one threads instructions
+
+Switch between threads each cycle
+#pagebreak()
+*What is hyperthreading?*
+#pagebreak()
+Each clock cycle can contain multiple threads instructions.
+
+Often found in modern processors.
+#pagebreak()
+*What is OpenMP? And what thread model does it utilise*
+#pagebreak()
+A pragma based multithreading library available in C, C++ and Fortran.
+
+Uses the fork-join model.
+#pagebreak()
+*Give the basics on how to parellelise a for loop with OpenMP*
+#pagebreak()
+\#pragma omp parallel for
+#pagebreak()
+*What are private variables? And what are the 3 ways of defining them in OpenMP*
+#pagebreak()
+variables that are local to that thread
+
+- private: not given an initial value
+- firstprivate: initial variable is set to the value of the variable
+- lastprivate: variables value is set to the value in the primary thread.
+#pagebreak()
+*What are schedules and what are the 3 main types used?*
+#pagebreak()
+Schedules specify how the work is split between threads
+
+- static: workload split evenly between threads before compute
+- dynamic: workload is split into equally sized chunks, threads request chunks when required
+- guided: same as dynamic, but successive chunks get smaller
+#pagebreak()
+*How can you synchronise OpenMP programs*
+#pagebreak()
+\#pragma omp critical
+- Higher overhead, can block multi-line statements
+\#pragma omp atomic
+- Lower overhead
+#pagebreak()
+*What is a reduction?*
+#pagebreak()
+Allows for some simple function to be applied across multiple threads in parallel, e.g. sum, max, etc.
+
+\#pragma omp parallel for reduction(+:sharedvariable)
+#pagebreak()
+*How can I get the number of threads in a program?*
+*How can I get the current thread number?*
+*How can I set the number of threads in a program?*
+*How can I get a thread safe time?*
+#pagebreak()
+omp_get_num_threads()
+
+omp_get_thread_num()
+
+omp_set_num_threads(int)
+
+omp_get_wtime()
+#pagebreak()
+*What does OMP_NUM_THREADS, OMP_SCHEDULE, and OMP_PROC_BIND do?*
+#pagebreak()
+They are all environment variables
+1. set the number of threads available to a program
+2. Sets the default schedule
+3. Controls if and how threads can move between cores.
+#pagebreak()
+*What are the 2 main things to look for in performance analysis?*
+#pagebreak()
+- CPU performance
+- Memory Bandwidth
+- Communication Bandwidth
+#pagebreak()
+*Give 2 examples of performance analysis tools*
+#pagebreak()
+gprof
+
+perf
+#pagebreak()
+*What's MPI and why is it needed*
+#pagebreak()
+A library for message passing between processors.
+
+Supercomputers consist of many processors connected in a large network, they don't share RAM/Cache, so message passing is required to share data.
+#pagebreak()
+*What's the basic skeleton for MPI initialisation and finalisation?*
+#pagebreak()
+```C
+int world_size, rank;
+MPI_Init(Null, Null);
+MPI_Comm_size(MPI_COMM_WORLD, &world_size);
+MPI_COMM_RANK(MPI_COMM_WORLD, &rank);
+...
+MPI_FINALIZE();
+```
+#pagebreak()
+*What is MPI_COMM_WORLD?*
+#pagebreak()
+the default communicator created by MPI_Init.
+
+We can create our own communicators if we would like.
+#pagebreak()
+*How would you send a message in MPI?*
+#pagebreak()
+```C
+MPI_Send(
+  void* data,
+  int count,
+  MPI_Datatype datatype,
+  int destination,
+  int tag,
+  MPI_Comm communicator
+)
+```
+#pagebreak()
+*How would you recv a message in MPI?*
+#pagebreak()
+```C
+MPI_Send(
+  void* data,
+  int count,
+  MPI_Datatype datatype,
+  int source,
+  int tag,
+  MPI_Comm communicator,
+  MPI_Status* status
+)
+```
+#pagebreak()
+*What's the main issue with MPI_Recv and MPI_Send? What is there to fix this?*
+#pagebreak()
+They are both blocking functions.
+
+There exists non-blocking version of each: MPI_Isend, MPI_Irecv
+
+#pagebreak()
+*What are the communication modes in MPI?*
+#pagebreak()
+- Buffered: send instructions can start at any point and may complete before a corresponding receive instruction is executed.
+- Synchronous: Send instructions can start at any point, but can only complete successfully when a receive instruction is executed.
+- Ready: Send can only start if the receive has been executed.
+
+#pagebreak()
+*What MPI function do you use for 1-to-all communication? and give the function signature.*
+#pagebreak()
+
+`int MPI_Bcast(void *data, int count, MPI_Datatype datatype, int root, MPI_Comm comm)`
+
+#pagebreak()
+*What MPI function do you use for data scattering? and give the function signature.*
+#pagebreak()
+
+`int MPI_Scatter(const void *sendbuf, int sendcount, MPI_Datatype sendtype, vod *recvbuf, int recvcount, MPI_Datatype recvtype, int roo, MPI_Comm comm)`
+
+#pagebreak()
+*What MPI function do you use for data gathering? and give the function signature.*
+#pagebreak()
+
+`int MPI_Gather(const void *sendbuf, int sendcound, MPI_Datatype sendtype, void *recvbuf, int reccount, MPI_Datatype recvtype, int roo, MPI_Comm comm)`
+
+#pagebreak()
+*What do All\_\_ communicators do?*
+#pagebreak()
+
+Gathers and Scatters. 2 main types
+
+`MPI_Allgather` - gather than broadcast
+
+`MPI_Alltoall` - an Allgather but different ranks receive different data
+
+#pagebreak()
+*What are reductions? and how do we do one in MPI?*
+#pagebreak()
+
+Apply an operations over multiple ranks.
+
+`int MPI_Reduce(const void *sendbuf, void *recvbuff, int count, MPI_Datatype, datatype, MPI_Op op, int root, MPI_Comm comm)`
+
+#pagebreak()
+*What are available Operators for reducing in MPI?*
+#pagebreak()
+
+- MPI_MAX
+- MPI_MIN
+- MPI_SUM
+- MPI_PROD
+- MPI_LAND
+- MPI_BAND
+- MPI_LOR
+- MPI_BOR
+- MPI_LXOR
+- MPI_BXOR
+- MPI_MAXLOC
+- MPI_MINLOC
+
+#pagebreak()
+*How do you broadcast reductions?*
+#pagebreak()
+`MPI_Allreduce`
+#pagebreak()
+*What is performance portability?*
+#pagebreak()
+"A measurement of an application's performance efficiency for a given problem that can be executed correctly on all platforms in a given set."
+
+$
+cal(p)(a, e, H) = cases((|H|)/(sum_(i in H)1/(e_i(a, p)))quad&"if i is supported" forall i in H, 0 quad& "otherwise")
+$
+
+#pagebreak()
+*Explain the pros and cons of different packet sizes in inter process communication*
+#pagebreak()
+
+smaller packets:
+- Copying data from memory to the network card can be interspersed
+- Packets can be made available more quickly
+
+larger packets:
+- Ratio of data to packet header is better
+- Cost of copying memory vs the injection rate of the messages to the network
+
+#pagebreak()
+*What is domain decomposition?*
+#pagebreak()
+The act of splitting the domain of a problem into smaller chunks for to spread between different processors.
+
+#pagebreak()
+*What are halo's with respect to mesh decomposition?*
+#pagebreak()
+
+Halo's are the overlapping sections of data between neighboring ranks/processes.
+
+#pagebreak()
+
+*Assuming a grid of size N*N*Z points, using 1D decomposition with P processors along the y-axis:*
+
+*What size subgrid is each processor responsible for?*
+
+*What is the computation time for each subgrid?*
+
+*What is the performance model for the execution time?*
+
+#pagebreak()
+
+Subgrid size is N*N/P*Z
+
+Computation time is $t_c times N times N/P times Z$
+
+Performance model is $T_p = t_c times N times N/P times Z + 2(t_s + 2t_w N Z)$
+
+#pagebreak()
+
+*A performance model is given by $T_p = t_c times N times N/P times Z + 2(t_s + 2t_w N Z)$:*
+
+*What happens as $P arrow infinity?$*
+
+*Why is this not necessarily a good thing?*
+
+#pagebreak()
+
+Execution time will decrease.
+
+Since the number of processors doesn't affect communication time, this won't change as P decreases. Since computation time decreases with increasing P, more and more of the execution time will be due to the communication overhead, so the program will be less efficient.
+
+#pagebreak()
+
+*Surface-to-Volume ratio (SVR) is a way to compare decomposition methods. What do the surface and volume affect, and what is a better SVR?*
+
+#pagebreak()
+
+Surface affects how much communication occurs, volume affects how much computation occurs (per processor).
+
+The lower the SVR the better - it means lower proportion of communication time in the total execution time.
+
+#pagebreak()
+
+*What is Iso-efficiency?*
+
+#pagebreak()
+
+How the amount of computation performed (N) must scale with processor number (P) to keep parallel efficiency (E) constant.
+
+#pagebreak()
+
+*How do you calculate an algorithm's iso-efficiency function? What kind of function gives more scalability?*
+
+#pagebreak()
+
+The iso-efficiency function is N over P.
+
+Functions with lower orders of P (e.g. N = O(P)) give higher scalability.
+
+#pagebreak()
+
+*What is Amdahl's Law? Give 2 limitations*
+
+#pagebreak()
+
+Let the serial fraction of a program be $s$, if we make the remaining part $n$ times faster by running it on $n$ processors, then speedup is:
+
+$S(n) = frac(n, (1-s) + n s) <= frac(1,s)$
+
+Limitations are that it can only tell the upper bound of the speedup for a particular algorithm, & it can't tell if other algorithms with greater parallelism exist for the problem.
+
+#pagebreak()
+
+*What are the limitations of asymptotic analysis?*
+
+#pagebreak()
+
+You ignore the lower-order terms: given an algorithm with time complexity O(nlogn), the actual time complexity could be 10n + nlogn. For small n, the 10n would dominate.
+
+You can only tell the order of the execution time of a program, not its actual execution time. It may be the case that at certain values of n one algorithm performs better than another, even if the other is better asymptotically.
+
+#pagebreak()
+
+*How much more powerful is a GPU compared to a multicore CPU, and what is the reason for the performance gap?*
+
+#pagebreak()
+
+About 100x more powerful.
+
+Reason is the differences in design.
+
+#pagebreak()
+
+*What are the design motivations for a CPU?*
+
+#pagebreak()
+
+To optimize the performance of sequential code.
+
+Latency-oriented $arrow$ minimise the average instruction latency in sequential code.
+
+#pagebreak()
+
+*Name some of the key features of a CPU. What is the cost of these features?*
+
+#pagebreak()
+
+Complicated CU, which can execute instructions out-of-order or in parallel, may perform branch prediction, and can allow for data forwarding.
+
+Large cache to reduce data access latencies.
+
+Powerful ALU.
+
+Cost is increased chip area & power.
+
+#pagebreak()
+
+*What is the design goal for GPUs?*
+
+#pagebreak()
+
+Throughput-oriented $arrow$ maximise the total throughput of a large number of threads, allowing individual threads to take a longer time.
+
+#pagebreak()
+
+*Name the key features of a GPU, and how they're different to those on a CPU.*
+
+#pagebreak()
+
+Most of the chip area is dedicated to FLOP calculations. Each calculation is simple, so we have a simple CU, and simple ALUs.
+
+Calculation is deemed more important than cache, so cache size is reduced, allowing longer latencies for data access.
+
+#pagebreak()
+
+*What are the two parts of a CUDA program? Where do they execute?*
+
+#pagebreak()
+
+Host code runs on the CPU
+
+Device code runs on the GPU.
+
+#pagebreak()
+
+*What are kernel functions, and how can they be identified?*
+
+#pagebreak()
+
+Functions which run on the GPU. They're marked with CUDA keywords.
+
+#pagebreak()
+
+*What is the GPU execution model?*
+
+#pagebreak()
+
+Start with host execution.
+
+When a kernel function is called it's executed by a large number of GPU threads (called the grid).
+
+When all threads of a kernel complete, the corresponding grid terminates.
+
+Execution continues on the host until another kernel is called.
+
+#pagebreak()
+
+*When and how is execution configuration specified?*
+
+#pagebreak()
+
+Specified when invoking a kernel function.
+
+Syntax is:
+
+`dim3 grid(3,2,4), block(128,1,1)`
+
+`vecAdd <<< grid, block >>> (A,B,C)`
+
+where A,B,C are the parameters passed into `vecAdd()`
+
+#pagebreak()
+
+*What is the difference in compilation between host & device code?*
+
+#pagebreak()
+
+Host code is compiled with a standard C compiler.
+
+Device code is compiled to PTX code, then into an executable.
+
+#pagebreak()
+
+*Why can't a GPU use the same timing methods as those used for CPUs? Explain.*
+
+#pagebreak()
+
+There's asynchronous executions between the CPU & GPU.
+
+After the CPU launches the kernel functions:
+
+It places the command of running kernel function to a command queue maintained by CUDA.
+
+CUDA runtime runs the commands at its own pace.
+
+CPU continues to perform subsequent tasks after the kernel functions in the host code.
+
+CPU doesn't wait for the GPU to complete the kernel function.
+
+#pagebreak()
+
+*Name two methods that can be used to synchronise the CPU & GPU. How do they work?*
+
+#pagebreak()
+
+`cudaDeviceSynchronise()`: CPU waits until all commands in the CUDA command queue have completed.
+
+`cudaEventSynchronise(event_object)`: CPU waits until the specified event has completed.
+
+#pagebreak()
+
+*What is parallel IO?*
+
+#pagebreak()
+
+Multiple processes of a parallel program access different parts of a common file at the same time.
+
+#pagebreak()
+
+*An example of parallel IO is all processes sending their data to rank 0, which then writes to the file. What are the pros and cons of this approach?*
+
+#pagebreak()
+
+Pros: IO system only deals with IO from one process, doesn't need specialised IO libraries, results are in a single file (so easy to manage).
+
+Cons: single point of failure, single node bottleneck, poor performance & scalability.
+
+#pagebreak()
+
+*An example of parallel IO is having each process write to a separate file. What are the pros and cons of this approach?*
+
+#pagebreak()
+
+Pros: parallel and high performance.
+
+Cons: lots of small files to manage, if the number of processors changes how do you read back, doesn't interpolate well.
+
+#pagebreak()
+
+*An example of parallel IO is having multiple processes accessing data from a common file. What are the pros and cons of this approach?*
+
+#pagebreak()
+
+Pros: simultaneous IO from any number of processes, excellent performance & scalability, results stored in a single file, interpolates well, maps well to collective operations.
+
+Cons: requires a more complex IO library, traditional accesses block the file, requires support of simultaneous access.
+
+#pagebreak()
+
+*Data Sieving is an IO optimisation. Explain what it does for reads and writes. What is a problem associated with this optimisation?*
+
+#pagebreak()
+
+Reads: combine lots of small accesses into a larger one, reducing the number of IO operations
+
+Writes: read the entire region first, make changes, write back.
+
+Writing requires locking in the file system, which can lead to false sharing - 2 addresses share the same cache line, writing to one causes both to be evicted from cache.
+
+#pagebreak()
+
+*Collective IO is an IO optimisation. Explain what it does. What must you guarantee about each of the processes?*
+
+#pagebreak()
+
+Collective IO is coordinated access to storage by a group of processes.
+
+In collective operations, the underlying IO layers know what data is being requested by each process. The entire block is read, then data is moved to their final destinations.
+
+Have to ensure that all processes participating in the IO call the function at the same time.
+
+#pagebreak()
+
+*Name and explain the 3 kinds of positioning variations that can be used for data access routines.*
+
+#pagebreak()
+
+Individual file pointer: when a file is opened by a process, a file pointer is created & owned by the process.
+
+Explicit offset: data access routines that accept explicit offsets
+
+Shared file pointer: when a file is opened collectively by a group of processes, a shared file pointer is created and stored by these processes
+
+#pagebreak()
+
+*Name and explain the 2 kinds of synchronism variations that can be used for data access routines.*
+
+*One of them can error after the function call. Which one errors, what's the error, and how do you prevent it?*
+
+#pagebreak()
+
+Blocking: don't return until the IO request is completed.
+
+Non-blocking: initiate the operation and return immediately.
+
+Non-blocking errors if the application buffer is accessed whilst IO is ongoing. Fixed by using some variation of `MPI_Wait...()` (e.g. `MPI_Waitall()`).
+
+#pagebreak()
+
+*Name and explain the 2 kinds of coordination variations that can be used for data access routines.*
+
+#pagebreak()
+
+Non-collective (independent): each process does IO independently
+
+Collective: all processes have to participate when doing IO
+
+#pagebreak()
+
+*At least 1 process is accessing a file. What are the 3 situations in which consistency needs to be maintained?*
+
+#pagebreak()
+
+A process writes data, and the same process later reads the data
+
+A process writes data, and another process reads the data
+
+2 process write to the data
+
+#pagebreak()
+
+*In some cases, MPI can guarantee consistency. Where it can't, what are the 3 ways a user can ensure consistency?*
+
+#pagebreak()
+
+Making writing data to the system buffer & transferring data to storage atomic.
+
+Close the file & reopen it to force all writes to be transferred to storage
+
+Use `MPI_File_sync()` to transfer all writes to storage.
+
+#pagebreak()
+
+*What is file interoperability?*
+
+#pagebreak()
+
+The ability to read the data previously written to a file.
+
+#pagebreak()
+
+*Name & explain the 3 different data representations.*
+
+#pagebreak()
+
+Native: data is stored in a file exactly as it is in memory
+
+Internal: data is stored in an implementation-dependent format.
+
+External32: data on the storage medium is always the standard representation (big-endian IEEE).
+
+#pagebreak()
+
+*What are the pros & cons of the native representation?*
+
+#pagebreak()
+
+Pros: data precision & IO performance
+
+Cons: loss of transparent interoperability (can't be used in heterogeneous environments)
+
+#pagebreak()
+
+*What may be necessary when using the internal representation? What is an advantage of using this representation?*
+
+#pagebreak()
+
+Type conversions may be necessary.
+
+Pros: can be used in heterogeneous environments
+
+#pagebreak()
+
+*What is an advantage of using External32 representation?*
+
+#pagebreak()
+
+Data can be recognised by other applications.
+
+#pagebreak()
+
+*What are the motivations for clusters?*
+
+#pagebreak()
+
+Clustering allows high performance CPUs alongside high-speed networking.
+
+High-performance CPUs are more portable & scalable than custom-designed mainframe computers.
+
+#pagebreak()
+
+*The cluster manager is a party in a cluster. What are the other two, and what do they each do?*
+
+#pagebreak()
+
+Users: submit jobs & job requirements.
+
+Administrators: describe policy restrictions.
+
+Cluster manager: monitors the state of the cluster, schedules jobs, tracks resource usage.
+
+#pagebreak()
+
+*What are the 5 main activities of a cluster manager. Explain them briefly.*
+
+#pagebreak()
+
+Queuing: submitted jobs are held in the queue until the job is at the head of the queue, & the matching resources are available.
+
+Scheduling: determine what time a job should execute & on which resources.
+
+Monitoring: provide info to admins, users & the manager on the status of jobs & resources.
+
+Resource management: handle details of starting job execution, stopping a job, cleaning up after completion/abortion, and removing/adding resources.
+
+Accounting: collect usage data to produce usage reports, tune the scheduling policy, anticipate future resource requirements by users, and determine the area of improvement within the cluster.
+
+#pagebreak()
+
+*What are 2 LAN structures? Explain them briefly.*
+
+#pagebreak()
+
+Shared Network (Bus)
+- All processors are connected to & share the bus
+- Each processor listening to every message
+- Requires a complex protocol to access the bus, e.g., Carrier Sense Multiple Access/Collision Detection (CSMA/CD)
+- Collisions may occur, requiring back-off policies & retransmissions
+- Not suitable for HPC since it performs better when communication load is low
+
+Switched Network
+- Allows point-to-point communications between the sender & receiver
+- Simultaneous internal transport provides high aggregate bandwidth
+- Multiple messages are sent simultaneously
+
+#pagebreak()
+
+*What are the different metrics to assess cluster topology?*
+
+#pagebreak()
+
+Scalability: the number of switches needed to interconnect a given number of nodes (cost per node)
+
+Degree: the number of links to/from a node (aggregate bandwidth)
+
+Diameter: the shortest path between the furthest nodes (latency)
+
+Bisection width: the minimum number of links that need to be cut to divide the topology into 2 independent networks of the same size ($plus.minus$ 1 node)
+
+Bottleneck bandwidth: the smallest bandwidth on a network. A higher number means the network performs better under heavy load.
+
+#pagebreak()
+
+*What are the pros and cons of the crossbar topology?*
+
+#pagebreak()
+
+Pros: low resource contention
+
+Cons: switch scalability is $O(n^2)$, lots of wiring so high cost.
+
+#pagebreak()
+
+*What is the scalability, diameter, and bisection width for a linear array?*
+
+#pagebreak()
+
+Scalability and diameter are both $O(n)$.
+
+Bisection width is $O(1)$.
+
+#pagebreak()
+
+*What's the difference between a linear array and ring? What's the scalability, diameter, and bisection width for a ring?*
+
+#pagebreak()
+
+A ring is just a linear array with wrap-around between the end nodes.
+
+Scalability is $O(n)$.
+
+Diameter is $O(n/2)$.
+
+Bisection width is $O(2)$
+
+#pagebreak()
+
+*What's the scaling, average degree, diameter, and bisection width of a 2D mesh?*
+
+#pagebreak()
+
+Scaling: $O(n)$
+
+Average degree: 4
+
+Diameter: $O(2n^(1/2))$
+
+Bisection width: $O(n^(1/2))$
+
+#pagebreak()
+
+*What's the scaling, average degree, diameter, and bisection width of a 2D torus?*
+
+#pagebreak()
+
+Scaling: $O(n)$
+
+Average degree: 4
+
+Diameter: $O(n^(1/2))$
+
+Bisection width: $O(2n^(1/2))$
+
+#pagebreak()
+
+*How do you make a hypercube? What's the scalability, diameter, and bisection width?*
+
+#pagebreak()
+
+Constructed with binary encoding & iterative graph expansion.
+
+Scalability: $K$ dimensions requires $O(2^K)$
+
+Diameter: $O(K)$
+
+Bisection width: $O(2^(K-1))$
+
+#pagebreak()
+
+*What's the scalability, degree, diameter, and bisection width for a binary tree?*
+
+#pagebreak()
+
+Scalability: depth $d$ requires $O(2^(d+1) - 1)$
+
+Degree: 3
+
+Diameter: $O(2d)$
+
+Bisection width: $O(1)$
+
+#pagebreak()
+
+*What's the difference between a fat tree and a binary tree? What's the bisection width and degree of a fat tree?*
+
+#pagebreak()
+
+Branches nearer the top of the tree have more links. Add links s.t. the number of downlinks of a switch is the same as the number of uplinks.
+
+Bisection width: 2^(d-1)
+
+Degree: 2^(k+1)
+
+#pagebreak()
+
+*Describe the store-and-forward switching technique. What's the performance model?*
+
+#pagebreak()
+
+- Each switch receives an entire packet before it forwards it onto the next switch
+- Useful in non-dedicated environments
+- Buffer size is limited, so packets will be dropped under a heavy load
+- Larger in-switch latency
+- Can detect errors in the packet
+
+Performance model is $T_(c o m m)^c = T_s + (T_h + L T_w)D$
+
+#pagebreak()
+
+*Describe the wormhole (cut-through) switching technique. What's the performance model?*
+
+#pagebreak()
+
+- Packet is divided into small "flits" (flow control digits)
+- Switch examines the first flit (header), which contains the destination address, sets up a circuit, & forwards the filt
+- Any subsequent flits are forwarded as they arrive, reducing latency & buffer overhead, but means less error detection
+
+Performance model: $T^c_(c o m m) = T_s + D(T_h + f T_w) + T_w(L - f)$

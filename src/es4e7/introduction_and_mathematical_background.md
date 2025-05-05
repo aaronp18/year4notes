@@ -2,20 +2,32 @@
 
 <equation-table>
 
-| [Math Background](#math-background)             |                                                       |
-|-------------------------------------------------|-------------------------------------------------------|
-| [Lg (log base 2)](#lg-log-base-2)               | $lg(x) = \frac{log_{a}(x)}{log_{a}(2)}$               |
-| [Decibles](#decibles)                           | $R_{dB} = 10 log_10(R) = 10 log{10}(\frac{P_1}{P_2})$ |
-| [Amplitude](#amplitude)                         | $R_{dB} = 20log_{10}(\frac{A_1}{A_2})$                |
-| [Bernoulii Disribution](#bernoulii-disribution) | $A_x = {0, 1}; \quad P_x = {p, 1-p}$                  |
-| [Binomial Distribution](#binomial-distribution) | $A_x = {0, 1, 2, \ldots n}; \quad P(k|N,p) = \binom{N}{k} p^k (1-p)^{N-k}$ | 
-| [Poisson Distribution](#poisson-distribution) | $P(k|\lambda) = \frac{e^{-\lambda} \lambda^k}{k!}$ | 
-| [Discrete Random variables Expected Value](#discrete-random-variables-expected-value) | $E[g(X)] = \sum_{x \in A_x} g(x) P_x = \mu$ | 
-| [Continuous Random variables Expected Value](#continuous-random-variables-expected-value) | $E[g(X)] = \int_{-\infty}^{\infty} g(x) p(x) dx = \mu$ | 
-| [Expected Value Rules](#expected-value-rules) | See image | 
-| [Variance](#variance) | $Var(X) = E[(X - \mu)^2] = E[X^2] - \mu^2$ | 
+| [Math Background](#math-background)                                                       |                                                        |
+| ----------------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| [Lg (log base 2)](#lg-log-base-2)                                                         | $lg(x) = \frac{log_{a}(x)}{log_{a}(2)}$                |
+| [Decibles](#decibles)                                                                     | $R_{dB} = 10 log_10(R) = 10 log{10}(\frac{P_1}{P_2})$  |
+| [Amplitude](#amplitude)                                                                   | $R_{dB} = 20log_{10}(\frac{A_1}{A_2})$                 |
+| [Bernoulii Disribution](#bernoulii-disribution)                                           | $A_x = {0, 1}; \quad P_x = {p, 1-p}$                   |
+| [Binomial Distribution](#binomial-distribution)                                           | $A_x = {0, 1, 2, \ldots n}; \quad P(k                  | N,p) = \binom{N}{k} p^k (1-p)^{N-k}$          |
+| [Poisson Distribution](#poisson-distribution)                                             | $P(k                                                   | \lambda) = \frac{e^{-\lambda} \lambda^k}{k!}$ |
+| [Discrete Random variables Expected Value](#discrete-random-variables-expected-value)     | $E[g(X)] = \sum_{x \in A_x} g(x) P_x = \mu$            |
+| [Continuous Random variables Expected Value](#continuous-random-variables-expected-value) | $E[g(X)] = \int_{-\infty}^{\infty} g(x) p(x) dx = \mu$ |
+| [Expected Value Rules](#expected-value-rules)                                             | See image                                              |
+| [Variance](#variance)                                                                     | $Var(X) = E[(X - \mu)^2] = E[X^2] - \mu^2$             |
 
 </equation-table>
+
+
+# Exam Topics
+- Randomness & Noise
+- Historical Background
+- Matehmatical Preliminaries
+- Probabilty review
+- Random Variables
+- Information
+- Quantisation
+- **Digitial Source Encoding**
+
 
 
 <div class="equations">
