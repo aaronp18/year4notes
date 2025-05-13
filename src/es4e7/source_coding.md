@@ -123,4 +123,43 @@ $$
 \eta = \frac{\text{min}\{\bar{l}\}}{\bar{l} \lg q} = \frac{H(X)}{\bar{l} \lg q}
 $$
 
-Slide 38
+
+### Extension of a DMS
+- A binary code DMS (discrete memoryless source) $S$ cannot be compressed as 0 -> 0, 1 -> 1 or 0 -> 1, 1 -> 0
+- Therefore need to consider symbols of length $n$. ($n^{th}$ extension of $S$)
+- EG: $2^{nd} = 00, 01, 10, 11$
+
+#### Extension Probabilities
+- Extension probabilies are just product of indidviudal symbol probabilties. 
+- ![alt text](imgs/source_coding/image-4.png)
+- (Slide 43 L Source Coding)
+- CAn apply chain rule for n sumbols from arbritayr distribution
+- But **source is memoryless** 
+- So Same prabably for each symbol
+- Also also symbols are from the same alphabet, therefore
+$$
+
+H_{\text{nth extension}}(S) = n H(S)
+$$
+
+#### Compression of Nth Extension
+- Lower source coding bound, best we can do is
+$$
+\rho = \frac{n H(X)}{n} = H(X)
+$$
+
+Upper bound, there is a prefix code which aschieves compression ration at least as good as.
+
+$$
+\rho = \frac{1 + n H(x)}{n} = \frac{1}{n} + H(X)
+$$
+The 1/n can be made small by making n big enough. Therefore close to lower bound by taking large extensions
+
+
+### Most Probable Messages
+![alt text](imgs/source_coding/image-5.png)
+Lecture Source Coding Slide 55
+
+### Asymptotic Equipartition Property (AEP)
+- Captures property linked to most probable messages (slide 56)
+- Not massive focus of exam so should proably understand a bit better
