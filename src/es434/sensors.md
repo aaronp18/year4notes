@@ -191,9 +191,9 @@ $$
 - used for triangulation
 - ![alt text](imgs/sensors/image-15.png)
 
-##### Variation in Freuqneyc
-- Measures changes in freuqency of a wave contacting a moving body
-- Dopper frequency shift to measure velocity of target
+##### Variation in Frequency
+- Measures changes in frequency of a wave contacting a moving body
+- Doppler frequency shift to measure velocity of target
 
 
 #### Resonance
@@ -220,4 +220,116 @@ $$
 - $Q_a$ usually largest
 - Below 100 Pa, moelcules behave independently exchanging momentum with the resonator
 - Above 100 Pa behaves as a fluid, hence viscous drag dominates
-- 
+
+
+## Mechanical Microactuators
+
+Classification:
+- Linear displacement
+- Angular displacement
+- Linear acceleration
+- Angular acceleration
+- Apply force or torque
+- Apply Stress/ Load
+
+### Actuating Principles
+- Principles:
+  - Electromagnetic
+    - Not MEMS - difficult to make efficient and small
+  - Electrostatic
+    - Two plates opposite charge attact each other
+    - Simple
+    - Comb drive, Scratch drive
+  - Thermal
+    - More power, but more force
+    - Expansion of bmaterials
+    -  
+  - Piezoelectric
+    - Sensor and actuator
+    - Mecahnical amplifciation from small movement
+    - Piezopumps
+  - Vibration and Noise
+
+
+- Actuator translates an electrical signal to mechancial movement (output transducer)
+- Noramlly only 5% to 35% efficient
+- Factors:
+  - Fabrication, robustness, resistance to external forces (temperature humidity), range of motion
+
+### Electorstatic Drive
+- Very common in MEMS
+- Fundemental principle of electrostatic attraction of oppositely charged plates
+- Relatively straight forward to fabricate (parallel plate cpacitor)
+- Non linear
+- Energy stored depends on gap
+- ![alt text](imgs/sensors/image-17.png)     
+
+
+#### Electrostatic Comb Drive
+- Common to use comb drive
+- Better surface area, therefore more force and more motion
+- Multuiple fingers with small thickness compared to width
+- Lateral movement with fixed electrode and moving electrode
+- Gap doesnt change, it's the surface area that changes
+
+![alt text](imgs/sensors/image-18.png)
+
+
+#### Elecrostatic Scratch Drive
+- Alternative format
+- Flexible electrode plate and small bushing
+- When voltage applied, plate buckles
+- Causes electrode to scratch along insulator cuaisng motion
+- Voltage cyclee to produce regular movement
+![alt text](imgs/sensors/image-19.png)
+
+
+### Piezo Eletirc Cantilever
+- Used as sensor and actuator
+- Small movement requires mechanical amplification
+  - Effect is small, requires large voltage
+- Can deposit pizeolectric onto cantilevers to create unimorph
+- Hecne deflection of the free end is greater than produced film
+- ![alt text](imgs/sensors/image-20.png) 
+
+#### Piezoelectric Pumps
+- common in micro pumps
+- 2 silcion wafers one with etches with inlet and outlet, other etched to form membrane coated with piezoelectric material
+- Hence combination forms a pump
+![alt text](imgs/sensors/image-21.png)
+
+### Thermal Drive
+- Differential thermal expansion
+- Consumes more power but produces more force
+- Creates stress at interface, hence moevment
+- ![alt text](imgs/sensors/image-22.png)
+
+### Mechanical Structures and Key Design parameters
+![alt text](imgs/sensors/image-23.png)
+
+### Micromechanical Scaling
+- Micron size structures
+- Laws of mechancics dont necessarily apply
+- Depends on physical principle
+- Ideally microstructures should designed so that linear theories of mechanics apply
+
+#### Silicon
+- Silicon has excellent properites
+- Processed conveiently
+- Can combine to make microsensors / actuators
+- Precise reliable
+  - Youngs modulus similar to steel
+  - Brittel
+  - CAnnot deform plastically
+
+### Microhmehcanil Structures
+- Cantilever beam
+- Bridge
+- Diaphragm
+-  ![alt text](imgs/sensors/image-24.png)
+-  
+![alt text](imgs/ensors/image-25.png)
+
+![alt text](imgs/sensors/image-26.png)
+
+![alt text](imgs/sensors/image-27.png)
