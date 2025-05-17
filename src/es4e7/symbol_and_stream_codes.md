@@ -108,3 +108,125 @@ Topics:
 $$
 p_i = \frac{N_i + 1}{\sum_{i=1}^q(N_i + 1)} = \frac{N_i + 1}{\sum_{i=1}^N N_i + q}
 $$
+
+
+
+### Aritmetic Coding
+- Deals with a stream of symbols and uses a probabilistic model
+- Possible to use fixed symbol probabilities but arithmatic coding can adapt t osymbols as they arrive.
+- Encoder uses model's predictions to create a binary string, and an identical model used at the reciever for decodfing
+- ![alt text](imgs/symbol_and_stream_codes/image-5.png)
+
+#### Intervals
+- Set of numbers between lower bound and upper bound
+- Closed interval: [lower, upper] - inclusive of both bounds
+- Open interval: (lower, upper) - exclusive of both bounds
+- Half open interval: [lower, upper) - inclusive of lower, exclusive of upper
+- Therefore idea of arithmetic coding is to maintain **real interval** that represents the message encoded so far, and whose width is the probability of that message.
+
+#### Algorithm
+- Current encoder interval $[LB, UB)$
+- Interval for next input symbol $[lb,ub)$ where $ub - lb = p$ (probability of symbol to be encoded) 
+- Repeat:
+  - New encoder interval is $[LB + (UB - LB) * lb, LB + (UB - LB) * ub)$
+  - Update probabilties
+- Repeat until all symbols are encoded
+- Output any number within the interval
+
+![alt text](imgs/symbol_and_stream_codes/image-6.png)
+
+![alt text](imgs/symbol_and_stream_codes/image-7.png)
+
+- Code transmitted is binary equivalent of a number that falls in the interval (without zero, decimal point and trailing zeros)
+- To convert decminal fractional number to binary, multuply by 2 and take resulatn interger part as next binary digit before discarding
+- Need to pick shortest binary number between bounds binary representation
+- Needs to have enough bits for ideal arithmetic coder output equation
+
+
+##### Encoder Operation
+- Maintains an interval intially set to [0, 1)
+- Source symbols assocoiated with non-overlapping source intervals having widths equal to their probabilities
+- Encoder begins wiht an interval equal to the probablility of the first symbol
+- The next one is the the width of p1p2.
+- Therefore final interval is the product of all the symbols is of width:
+  
+$$
+p_1 p_2 p_3 \cdots p_N = \prod_{i=1}^N p_i
+ $$
+
+##### Ideal Arithemtic Coder Output Lenght
+$$
+l_{out} = \lceil -\lg \prod_{i=1}^N p_i \rceil = \lceil -\sum_{i=1}^N \lg p_i \rceil
+$$
+
+
+##### Arithmetic Decoding
+- Keeps track of single real number, R and must determine in which interval this falls.
+- Determine interval $[lb_n , ub_n)$ corresponding to current symbol
+- Then adjust R
+- $R_{n+1} = \frac{R_n - lb_n}{ub_n - lb_n}$
+- Where $R_0$ is the number received
+- Repeat until all symbols are decoded
+
+![alt text](imgs/symbol_and_stream_codes/image-8.png)
+
+#### Arithmetic Wihtout Known Probabilies
+- Assume EOL (!) is rare
+- Then use laplace estimator to weight the others as letters arrive
+- ![alt text](imgs/symbol_and_stream_codes/image-9.png)
+- Probabilites wont be correct and length with be at least 1 more than when the probabilites are known
+  
+
+
+## Sources with Memory
+- Presence of memoyr can be modelled bt Markov process where the current symbol $s_k$ depends on a finite number of previous symbols
+$$ 
+P(s_k) = P(X_k = s_k | X_{k-1} = s_{k-1}, X_{k-2} = s_{k-2}, \cdots, X_{k-n} = s_{k-n})
+$$
+
+
+### First Order Markov Source
+Described by:
+$$
+P(s_k) = P(X_k = s_k | X_{k-1} = s_{k-1})
+$$
+- Two state model:
+  - Made from prior probabilities (p0 and p1 - how liekly to be in the state)
+  - Transition probabilities (p00, p01, p10, p11 - how likely to go from one state to another)
+- ![alt text](imgs/symbol_and_stream_codes/image-10.png)
+- See W6 - Slide 61
+
+
+### Markov Source Entropy
+- Source consits of two states with transistion probabilies that are weighhted with their probability of occurance
+- Each sate is binary so has binary entropy $H_b(p_{00})$ and $H_b(p_{11})$
+- Overall entropy is:
+$$
+H(X) = p_0 H_b(p_{00}) + p_1 H_b(p_{11})
+$$
+
+### Assumed DMS
+- If a source is assumed to have DMS, then would be incompressible (entropy 0.999 bits per symbol)
+- But if theres clearly patterns in data
+- Then can take memory into accoutn and use huffman code to deliver compression
+
+## Dictionary Codes
+
+### Lempel-Ziv
+- Dictionary based compression
+- Maintains a list of all phrases seen so far and assosciates with pointers
+- No transmission of the dictionary as both encoder and decoder maintain directories
+- ![alt text](imgs/symbol_and_stream_codes/image-11.png)
+
+#### Algorithm
+- Input alphabet
+- Get next symbol
+- If symbol and word is in directiory, output the word
+- Else indext next and save the code pair to directory
+- 
+![alt text](imgs/symbol_and_stream_codes/image-12.png)
+
+
+#### Exmaple
+![alt text](imgs/symbol_and_stream_codes/image-13.png)
+![alt text](imgs/symbol_and_stream_codes/image-14.png)
