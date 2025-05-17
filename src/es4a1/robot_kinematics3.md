@@ -60,6 +60,7 @@ That means it falles within the range.
 2 solutions, elbow up and elbow down.
 - From FK, square and sum, do some maths, re arrange
 - Get sine and cosines, but cant just inverse sine, need to take consideration of both sides, so use arc atan.
+![alt text](imgs/robot_kinematics3/image-14.png)
   
 ![alt text](imgs/robot_kinematics3/image-7.png)
 
