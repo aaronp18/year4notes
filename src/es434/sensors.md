@@ -582,3 +582,368 @@ Classification:
 
 ### Pressure Sensor Fabrication Steps
 ![alt text](imgs/sensors/image-63.png)
+
+
+
+## Force Sensors
+- Importat quantity in many applications
+- EG: Weight machines, load cells, aerospace engines
+- Large range
+- Require environmental robustnes from vibration / overloads
+- Mecahnical interfacing (physical contact) is diffucult for touch/tactile/contacting measurements
+- Mostly fabricated from forming mebranes in silicion
+- Common method;
+  - Wet etching (KOH)
+  - Also can use surface micromachining (can have a higher precision)
+- Define membrane dimensions by using etch stops (electrochemcial, timed, boron)
+- When bulk micromachining:
+  - Accruate dimensional toelrence are essential for good manufacturing process (needs calibration)
+  - use of dopants may lead to considerable residual stresses that can cause buckling of a structure
+  - Fatigue endruance will depend on the surface roughness and hence the quaility of the ethcing process.
+- When Surface micromachining:
+  - Mechanical properties of polycrystaline silion are predominatly detemrined by grainsize
+  - Smallest physial dimension of the structure should be larger than the grainsize (so linear elasticity applies)
+
+![alt text](imgs/sensors/image-64.png)
+
+
+- Force is normalle converted into a change in leng (spring movement) or strain
+- Hookes Law: $F = k\Delta x$
+- Methods of measuring:
+  - Piezoresistive
+  - Capacttive
+  - Resonant and Surface Acoustic Wave (SAW)
+  - Less common: 
+    -  Piezoelectirc strain guage
+       -  Need to deposit piezoelectric material (which siliion is not)
+       -  ZnO, AlN possible
+       -  Small singal so need high impedance amplifier
+       -  PZT has higher coefficient but not easy to despoit
+    -  Metal strain guages - Not ideal for MEMS
+       -  Low guage factor (1.7) - small output voltage range
+       -  Small output voltage (as small change in resistance)
+       -  Small operating range
+       -  High power consumption as needs currents
+       -  Temperature coefficient high compared with straing
+       -  Therefore piezo-resistive ideal.  
+-  
+
+### Capacitive Force Sensors
+- Differential force sensor
+  - Variable cap sensor
+  - Two electrodes with small cap
+  - Ass force is applied, one increases in capacitance, the other decreases
+  - Therefore differential reading gives higher sensitivity and linearity
+  - ![alt text](imgs/sensors/image-65.png)
+- Load Cell
+  - Array of capacitive sensing elements formed from pillars
+  - Design fabricated from two silicion wafers
+  - Bottom electrode array forms capacitodes with a common top electrode
+  - Force moves pillars closer together
+  - Quite robust
+  - ![alt text](imgs/sensors/image-66.png)
+
+### Resonator
+- Highly attractive
+  - Easy frequency measurement
+  - Extremely sensitive - high Q factor
+  - Wide dynamic range
+  - Easy intergration in CMOS
+- Surface microcmaching sensors based on tuning fork
+- Based on DETF (double ended tuning fork)
+- One side fixed, other have applied force
+![alt text](imgs/sensors/image-67.png)
+
+
+### Cantilever Force Sensors - Silicon Based
+- Load deflection sensing by piezeoresitive straing sensing of cantilever beam
+- Advabtages over metal:
+  - High guage factor (+-130 compared to 2 for metal)
+- Disadvantages:
+  - High temperature dependence 
+  - Overcome by using pairs of strain guages
+- ![alt text](imgs/sensors/image-68.png)
+
+### Force Microscope
+- Need to scan microscopic surfaces
+- Called AFM (Atomic Force Microscope) or SFM (Scanning Force Microscope)
+- Vibrating or statid head
+- Use piezoresistive, piezoelectric or capactive sensors
+- ![alt text](imgs/sensors/image-69.png)
+
+#### Atomic Force Microscope
+- Measures the force between atoms of probe and ataoms of sample
+- Works on conductors and insulators! (therfore no current)
+![alt text](imgs/sensors/image-70.png)
+![alt text](imgs/sensors/image-73.png)
+
+#### Probart - Probe Array technology
+![alt text](imgs/sensors/image-71.png)
+![alt text](imgs/sensors/image-72.png)
+
+
+## Flow Microsensors
+- Many applications:
+![alt text](imgs/sensors/image-74.png)
+- Many types:
+  - Thermoresistive
+  - Thermoelectric
+  - Thermoelectronic
+  - Resonant
+- With many configurations:
+  - Hotfilm (Anenometer, heat loss)
+  - Calorimetric (thermo transfer)
+  - Time of flight (pulse)
+  
+### Thermal Flow Sensor
+- Majoruty of flow sensors
+- Electrical resistivty changes with temperature
+- Rely on abiliyt of fluid flow to cause heat transfer
+- Therefore is trandsuced into a varying electrical signal through the sensor response to flow change
+- Senosr should be thermally isolated so only heat transfer is from the flow
+- Other heat transfer pathways should be minimised (substrate, electircal leads etg - result in thermal losses, degrade snesor performance)
+- Thermal flow sensor response depenednt upon constant fluid temperature. temperature compensation must be implemented if fluid temperature drifts
+
+
+#### Anemometer (Heat loss)
+![alt text](imgs/sensors/image-75.png)
+- Hot wire / hot film serves as a heater and sensing element
+- Resistance value dependent on temperature
+- Hot wire:
+  -  Resistive wire within fluid flow
+-  Hot film:
+  -  Thin film resistive senor, element placed adjecent to the flow
+-  ![alt text](imgs/sensors/image-78.png)
+- Linear resistance relatioship to temperature
+- ![alt text](imgs/sensors/image-79.png)
+- ![alt text](imgs/sensors/image-80.png)
+- ![alt text](imgs/sensors/image-81.png)
+
+#### Calorimetric Flow Sensor
+![alt text](imgs/sensors/image-76.png)
+- require two elements
+- One heating elementm, two temperature sensors
+- Upstream sensor cooled by fluid, downstream heated from heating element
+- Amount of heat measured is proportional to flow rate
+- Calibration performed for each fluid due to different thermal properties
+- Operated as a wheatsone bridge and uses CMOS tech
+- Significantly more sensitive than aneometer
+- Thereoy:
+  - Simple equations
+  - ![alt text](imgs/sensors/image-82.png)
+  - ![alt text](imgs/sensors/image-83.png)
+- Directional thermal flow sensors
+  - Can measure flow velcoity and direction with few heaters and few sensors
+  - ![alt text](imgs/sensors/image-84.png)  
+
+#### Time of Flight Flow Sensor
+![alt text](imgs/sensors/image-77.png)
+- Transit time of a thermal pulse is tracked to extract flow rate
+- At least one heater and one downstream thermal sensor
+- Short thermal pusle transferred from heater to fluid.
+- Ideally heater is thermally isolated from substrate to elimate interference from thermal conduction effects
+- ![alt text](imgs/sensors/image-85.png)
+- Theory:
+  - Downstream thermal flow sensor detects thermal pulse
+  - Least senstive tio changes in ambient temperature as maxima are measured
+  - Can be bidirectioanl
+  - ![alt text](imgs/sensors/image-86.png) 
+
+#### Transconduction Principles
+- Thermoresistive - **resisteive** elements
+- thermoelectric - Thermal changes from **thermopiles**
+- Thermoelectronic sensing - **Diode** and **transistor** elements
+- Frequency analogue sensors - based on changes in **resonant** frequency within mechanical structures due to temperature change induced stress
+  
+
+##### Thermoresistive Microthermal flow sensors
+- Nickel resistors used due to their high TCR (temperature coefficient of resistance)
+- Cr Ni resistors over a suspended silcion nitride membrane - creates an array of flow sensors for micro gas chromatography systems
+- ![alt text](imgs/sensors/image-87.png)
+
+#### Thermoelectirc Calorimetric Flow Sensors
+![alt text](imgs/sensors/image-88.png)
+
+
+#### SOI MEMS Flow Sensors
+- Silicon on insulator (SOI) technology
+- Fastest bandwidth
+- Based on hotwire with thermodiodes or thermo couples
+- Low cost -small structures
+- By Spinout company from 2016 - Flusso LTD (serveral patents)
+- SOI CMOS, Tungsten metalisation, stress compensated membrane,e DRIE membrane
+![alt text](imgs/sensors/image-89.png)
+![alt text](imgs/sensors/image-90.png)
+
+
+
+### Pressure Difference Flow Sensors
+- Measurement of differential pressure in flowing fluiod
+- Measure presusre drop along channel (fluidic reisistnace)
+- Mass flow based on fludidic owhms law
+- Use capacitive pickup (unspirisingly)
+- Although piezoresistive / piezoelectric also used
+![alt text](imgs/sensors/image-91.png)
+- ![alt text](imgs/sensors/image-92.png)
+- Capacitive:
+  - Fabricated using bulk silicion micromaching and boron etch stops
+  - Different pressure measured by capacitve pressure sensor
+
+### resontnat Bridge Flow Microsensor
+- Based on frequnecy shift of reosnant microbrdige
+- Fabricated by front side anisotropic etch of grobve
+- Thinfilm phosphorous doped polysicilion reisitions mebedded with bridge
+- thermal excitiation and piezorresitive sensing of vibrations
+- High sensitivity - fast repsonse - good stability
+- ![alt text](imgs/sensors/image-93.png)
+- ![alt text](imgs/sensors/image-94.png)
+
+
+### Commerical Flow sensors
+- Driven by car industry
+- Originally hot wire aneometer -but poor range, fragile, cannot reverse flow
+- Changed to microversion with Pt heater on nitride membrane (150nm thick)
+- fast due to low thermal mass, can withsand pressures of over 1 bar
+- Uses air bypass from main air intake to reduce pressure
+- 1996 start
+- ![alt text](imgs/sensors/image-95.png)
+
+
+- HSG-IMIT flow sensor with polysilicon heating element and temperature snsing elements
+- Coated with Sio2 and SiNx for protection
+- Connected bty nano tubes for flow measurement in larger pipes
+- Air con systmes
+- 2015 miliosn sold
+- ![alt text](imgs/sensors/image-96.png)
+- ![alt text](imgs/sensors/image-97.png)
+
+## Chemical Microsensors
+- environmental / Air quality
+- Very large market:
+  - Health care, air quality, global warwming, food saftey, safety
+- many sources of VOCs:
+  - ![alt text](imgs/sensors/image-98.png)
+- Vocs lead to Poor Indoor Air Quality (IAQ)
+- Can lead to range of chronic adverse health effects
+- Issue with gas sensors:
+  - Non linearity - Response not proportional to concentration
+  - Slow Response - Slow to reach steady state (few seconds)
+  - Small Working range - Restricted working range
+  - Low sensitivity - Only respond to large input signals
+  - SBaseline drift - Output varies with time
+  - Ssensitivity Drift - Output varies with time (eg with temperature)
+  - Offset drifts - Offset changes with time (ageing of sensor)
+  - Interference - Sensitive to external conditions (eg humidity)
+
+### Gas Sensor Principles
+- Reaction
+- Resisitve
+- Mass Sensitivity
+- calorimetic
+- Optical
+- FET
+- ![alt text](imgs/sensors/image-99.png)
+
+Classification:
+![alt text](imgs/sensors/image-100.png)
+
+
+### Classic Electrochemical Sensors
+- Very common for toxic and other gases
+- Low poer
+- Weak temperature dependence
+- Large
+- Expensive £20 each
+- Liquid electrolyte can evaporate
+- Eletrodes can poison
+- Cannot be minaturised
+- ![alt text](imgs/sensors/image-101.png)
+
+### Optical Gase Sensors
+- Co2 and CH4
+- Uses IR source and detectorer
+- Good selectivity
+- Physical sensor
+- Large
+- Power hungry
+- Expensive
+- ![alt text](imgs/sensors/image-102.png)
+
+### Plasmonically-enchanced CMOS NDIR gas sensor
+![alt text](imgs/sensors/image-103.png)
+
+
+### Resistive Gas Sensors
+![alt text](imgs/sensors/image-104.png)
+- Polymer composite: cyrano Inc
+- Conducting polymer: Marconi PLC, osmetech PLC
+- Metal Oxide (T=400C): Figaro, FiS, Applied Sensor
+
+Metal Oxide Nano Materials:
+![alt text](imgs/sensors/image-105.png)
+
+
+### MEMS based Gas/Odour Sensor
+- Much better power efificiency
+- Very small
+- ![alt text](imgs/sensors/image-106.png)
+- ![alt text](imgs/sensors/image-108.png)
+
+### SOI CMOS Microhotplate
+- ![alt text](imgs/sensors/image-107.png)
+
+### Smart Gas Sensors
+- CMOS tech for air quality monitioring
+- Indoor Air Quality (IAQ)
+- Toxic gas detetor for Carbon Monoxide (CO)
+- alchol Breathalyser to provide ethanol levels on breath for Blood acolhol content (BAC)
+
+#### First In Phone Humidity
+- Sensiron Chips for temp and relative humidity
+- SHT21
+- Capacitvie type
+- +-2% RH +- 0.3C
+- Low power and digital I2C
+- Used in Samsung Galaxy S4
+- ![alt text](imgs/sensors/image-109.png)
+
+### Breath Anaylsis
+- Conecntration of VOCs in breth, can provide non-invasive health monitoring
+- Acetone - Metabolism + Diabetes
+- Isoprene - Chlolesterol
+- Ammonia - Liver function
+- Expensive and acurate sensors used in hospitals
+- Indirect Calorimetry
+  - Considered best for Energy expenditure (EE) assessment in clinical car
+  - Wheere volumes of oxygen consumed and carbon dioxide produced are measured
+  
+#### Breath Alchol
+- CCS801 - responds to Ethanol
+- 4 seconds required for breath anaylsis
+- Wide accuracy
+- Gives an indicator, not certified sensor
+- ![alt text](imgs/sensors/image-110.png)
+
+
+#### CO - Toxic Gas Detection
+- CO is odourless and colourless
+- CCS801 responds to CO
+- Indicator not certified
+- so "Safe / Warning / Alert"
+
+
+### AQ sensors on Robots
+- Aim for highbandwith sensors, with fast response time in harsh environments
+- To generate map in real time
+- Incorporated temperature modulation technique which uses MOX sensors dynamic repsonse to decrease the response time and remove drift
+- ![alt text](imgs/sensors/image-111.png)
+- ![alt text](imgs/sensors/image-112.png)
+- ![alt text](imgs/sensors/image-113.png)
+
+
+### Market
+- Estimated to be more than 15 billion
+- Low cost CMOS sensors
+- Algortigms implemented to compensate for stability and interference
+- BME688 combo chip does everything with added AI
+![alt text](imgs/sensors/image-114.png) 
