@@ -36,6 +36,7 @@
   - [Channel Capacity and Block Codes](es4e7/channel_capacity_and_block_codes.md)
   - [Further Codes and Code Performance](es4e7/further_codes_and_code_performance.md)
   - [Image and Video Compression](es4e7/image_and_video_compression.md)
+  - [Equations](es4e7/equations.md)
 - [ES4A1 Advanced Robotics](es4a1/es4a1.md)
   - [Kinematics 1 - Vectors & Frames](es4a1/robot_kinematics1.md)
   - [Kinematics 2 - Transformation Matrices](es4a1/robot_kinematics2.md)

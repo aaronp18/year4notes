@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Classical Cryptography](#classical-cryptography) |                                                                                     |
-| ------------------------------------------------- | ----------------------------------------------------------------------------------- |
+|---------------------------------------------------|-------------------------------------------------------------------------------------|
 | [Modular Arithmetic](#modular-arithmetic)         |                                                                                     |
 | [Data Range](#data-range)                         |                                                                                     |
 | [Cipher](#cipher)                                 | Crypotgraphic algorithm to encrypt and decrypt data                                 |
@@ -17,28 +17,41 @@
 | [Shift Cipher](#shift-cipher)                     | ERR                                                                                 |
 | [Vigenere Cipher](#vigenere-cipher)               |                                                                                     |
 
-| [Stream Cipher](#stream-cipher)                                   |     |
-| ----------------------------------------------------------------- | --- |
-| [Perfect Secrecy](#perfect-secrecy)                               |     |
-| [Recurrence](#recurrence)                                         |     |
-| [Weakness](#weakness)                                             |     |
-| [Basic structure](#basic-structure)                               | ERR |
-| [Iterated Construction](#iterated-construction)                   | ERR |
-| [Pseudo Random Function (PRF)](#pseudo-random-function-prf)       |     |
-| [Pseudo Random Permutation (PRP)](#pseudo-random-permutation-prp) |     |
-| [Invertible Design](#invertible-design)                           |     |
-| [Double DES](#double-des)                                         |     |
-| [Triple DES](#triple-des)                                         |     |
-| [Sub Bytes](#sub-bytes)                                           |     |
-| [Shift Rows](#shift-rows)                                         |     |
-| [Mix Columns](#mix-columns)                                       |     |
-| [Key Schedule (AES128)](#key-schedule-aes128)                     |     |
-| [Varietns of AES](#varietns-of-aes)                               |     |
-| [Electronic Code Book (ECB)](#electronic-code-book-ecb)           |     |
-| [Cipher Block Chaining (CBC)](#cipher-block-chaining-cbc)         |     |
-| [Cipher Feedback (CFB)](#cipher-feedback-cfb)                     |     |
-| [Output Feedback (OFB)](#output-feedback-ofb)                     |     |
-| [Counter (CTR)](#counter-ctr)                                     |     |
+| [Stream Cipher](#stream-cipher)                                                       |                                                                                     |
+|---------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| [Perfect Secrecy](#perfect-secrecy)                                                   |                                                                                     |
+| [Recurrence](#recurrence)                                                             |                                                                                     |
+| [Weakness](#weakness)                                                                 |                                                                                     |
+| [Basic structure](#basic-structure)                                                   | ERR                                                                                 |
+| [Iterated Construction](#iterated-construction)                                       | ERR                                                                                 |
+| [Pseudo Random Function (PRF)](#pseudo-random-function-prf)                           |                                                                                     |
+| [Pseudo Random Permutation (PRP)](#pseudo-random-permutation-prp)                     |                                                                                     |
+| [Invertible Design](#invertible-design)                                               |                                                                                     |
+| [Double DES](#double-des)                                                             |                                                                                     |
+| [Triple DES](#triple-des)                                                             |                                                                                     |
+| [Sub Bytes](#sub-bytes)                                                               |                                                                                     |
+| [Shift Rows](#shift-rows)                                                             |                                                                                     |
+| [Mix Columns](#mix-columns)                                                           |                                                                                     |
+| [Key Schedule (AES128)](#key-schedule-aes128)                                         |                                                                                     |
+| [Varietns of AES](#varietns-of-aes)                                                   |                                                                                     |
+| [Electronic Code Book (ECB)](#electronic-code-book-ecb)                               |                                                                                     |
+| [Cipher Block Chaining (CBC)](#cipher-block-chaining-cbc)                             |                                                                                     |
+| [Cipher Feedback (CFB)](#cipher-feedback-cfb)                                         |                                                                                     |
+| [Output Feedback (OFB)](#output-feedback-ofb)                                         |                                                                                     |
+| [Counter (CTR)](#counter-ctr)                                                         |                                                                                     |
+| [Birthday Attack on Collision Resistnance](#birthday-attack-on-collision-resistnance) |                                                                                     |
+| [Merkle-Damgard constructions:](#merkle-damgard-constructions)                        | Theorem: If teh compression is collision-resistant, then the hash function is co... |
+| [Compression Functions - Davies Meyer](#compression-functions---davies-meyer)         |                                                                                     |
+| [SHA256 - Example](#sha256---example)                                                 |                                                                                     |
+| [Hash Applications](#hash-applications)                                               |                                                                                     |
+| [Dictionary Attacks](#dictionary-attacks)                                             |                                                                                     |
+| [CBC-MAC](#cbc-mac)                                                                   | ERR                                                                                 |
+| [Hash Based MAC](#hash-based-mac)                                                     |                                                                                     |
+| [Verification Timing Attack on HMAC:](#verification-timing-attack-on-hmac)            |                                                                                     |
+| [Security](#security)                                                                 |                                                                                     |
+| [Man in the middle attack](#man-in-the-middle-attack)                                 | ERR                                                                                 |
+| [How to prevent](#how-to-prevent)                                                     |                                                                                     |
+| [Encrypted Key Exchange 1992](#encrypted-key-exchange-1992)                           |                                                                                     |
 
 </equation-table>
 

@@ -62,6 +62,16 @@ function stringValidation(title, str) {
     // Remove all dollar signs maths as it messes up the table.
     replacement_string = replacement_string.replaceAll("$", "");
 
+    // Remove all line breaks
+    replacement_string = replacement_string.split("\n")[0];
+
+    // Remove trailing \\ if it exists
+    if (replacement_string.endsWith("\\")) {
+        replacement_string = replacement_string.substring(0, replacement_string.length - 1);
+    }
+
+
+
     // let dollar_count = str.split("$").length - 1;
     // if (dollar_count % 2 != 0) {
     //     console.log(`WARNING | Unclosed $ found in equation (${title}), closing...`)

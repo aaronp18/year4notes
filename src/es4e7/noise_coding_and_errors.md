@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Noise](#noise)                                                                                 |                                                                                                                                     |
-| ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------|
 | [Zero Mean Additive Gaussian White Noise (AWGN)](#zero-mean-additive-gaussian-white-noise-awgn) | Gaussian proability distribution with                                                                                               |
 | [ercf function](#ercf-function)                                                                 | $\text{erfc}(x) \approx \frac{e^{-x^2}}{xsqrt{\pi} }$                                                                               |
 | [Error Probability](#error-probability)                                                         | $P_e = \frac{1}{2} \text{erfc}\left(\frac{d-A_0}{sqrt{2\sigma}}\right) = \frac{1}{2} \text{erfc}\left(sqrt{\frac{E_b}{N_0}}\right)$ |
@@ -11,7 +11,7 @@
 | [Calculation of Energy per Bit E_b](#calculation-of-energy-per-bit-e_b)                         | Digital communications use the ratio fo enery per bit to the ones sided Power sp...                                                 |
 
 | [Error Correction Coding](#error-correction-coding)                                       |                                                                   |
-| ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+|-------------------------------------------------------------------------------------------|-------------------------------------------------------------------|
 | [Binary Symmetric Channel (BSC)](#binary-symmetric-channel-bsc)                           | Discrete Memoryless.                                              |
 | [General Repetition Code Probabily of Error](#general-repetition-code-probabily-of-error) | $P_e(M) = \sum_{m=\frac{M+1}{2}}^{M} \binom{M}{m} p^m(1-p)^{M-m}$ |
 | [Repetition Code Performance](#repetition-code-performance)                               | See image                                                         |

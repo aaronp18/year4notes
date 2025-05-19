@@ -947,3 +947,120 @@ Metal Oxide Nano Materials:
 - Algortigms implemented to compensate for stability and interference
 - BME688 combo chip does everything with added AI
 ![alt text](imgs/sensors/image-114.png) 
+
+
+
+## BoSensors & BioMEMS
+- Microsystems / MEMS are at the size of large virus, bacterial cell and redblood cell
+- Biological sensors (biosensors) contain biological modeluces
+- Generally detect non-vollatite molecures and so work in the liquid phase (sense of taste - gustation)
+- Can detect volatile molecules (smell - olfaction)
+- BioMEMS is a growing field
+  - Biosensors, bio reactors, biopumps, biovalves, bioneedles, microfluidics, micromechanics, bio chemsitry, optics, signal processing
+  -  
+
+### Biological Molecules
+- Small molecules:
+  - Hydrocarbonates (sucrose)
+  - Lipids (cholesterol)
+  - Vitamins (A)
+  - Hormones (adrenaline)
+  - Disaccharides (sucrose, lactose, maltose)
+  - Neurotransmitters (dopamine, serotonin)
+- Biological Monomers
+  - Amino acides (alanine)
+  - Nucleotides (adenosine, guanosine, thymir, cytosize (AGTC))
+  - Monosaccharides (half of sucrose)
+- Polymers / Macromolecules
+  - Peptides, polypeptides (chain of amino acids)
+  - Proteins (enzymes, antibodies)
+  - Nucleic acids (DNA, RNA)
+  - Polysaccharides (starch, cellulose)
+  - Lignin (Plant Cells)
+
+
+### BioSensing Principles
+
+
+#### Enzyme Based Reactions
+![alt text](imgs/sensors/image-115.png)
+**Diabetes:**
+  - Common in elderly people
+  - Use blood glucose sensor
+  - Biomolecule glucose oxidase
+  - Billions sold, disposable strips
+  - Abbott et al.
+- Electrochemcial
+  - Eznymatic redox reaction
+  - Plastic strips with polymers and enzyme
+  - 2 electrode cell
+  - Millions sold
+  - ![alt text](imgs/sensors/image-117.png)
+- Now theres wearable epidermal glucose sensors
+  - Non invasive
+  - ![alt text](imgs/sensors/image-118.png) 
+
+**Pulse Oximeter**
+- Measures blood oxygen saturation
+- Based on IR absorption
+- Finger clip on
+- Smart watch 
+- Large market
+- ![alt text](imgs/sensors/image-119.png)
+
+
+#### Antibody-antigen reaction
+![alt text](imgs/sensors/image-116.png)
+- Inject antigen into host (chicken, mouse etc) to obtain antibodies
+- Large molecule 150kDa
+- Label antibody (eg anti-goat) with fluorescent dye
+- Used for biochemcial assays
+- ELISA (Enzyme Linked Immunosorbent Assay)
+  - Load up titer plate with wells for different antigens
+  - Look for fluoresent
+  - Simple method
+- Fluorescent tequinuq - UV
+ - Different levels for difference colours etc
+
+
+- DNA Biosensors
+  - ssDNA and cDNA
+  - Compare and check for polymorphism
+  - Denaturing temperature changes and can be measured
+  - ssDNA also on SAW resonantors
+  - SSDNA also on optical fibres
+  - ![alt text](imgs/sensors/image-120.png)
+- DNA BioSensors with qPCR
+  - Polymerase chain reaction - large quantities of DNA/RNA and identifiy
+-  
+
+
+#### Cell Based Sensors
+- Cytometers for:
+  - Red blood cells
+  - Platelets
+  - White blood cells
+  - Bacteria
+- Optical
+- Capacitive
+- Piezoelectirc resonators
+- Cantielver beams
+  
+Sizing Cells:
+- Electric field displacement
+- EG on urine sample
+- Red cells, white cells, bacteria
+- ![alt text](imgs/sensors/image-121.png)
+
+
+Isolation of Leukocytes from human blood
+- Lysis of red blood
+- Electrodynamic manipulation using AC fieldz
+- ![alt text](imgs/sensors/image-122.png)
+
+Cells on Cantielver Beams
+- Biological coatings on micro cantilever beams
+- Measure frequency shift
+- Requires large molelcues
+- ![alt text](imgs/sensors/image-123.png)
+

@@ -10,12 +10,11 @@
 | [Semi-analytical Roots via Polynomail](#semi-analytical-roots-via-polynomail) | Expand function f(x) in Taylor series around x_0, and rewrite expansion in p...                        |
 | [Numerical Roots via Polynomial](#numerical-roots-via-polynomial)             | Introduce grid with nodes x_i and use  curve fitting to calculate coefficients...                      |
 
-| [Bracketing Methods](#bracketing-methods)  | | 
-| ----------- | -----------  | 
-| [Incremental Search](#incremental-search) | $x_{i+1} = x_i + \Delta x \
-f(x_i)f(x_{i+1}) < 0$ | 
-| [Bisection Iteration Error Convergence](#bisection-iteration-error-convergence) | $\Delta x^{(i+1)} = \frac{1}{2}\Delta x^{(i)} = \frac{1}{2^i}(x^{(1)})$ | 
-| [Bisection Limitations](#bisection-limitations) | Initial interval of uncertainty must contain odd number of roots (otherwise has ... | 
+| [Bracketing Methods](#bracketing-methods)                                       |                                                                                     |
+|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| [Incremental Search](#incremental-search)                                       | $x_{i+1} = x_i + \Delta x $                                                         |
+| [Bisection Iteration Error Convergence](#bisection-iteration-error-convergence) | $\Delta x^{(i+1)} = \frac{1}{2}\Delta x^{(i)} = \frac{1}{2^i}(x^{(1)})$             |
+| [Bisection Limitations](#bisection-limitations)                                 | Initial interval of uncertainty must contain odd number of roots (otherwise has ... |
 
 | [Open Methods](#open-methods)                                           |                                                                                     |
 |-------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
