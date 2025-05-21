@@ -260,3 +260,135 @@
 - 
 - ![alt text](imgs/high_performance_emerging_technologies/image-25.png)
 
+
+
+## Emerging Technologies
+- Driving forces:
+  - Size, speed and power (and ofcourse cost)
+
+
+### VLSI Inductors
+- Can we make VlSI inductors?
+- Impedence vs VLSI capacitors?
+- Thickness?
+- Balance between area and parasitics 
+- ![alt text](imgs/high_performance_emerging_technologies/image-26.png)
+
+#### Solutions
+
+##### HEMT High Electron Mobility Transistor
+- Increase speed by increasing carrier mobility
+- Achieved by adding a layer of AlGaAs on pure GaAs
+- AlGaAs dopes GaAs layer
+
+##### HJBT Heterojunction Bipolar Transistor
+- Forming bipolar transistors by creting a vertical stack of doped GaAs layers
+- For higher speed devices where AlGaAs allows higher doping
+
+
+### New Materials
+- New material drive paradigm shifts
+- Eg: Graphene
+- ![alt text](imgs/high_performance_emerging_technologies/image-27.png)
+- With goals of higher electrical conductivity, higher themral conductivity, stability
+
+#### Interconnect Limit - Electromigration
+- Electromigration is the movement of metal atoms in a conductor due to the momentum transfer from conducting electrons
+- Causee problems
+- Keep current density (and crownding) J low and temp low for reliable design.
+- Add 1% Cu to Al (and 1% Pd to Cu) anse use passivation to help
+- J below 1mA/ums - Cu better than Al (intel new process0)
+- ![alt text](imgs/high_performance_emerging_technologies/image-28.png)
+
+
+#### High K Capciators
+- Goals:
+  - High K
+  - High breakdown voltage
+  - Low leakage
+  - HfO2 used now
+  - ![alt text](imgs/high_performance_emerging_technologies/image-29.png) 
+
+### Materials for Transistors
+- Goal: 
+  - High carrier mobility
+  - Low noise
+  - ![alt text](imgs/high_performance_emerging_technologies/image-30.png) 
+  - ![alt text](imgs/high_performance_emerging_technologies/image-31.png)
+  - AlN for Piezo
+  - GaAs for speed
+  - GaN for LEDs
+  - InP for photonics
+  - SiC for high voltages
+
+#### Carbon Nano Tube Technology
+- nano meter diameter
+- Bandgap depends on diameer
+- Vias (Through silicon vias use coper)
+- Interconnects
+- ![alt text](imgs/high_performance_emerging_technologies/image-32.png)
+
+#### Nano Wires
+- Ion sources/connections/gates/MEMS
+- Usually Pt or W but can use CNTs
+- ![alt text](imgs/high_performance_emerging_technologies/image-33.png)
+
+#### graphene Based Devices
+- Graphene layer
+- Passivation
+- Theremal sink
+- Conuductor (like ITO)
+- CVD growth at 1050 
+- ![alt text](imgs/high_performance_emerging_technologies/image-34.png)
+
+
+#### Optical LEDs
+- Based on GaN - low cost, low voltage, low power
+- Are everwhere
+- Oleds with organic materials
+  - Lower optical output
+  - More expnesive
+  - ![alt text](imgs/high_performance_emerging_technologies/image-35.png) 
+
+
+
+#### GaN for MEMS
+- High electron mobilty transistors (HEMT)
+- 2D electron gas devices (2DEG)
+- Film bulk acoustic resonators (FBAR)
+- ![alt text](imgs/high_performance_emerging_technologies/image-36.png)
+
+
+#### GaN for Acoustic Devices
+![alt text](imgs/high_performance_emerging_technologies/image-37.png)
+
+#### GaN on Si Mechancial MEMS
+- Attactive for high curretns and speed
+- HEMT
+- 2DEG based devices
+- Flow, pressure, thermal conductivity
+- ![alt text](imgs/high_performance_emerging_technologies/image-38.png)
+
+
+#### SiC Technlogoy
+- High bandgap material for power electronics
+- Operates at high temperatures
+- Very expensive though
+
+#### Quantum Computing with Spintronic / Organic materials
+- Spintroncis - fast memory with graphene
+- QuBits relate to spin states
+- ![alt text](imgs/high_performance_emerging_technologies/image-39.png)
+
+#### Quantum Computing with Diamond
+- Optical based qunatum computing
+- diamond based
+- ![alt text](imgs/high_performance_emerging_technologies/image-40.png)
+
+
+#### Biologically Inspired Computing
+- Sub threshold non linear -anaglogue vlsi design
+- Silicon neurons
+- Biological materials
+- bio sensors/ bioactuators/biocomputers
+- ![alt text](imgs/high_performance_emerging_technologies/image-41.png)

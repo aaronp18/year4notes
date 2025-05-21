@@ -101,7 +101,7 @@
 - ![alt text](imgs/3d_mems_and_packaging/image-11.png)
 
 ## Packaging
-- Packaging can cost more than the processing of the silicion devie
+- Packaging can cost more than the processing of the silicon device
 - Different bonding
 - 
 ![alt text](imgs/3d_mems_and_packaging/image-12.png)
