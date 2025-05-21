@@ -77,4 +77,86 @@ $$
 H(X) = -p \lg p - (1-p) \lg (1-p)
 $$
 
-Slide 35
+
+## Channel Capacity
+- Channel Capacity, C
+- Maximum achievable system mutal information amongs all the possible input distributions
+- Can be very hard to find closed form expression - but simplified channels it is possible
+$$
+C = \max_{p(x)} I(X;Y)
+$$
+
+
+### Capacity of BSC
+- $C = 1 - H_b(p)$ bits per channel use
+- Maximum value of H(Y) is when the probabilties are equal, so some quick maths and thats what we get
+
+### Binary Erasure Channel (BEC) Capacitty
+- Channel where bits either arrive correctly or get lost / erased
+- ![alt text](imgs/noisy_channels_and_channel_capacity/image-14.png)
+- $C_{BEC} = 1 - p$ bits per channel use
+- ![alt text](imgs/noisy_channels_and_channel_capacity/image-15.png)
+
+### Discrete Additive Noise Channel
+- Additive noise
+- uses Mod N artithmetic
+- C = H(Y) - H(Y|X)
+
+### Noiseless Channels
+- Even with absence of noise, there is a limit on the transmission capacity dependt on the source
+- Absence of noise, H(X|Y) = 0
+- So C = max(H(X))
+- Given by lg n bits per symbol or bits per channel use
+- Since each symbol requires one channel use
+
+
+### Channel Capacity Nyquist
+- Nyquist rate
+- States that for a baseband signal with bandwidth B, the maximum data rate is 2B
+- $f_s \gt 2B$
+
+### Hartley Rate
+- Maximum number of distinguishable pulse levels, M that can be transmitted and recieved reliable over a communications channel to the range of the input signal -A, A and the repcision with which the distinguis amplitude levels $\pm \Delta V: M = 1 + A / \Delta V$
+- So derived line rate  limit:
+- $R \leq 2B \lg M$
+- Hartely rate is the capacity of an errorless M-ary channel
+
+
+### Shannons Channel Coding Theroem
+If BER of Pe is accaptble, the max rate is:
+$R(P_e) = \frac{C}{1 +H_b(P_e)}$
+For any Pe rates greater than R(Pe) are not possible
+
+
+### Limits of BSC
+- Can rearrange
+- $H_b(P_e) = 1 - \frac{C}{R(P_e)}$
+- Represents a boundary
+- ![alt text](imgs/noisy_channels_and_channel_capacity/image-16.png)
+- When Pe is small, Hb(Pe) is small so rate is close to C
+- But if rate is too much is too large, Hb(Pe) goes to 1, so P
+- ![alt text](imgs/noisy_channels_and_channel_capacity/image-17.png)
+
+### Markov Process
+- Implies X and Z are conditionally independent given y
+- $p(x,z|y) = p(x|y)p(z|y)$  
+
+
+## Data Processing Inequality
+- Processing in the deconder cannot add new information about X
+- See from equilviland chain rules of mutal information
+- ![alt text](imgs/noisy_channels_and_channel_capacity/image-18.png)
+- $I(X;Y) = I(X;Z) + I(X;Y|Z)$
+
+- Also applies to functions
+- ![alt text](imgs/noisy_channels_and_channel_capacity/image-19.png)
+
+### Cascading Capacity
+![alt text](imgs/noisy_channels_and_channel_capacity/image-20.png)
+$C \leq min(C_1, C_2)$
+
+
+## Fano's Inequality
+- $H(X|Y) \leq H_b(P_e) + P_e \lg (|X|-1)$
+- SLide 68 week 7
+- 
