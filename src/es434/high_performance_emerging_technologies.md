@@ -150,3 +150,113 @@
 - High speed optical couplers
 - Hetrojunction HBTS - different material for base and emitter.
 ![alt text](imgs/high_performance_emerging_technologies/image-15.png)
+
+
+## Smart Devices
+- Smart sensor has both sensor and preprocessing, some with processor as well.
+- ![alt text](imgs/high_performance_emerging_technologies/image-16.png)
+- Elements:
+  - Primary sensing element
+  - Excitation control
+  - Amplification (variable gain)
+  - Analgoue filtering
+  - Data conversion
+  - Internal compensation
+    - Self-test
+    - Auto-calibration
+  - Digital information processing
+  - Digital commncation processing
+- ![alt text](imgs/high_performance_emerging_technologies/image-17.png) 
+
+### When to use Smart Sensors
+- Issues to consider
+  - Cost effective production needed in volume
+  - Reliability needed
+  - Compensation of interference from (eg: ) temperature etc
+- Low noise amplification is key
+  - Sensor signals much smaller with minaturation
+  - Have to cope with tiny capacitacnes and currents
+- Digital interface required
+  - Digital communciation commonly used
+  - I2C, SPI, CAN etc
+
+### Smart vs Intelligent
+- Intelligent sensors have some additioanl processing capability - ie to use deep learning, AI, Machine learning etc
+- ![alt text](imgs/high_performance_emerging_technologies/image-18.png)  
+
+### Smart Smell Sensing
+- A simple odour usually small, polar, light, molecule
+- Compelx odour set of 10s to 1000s of molecules
+- Smell stimulates the olfactory receptor cells
+- Sends signals to the brain
+- Brain registers smell intensity and type
+- So **E-Nose** has array of chemcial sensors with partial specificity and appropatiate recognition system - so can identify simple to complex odours.
+![alt text](imgs/high_performance_emerging_technologies/image-19.png)
+
+
+#### Urine Detection
+- Physcological Impact
+  - Affected person cannot percieve smell (or too late)
+  - Depression, loss of self-esteem
+  - Loss of independence, second  most common cause of institutionalisation
+  - Looss of individual potentials, social isolation and loneliness
+- Health Concerns
+  - Skin breakdown
+  - Urinary infections etc
+- Commerical availability:
+  - Incontinence care and products
+- Therefore need odour sensors as a warning device! Electronic nose of urine
+
+#### Small Low Cost Wearable Smart Nose
+- Metal Oxide CMOS base Odour Sensors
+- Based on CMOS micro heaters
+- Customised materials (Pd/Pt doped Sn02, WO3 CuO)
+- High sensitivity: $\lt 10ppm$
+- Low poer consumption
+- Fast response time compared to comerial sensors
+-  ![alt text](imgs/high_performance_emerging_technologies/image-20.png)
+-  ![alt text](imgs/high_performance_emerging_technologies/image-21.png)
+-  
+
+### Learning Systems
+
+#### Measurement Systems
+- Automated gas testing bench with controled gas concentrations an flow rates
+- Urnine and possible interfering gases
+- 5 concentrations of each gases and 5 repeates, so 100 learning vectors
+- ![alt text](imgs/high_performance_emerging_technologies/image-22.png)
+
+#### PreProcessing
+- Convert raw sensorresponse in voltage to resistance
+- $S = R_{gas} / R_{zero}$
+- Preprocess multivariate data in matrix with concentration, sensors response and gas type
+
+#### Artificial Neural Network Model
+- Convolutional Neural Network and Shallow MLPNN
+- Shallow mLP NN:
+  - 1 hidden layer
+  - Four inputs - gas response and humidity
+  - Four output neurons - one per class  
+- CNN
+  - Two convolution layer
+  - One max pooling layer
+  - One fully connected layer with four possible outputs
+- Result of both good accuracy
+- 100% accuracy for synthetic urine - no false positives
+
+
+#### Improving Selectivity
+- Use Silicion neurons and deep learning
+- ![alt text](imgs/high_performance_emerging_technologies/image-23.png) 
+- And use pre-concentrators
+- ![alt text](imgs/high_performance_emerging_technologies/image-24.png)
+
+### Breath testers
+- Common
+- Exciting emerging market (advanced chemical sensing)
+- To test for different VOCs
+- Lots of different types
+- Owlstone Lonstar E-nose from Cambridge company very good
+- 
+- ![alt text](imgs/high_performance_emerging_technologies/image-25.png)
+
