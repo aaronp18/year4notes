@@ -25,6 +25,7 @@
   - [Sensors](es434/sensors.md)
   - [3D MEMS and Packaging](es434/3d_mems_and_packaging.md)
   - [High Performance & Emerging Technologies](es434/high_performance_emerging_technologies.md)
+  - [Diagrams](es434/diagrams.md)
 - [ES4E7 Information Theory and Coding](es4e7/es4e7.md)
   - [Introduction and Mathematical Background](es4e7/introduction_and_mathematical_background.md)
   - [Probability and Information](es4e7/probability_and_information.md)
