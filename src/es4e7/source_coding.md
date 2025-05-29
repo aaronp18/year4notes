@@ -42,6 +42,8 @@ $$
 - Look at code tree and see that tthere are no internal nodes
 ![alt text](imgs/source_coding/image.png)
 
+$$ \bar{l} \geq H(X)$$
+
 ### Instantaneous Codes
 - Code is decodable as soon as the symbol arrives
 - No need to wait for the next symbol to see

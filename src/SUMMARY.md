@@ -33,7 +33,7 @@
   - [Source Coding](es4e7/source_coding.md)
   - [Symbol and Stream Codes](es4e7/symbol_and_stream_codes.md)
   - [Noisy Channels and Channel Capacity](es4e7/noisy_channels_and_channel_capacity.md)
-  - [Channel Capacity and Block Codes](es4e7/channel_capacity_and_block_codes.md)
+  - [Continuous Channel Capacity and Codes](es4e7/channel_capacity_and_block_codes.md)
   - [Further Codes and Code Performance](es4e7/further_codes_and_code_performance.md)
   - [Image and Video Compression](es4e7/image_and_video_compression.md)
   - [Equations](es4e7/equations.md)
