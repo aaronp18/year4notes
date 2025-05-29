@@ -124,7 +124,7 @@ $$
 
 ### Shannons Channel Coding Theroem
 If BER of Pe is accaptble, the max rate is:
-$R(P_e) = \frac{C}{1 +H_b(P_e)}$
+$R(P_e) = \frac{C}{1 - H_b(P_e)}$
 For any Pe rates greater than R(Pe) are not possible
 
 
