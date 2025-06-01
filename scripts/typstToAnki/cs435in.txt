@@ -21,7 +21,7 @@ The 3 fundamental aspects of Computer Security.
 
 #pagebreak()
 1. Authentication
-2. Non-repudiatioin
+2. Non-repudiation
 
 #pagebreak()
 
@@ -583,6 +583,432 @@ Easily parallelisable, acts as a stream cipher.
 
 #pagebreak()
 
+*What are the security requirements of hash?*
+
+#pagebreak()
+
+1. Pre-image resistance
+  - Given H(m), can't find m
+2. Second pre-image resistance
+  - Given m1, can't find a different message m2 s.t. $H("m1") = H("m2")$
+3. Collision resistance
+  - Can't find 2 different m1 and m2 s.t. $H("m1")=H("m2")$
+
+#pagebreak()
+
+*What is the Birthday attack on collision resistance?*
+
+#pagebreak()
+
+Assume a hash function with n bits output
+1. Select $2^(n/2)$ random  input messages
+2. Compute the hash of each input message
+3. Look for a collision among the output
+
+#pagebreak()
+
+*What is the implication w.r.t. security on the birthday attack?*
+
+#pagebreak()
+
+For n-bit security, the output of hash must be at least 2n bits long.
+
+#pagebreak()
+
+*What is Merkle-Damgard construction and theorem?*
+
+#pagebreak()
+
+#image("merkle.png")
+
+#pagebreak()
+
+*What are the applications of hash??*
+
+#pagebreak()
+
+- Digital Signature
+- Data integrity
+- Random Number Generator
+- Data Privacy
+- Commitment Scheme
+- Mining cryptocurrency
+
+#pagebreak()
+
+*What is a MAC?*
+
+#pagebreak()
+
+Message Authentication Code
+
+Goal is to give integrity not confidentiality
+
+#pagebreak()
+
+*What is the Attacker's power and goal in MAC?*
+
+#pagebreak()
+
+- Attacker's power: Chosen Message Attack
+  - For m1,m2,..,mq attacker is given ti \<- S(k,mi)
+- Attacker's goal: existential forgery
+  - Produce some new valid message/tag pair $(m,t) in.not {(m_1,t_1),...,(m_q,t_q)}$
+
+#pagebreak()
+
+*What are the 2 approaches to constructing MAC?*
+
+#pagebreak()
+
+1. Block Cipher
+  - Used a fixed IV and run the input through a block cipher
+
+2. Hash Function
+  - Secure using H(k\|\|m)
+
+#pagebreak()
+
+*How does HMAC work?*
+
+#pagebreak()
+
+Use secret key at front and back of the message
+
+$"HMAC"(k,m) = H(k xor "opad" || H(k xor "ipad" || m))$
+
+#image("hmac.png")
+
+#pagebreak()
+
+*How does Verification Timing attacks work?*
+
+#pagebreak()
+
+1. Query server with random tag
+2. Loop over all possible first bytes and query server. Stop when verification takes a little longer than step 1.
+3. Repeat for all tag bytes
+
+#pagebreak()
+
+*How do buffer overflows occur?*
+
+#pagebreak()
+
+When data is written beyond the space allocated for it, e.g. 10th byte in a 6-byte array.
+
+#pagebreak()
+
+*What is a programs memory stack look like?*
+
+#pagebreak()
+
+Text segment:
+- Executable code of the program
+Data Segment:
+- static/global vars
+BSS:
+- Uninitialized static/global variables
+Heap:
+- Dynamic memory allocation
+Stack:
+- Local variables defined inside functions, as well as storing data related to function calls, e.g. return address.
+
+#image("program-stack.png")
+
+#pagebreak()
+
+*What is the layout of the stack?*
+
+#pagebreak()
+
+#image("stack.png")
+
+#pagebreak()
+*How does buffer overflow attack work?*
+
+#pagebreak()
+
+#image("buffer-overflow.png")
+
+Task A: Find the offset distance between the base of the buffer and return address.
+
+Task B: Find the address to place the malicious code.
+
+#pagebreak()
+*What is hard about buffer overflow attacks, and what 2 techniques can be used to help?*
+
+#pagebreak()
+
+It is not trivial to find where to jump to the malicious code. Could take $2^64$ tried for a 64-bit machine.
+
+Technique 1: Fill NOP
+
+Does nothing so we will continually jump instructions until we reac the malicious code
+
+Technique 2: Ret addr spraying
+
+We can overfill the buffer with return addresses to point towards the malicious code. One of these return addresses will overwrite the original return address of the function.
+
+#pagebreak()
+*Countermeasures for buffer overflow attack?*
+
+#pagebreak()
+
+Developer approaches:
+- Use safer functions
+
+OS Approaches
+- ASLR (Address Space Layout Randomization)
+
+Compiler Approaches
+- Stack-Guard
+
+Hardware Approaches
+- Non-executable stack
+
+#pagebreak()
+*How does ASLR work?*
+
+#pagebreak()
+
+To randomise the start location of the stack every time code is loaded into memory. Makes it hard to predict ebp.
+
+#pagebreak()
+*How does a stack guard work?*
+
+#pagebreak()
+
+#image("stack-guard.png")
+
+#pagebreak()
+
+*What is a race condition?*
+
+#pagebreak()
+
+Happens when multiple processes access and manipulate the same data concurrently
+
+The output is dependent on the order of execution.
+
+#pagebreak()
+
+*What does TOCTTOU mean?*
+
+#pagebreak()
+
+Time-Of-Check To Time-Of-Use
+
+e.g. While mediator is checking the access rights for my_file, the user changes the file name to your_File and action to "Delete".
+
+#pagebreak()
+
+*Give an example of a Race Condition attack?*
+
+#pagebreak()
+
+Symbolic link attack. The program to check permissions will inherently have a TOCTTOU window. We have 2 scripts, one to open a file, and the other to change the file to a symbolic link to a secured file. The goal is to have the script change the file to a symbolic link after the check, but before opening the file.
+
+#pagebreak()
+
+*What is Set-UID, and how does it allow users to run privileged programs?*
+
+#pagebreak()
+
+Set-UID is implemented in many unix systems and allows a process to have 2 User IDs
+- Real UID (RUID): Identigies the real owner of process
+- Effective UID (EUID): Identifies privilege of a process
+
+Set-UID program, RUID $!=$ EUID. RUID is equal to the user's ID, but EUID is set to the owner's ID.
+
+#pagebreak()
+
+*What countermeasures are there for race condition attacks?*
+
+#pagebreak()
+
+Atomic operations: Eliminates the window between check and use.
+
+Sticky Symlink Protection: To prevent creating symbolic links.
+
+Principles of Least Privilege: To prevent the damages after the race is won by the attacker.
+
+#pagebreak()
+
+*How does sticky symlink protection work?*
+
+#pagebreak()
+
+symbolic links inside a sticky world-writable can only be followed when the owner of the symlink matches either the follower or the directory owner.
+
+
+#pagebreak()
+
+*What are cross-site requests?*
+
+#pagebreak()
+
+When a page from a website sends a HTTP request to a different website.
+#image("csrf.png")
+
+
+#pagebreak()
+
+*What is a cookie?*
+
+#pagebreak()
+
+A packet of information sent from the server to client, and then sent back to the server each time it is accessed by the client.
+
+
+#pagebreak()
+
+*What are the issues with cross-site requests?*
+
+#pagebreak()
+
+Servers can not distinguish between cross-site and same-site requests, as browser's will attack the relevant cookies. This is called CSRF (Cross-Site Request Forgery).
+
+
+#pagebreak()
+
+*Countermeasures for CSRF?*
+
+#pagebreak()
+
+Referer Header:
+- HTTP header identifying the address of the web page from where the request was generated
+- This field reveals part of browsing history, causing privacy concerns. So it isn't used.
+
+Same-Site Cookies
+- A special type of cookie that provides an attribute called `SameSite`
+- It tells browsers whether a cookie should be attached to a cross-site request or not.
+
+Secret Token
+- Server embeds a random secret value inside each web page.
+- Secret value is included with the request.
+- Pages from a different origin will not be able to access the secret value.
+
+
+#pagebreak()
+
+*What is XSS?*
+
+#pagebreak()
+
+Cross-Site Scripting.
+
+An attacker injects malicious code to the victim's browser via the target website.
+
+It is an example of a same-site attack.
+
+
+#pagebreak()
+
+*What are the 2 types of XSS attacks?*
+
+#pagebreak()
+
+Non-persistent
+- Attack is not stored on the server. and works by tricking a user to click a malicious link
+
+Persistent
+- attacker sends attack data to the server that then gets stored on the server. The website later sends the stored data to other users.
+
+
+#pagebreak()
+
+*3 damages caused by XSS?*
+
+#pagebreak()
+
+- Web defacing
+- Spoofing requests
+- Stealing information
+
+
+#pagebreak()
+
+*Countermeasures to XSS?*
+
+#pagebreak()
+
+- Filter Approach
+  - Remove code from user inputs
+  - Difficult to implement as there are many ways to embed code.
+- Encoding approach
+  - Replaces HTML markups with alternate representations
+  - e.g. &lt instead of <
+- Content Security Policy
+  - Force data and code to be separated
+  - Don't allow inline approach
+  - Only allow the link approach
+  - Can allow inline code using Nonce
+
+
+#pagebreak()
+
+*How does an SQL injection attack work?*
+
+#pagebreak()
+
+Can escape an SQL query by changing your inputs to comment out the rest of the SQL query.
+
+#image("sql-inject.png")
+
+#pagebreak()
+
+*What small alteration needs to be made when performing this attack with CURL?*
+
+#pagebreak()
+
+Need to alter the characters in the URL s.t. they are url-encoded. e.g. replace a space with \%20
+
+#pagebreak()
+
+*How can we delete a database using an sql injection?*
+
+#pagebreak()
+
+Multiple SQL statements.
+
+Does not work with MySQL database, as it has inbuilt protections to not allow multiple SQL statements to execute.
+
+
+#pagebreak()
+
+*Countermeasures for SQL Injection?*
+
+#pagebreak()
+
+- Prepared statement
+  - Allows us to separate code and data
+  - Trusted code is sent via a code channel
+  - untrusted data is sent via a data channel
+  - Database then knows the difference between code and data.
+
+#pagebreak()
+
+*What is promiscuous mode?*
+
+#pagebreak()
+
+Usually, frames that are not destined to a given NIC are discarded.
+
+When operating in promiscuous mode, NIC passes every frame received from the network.
+
+#pagebreak()
+
+*What is monitor mode?*
+
+#pagebreak()
+
+Promiscuous mode available on Wireless Networks.
+
+Wi-Fi card can capture frames on a certain frequency/channel/ Hence, you may miss getting information if you're on a different channel.
+
+#pagebreak()
+
 *How does the NIC receive a packet? What does promiscuous mode do? What is the WiFi equivalent of promiscuous mode, and what are its limitations?*
 
 #pagebreak()
@@ -892,4 +1318,633 @@ Tunnel traffic is encrypted, so firewalls can't see what is inside & can't filte
 #pagebreak()
 
 IPSec Tunnelling
-- 
+- Utilises the Internet Protocol Security proticol
+- Has a tunneling mode, where the original IP packet is encapsualted and placed into a new packet.
+
+TLS/SSL Tunneling
+- Tunneling done outside the kernel (application level)
+- Put each VPN-bound packet inside a TCP/UDP packet
+- The other end of the tunnel will extract the IP packet
+- To secure the packets, both ends will se TLS/SSL protocol on top of TCP/UDP
+
+#pagebreak()
+
+*Outline the DNS Hierarchy.*
+
+#pagebreak()
+
+#image("dns-hierarchy.png")
+
+#pagebreak()
+
+*What is the difference between Zone and Domain?*
+
+#pagebreak()
+
+A zone only contains a portion of the DNS data for a domain.
+
+When a domain is divided into subdomains, their DNS data can still be put in the same zone (but don't have to be).
+
+#pagebreak()
+
+*What are Authoritative Name Servers?*
+
+#pagebreak()
+
+Publishes information about the zone.
+
+Provides the original and definitive answers to DNS queries.
+
+Can be either a master server, or a slave server.
+
+Master server stores the master copied of all zone records whereas a slave server uses an automatic updating mechanismto maintain an identical copy of the master records.
+
+There is a Many-to-Many relationships between zones and authoritative name servers.
+
+#pagebreak()
+
+*What are the 5 different types of TLDs?*
+
+#pagebreak()
+
+- Infrastructure: .arpa
+- Generic: .com .net
+- Sponsored: .edu .gov
+- Country Code: .au .fr .de
+- Reserved TLD: .example .test .local
+
+#pagebreak()
+
+*How does SNS lookup work?*
+
+#pagebreak()
+
+1. Query root server
+  - Gives a set of servers to query instead
+2. Query given servers
+  - Given more servers
+3. Repeat step 2, until we get given IP address
+
+#pagebreak()
+
+*What is the structure of a DNS response?*
+
+#pagebreak()
+
+- Question Section: Describes the question asked
+- Answer Section: Records the answer to the question
+- Authority Section: Records that point toward authoritative nameservers
+- Additional Section: Records that are related to the query, e.g. nameserver IPs
+
+#pagebreak()
+
+*What are the 2 main DNS attacks?*
+
+#pagebreak()
+
+- DoS
+- DNS Spoofing Attacks
+
+#pagebreak()
+
+*How can DNS attacks be performed on Compromised machines?*
+
+#pagebreak()
+
+Can alter the /hosts file or change the default DNS in the resolv.conf file.
+
+#pagebreak()
+
+*Explain Local DNS Cache Poisoning Attack?*
+
+#pagebreak()
+
+Attacker intercepts a DNS query, and responds to the query pretending to be the Local DNS server.
+
+#pagebreak()
+
+*Explain challenges with remote DNS Cache Poisoning Attack?*
+
+#pagebreak()
+
+Spoofing replies is much more difficult, because they need to guess 2 random numbers used by the query packet:
+- source port number
+- Transaction ID
+
+#pagebreak()
+
+*Explain how the Kaminsky Attack works.*
+
+#pagebreak()
+
+#image("kaminsky.png")
+
+#pagebreak()
+
+*Attacks from malicious DNS Server.*
+
+#pagebreak()
+In addition to providing an IP address in the answer section of the response, DNS server can also provide information in the authority and additional sections. Attackers can use these sections to provide fraudulent information.
+
+#pagebreak()
+
+*Why can't we simply reply with fake IPs of other domains? How do we get around this?*
+
+#pagebreak()
+
+DNS protocol makes it invalid to reply with IPs of different domains to the one requested. So will get ignored.
+
+Instead, we can have our DNS Server reply with a fake hostname during reverse DNS lookups. So when a user queries our bad website IP address, we will tell them it is www.facebook.com.
+
+#pagebreak()
+
+*What is a DNS rebinding attack?*
+
+#pagebreak()
+
+Allows us to bypass same origin policy enforced by browsers.
+
+#image("dns-rebinding.png")
+
+#pagebreak()
+
+*How to protect against DNS Cache Poisoning Attacks?*
+
+#pagebreak()
+
+- Domain Name System Security Extensions (DNSSEC)
+  - All answers from DNSSEC protected zones are digitally signed.
+  - Can check the signatures to see if the response is authentic or not.
+
+#pagebreak()
+
+*3 methods of DoS attacks on DNS servers*
+
+#pagebreak()
+
+1. Root Server attack
+  - Bring down root servers
+  - Hard as they are highly distributed and most responses from TLDs are cached for 48 hours.
+  - Would need to bring down many machines for a long time to see any effect.
+2. TLD Server attack
+  - Usually easier, although TLDs such as gov, com, net have very resillient infrastructure. But some country TLDs are easier to attack.
+3. Particular domain attack
+  - target specific DNS service providers that offer services to domains you want to attack.
+  - Spam requests.
+
+#pagebreak()
+
+*Explain Merkle Puzzles*
+
+#pagebreak()
+
+Problems that can be solved with some effort e.g. symmetric cipher with 32-bit k.
+
+Alice: Prepares $2^32$ puzzles and sends them all to Bob
+
+Bob: Chooses one of the puzzles, and solves it to obtain $(x_j, m_j)$ and sends $x_j$ to Alice.
+
+Alice: Looks up puzzle with number $x_j$. Uses $m_j$ as the shared key.
+
+Alice work: n
+
+Bob Work: n
+
+Eavesdropper work: $n^2$
+
+#pagebreak()
+
+*What is a primitve root modulo p*
+
+#pagebreak()
+
+A number whose powers generate all the nonzero numbers mod p.
+
+e.g. P=7, $Z_7^{star} = {1,2,3,4,5,6}$
+
+$5^1 = 5 mod 7$
+
+$5^2 = 4 mod 7$
+
+$5^3 = 6 mod 7$
+
+$5^4 = 2 mod 7$
+
+$5^5 = 3 mod 7$
+
+$5^6 = 1 mod 7$
+
+Thus, 5 is a primitive root modulo 7.
+
+#pagebreak()
+
+*What is a discrete logarithm?*
+
+#pagebreak()
+
+Given a value $h in Z_p^{star}$ with generator g,
+
+find x s.t.
+
+$
+g^x = h (mod p)
+$
+
+#pagebreak()
+
+*How does Diffie-Hellman key exchange work?*
+
+#pagebreak()
+
+Let p be a prime, and g a primitive root modulo p
+
+Alice: selects x from [1,p-1] and calculate $A=g^x$
+
+Bob: selects y from [1,p-1] and calculate $B=g^y$
+
+send between
+
+Alice: Compute $K=H(B^x)=H(g^(x y))$
+
+Bob: Compute $K' = H(A^y) = H(g^(x y))$
+
+#pagebreak()
+
+*How hard is the Diffie-Hellman function?*
+
+#pagebreak()
+
+Best known algorithm run time is $e^O(n^(1/3))$
+
+#pagebreak()
+
+*What is the man-in-the-middle attack on DH?*
+
+#pagebreak()
+
+An attacker intercepts Alice's message, and creates their own $x in [1,p-1]$
+
+Establishes a DH connection with Bob.
+
+Also establishes the DH connection with Alice.
+
+Now is in the middle of the communication, listening to everything.
+
+#pagebreak()
+
+*How to prevent man-in-the-middle attack on DH?*
+
+#pagebreak()
+
+Add authentication! This is hard, and is an active area of research.
+
+some types include:
+1. Public key certificates
+  - SSL/TLS
+2. Password based
+
+#pagebreak()
+
+*What is information leakage?*
+
+#pagebreak()
+
+Eve captures A,b. She can narrow down the password range, using a dictionary attack.
+
+This is quite easy with DH, as if the decrypted result ends up in the range [p, 2^2048], the candidate is ruled out. Repeat until we find a value within [0,p-1].
+
+#pagebreak()
+
+*How does Public Key Encryption work?*
+
+#pagebreak()
+
+3 algorithms: G, E, D
+
+G(): randomised alg to generate a key pair (pk, sk)
+
+E(pk, m): randomised alg. that takes $m in M$ and outputs $c in C$
+
+D(sk, c): decryption alg that takes $c in C$ and outputs $m in M$ or $tack.t$
+
+Consistency: $forall ("pk", "sk") "output by" G: forall m in M D("sk", E("pk", m))=m$
+
+#pagebreak()
+
+*How does RSA work?*
+
+#pagebreak()
+
+Given 2 primes p and q, calculatinng $n=p times q$ is easy.
+
+But factorising n is hard.
+
+#pagebreak()
+
+*Fermat's little theorem?*
+
+#pagebreak()
+
+For any prime p not dividin a, we have
+
+$
+a^(p-1) = 1 mod p
+$
+
+Proof:
+- Given the set {1,2,...,p-1} we multiply it by a.
+- The 2nd set has (p-1) distinct elements in [1,p-1], hence it's a permutation of the first set. Multiplying all elements in each set, we get: $(p-1)! = (p-1)!a^(p-1) mod p$
+- Therefore, $1=a^(p-1) mod p$.
+
+#pagebreak()
+
+*Euler's theorem?*
+
+#pagebreak()
+
+- Euler's phi function: $Phi(n)$ is the number of positive integers less than n with which it has no divisor in common.
+  - e.g. $Phi(n) = (p-1)(q-1)$ if $n=p q$
+- Euler's theorem for any modulus n and any integer a, coprime to n, we have:
+  - $a^(Phi(n))=1 mod n$
+
+#pagebreak()
+
+*Extended Euclidean Algorithm?*
+
+#pagebreak()
+
+#image("eea.png")
+
+#pagebreak()
+
+*Utilising the Extended Euclidean algorithm, how can we calculate the inverse of an element??*
+
+#pagebreak()
+
+Given $a in Z_N$ and a is relatively prime to N, we can compute its inverse by substituting a and N into the Extended Euclidean Algorithm.
+
+$s times a plus t times N = "GCD"(a, N) = 1$
+
+We have $s times a = 1 mod N => a^(-1) = s$
+
+#pagebreak()
+
+*How does RSA work - in detail?*
+
+#pagebreak()
+
+Generate 2 large n-bit distinct primes p and q
+
+compute $N = p dot q$ and $phi(N) = (p-1) dot (q-1)$
+
+Choose a random integer e s.t. $"gcd"(e, phi(N)) = 1$
+
+Compute e's inverse d: $d dot e = 1 mod phi(N)$
+
+Output: $"pk" = (N,e), "sk"=(N,d)$
+
+Encrpytion: $c = m^e mod N$
+
+Decryption: $m = c^d mod N$
+
+#pagebreak()
+
+*Prove correctness of RSA?*
+
+#pagebreak()
+
+case 1: If m is relatively primte to N, i.e.e, $m in Z_N^{star}$
+  - $c^d = (m^e)^d = m^(d e) = m^(d e mod phi(N)) = m mod N$
+case 2: Else
+  - $c_d = (m^e)^d = m^(d e) = m^(d e mod (p-1)) = m mod p$
+  - $c_d = (m^e)^d = m^(d e) = m^(d e mod (q-1)) = m mod q$
+  - Hence $c^d = m mod p times q = m mod N$
+
+#pagebreak()
+
+*Meet in the middle attack on textbook RSA*
+
+#pagebreak()
+
+#image("meet-in-middle.png")
+
+#pagebreak()
+
+*Mangling ciphertexts on textbook RSA*
+
+#pagebreak()
+
+#image("mangling.png")
+
+#pagebreak()
+
+*What's the general idea behind digital signatures?*
+
+#pagebreak()
+
+Sign information by encrypting with your secret key. Given RSA is secure, people can guarantee data comes from me, if upon decrypting the data with my public key, you get the correct data.
+
+#pagebreak()
+
+*What's a no message attack?*
+
+#pagebreak()
+
+#image("no-msg.png")
+
+#pagebreak()
+
+*What's a selected message attack?*
+
+#pagebreak()
+
+1. A chooses target message m.
+2. A chooses a random message $m_1$.
+3. Sets $m_2 = m/m_1 mod N$
+4. A requests signatures $sigma_1$ and $sigma_2$ on $m_1$ and $m_2$.
+5. Result $sigma = sigma_1 dot sigma_2 mod N$ is a valid signature on m.
+
+#pagebreak()
+
+*Tamper Evident vs Tamper Resistance*
+
+#pagebreak()
+
+Tamper Evident: detectable upon tampeer
+
+Tamper resistant: robust against tamper
+
+#pagebreak()
+
+*What is a Hardware Security Module?*
+
+#pagebreak()
+
+A closed system to provide the following functions:
+- Onboard secure generation
+- Onboard secure storage
+- Use of cryptographic and sensitive data
+- Offloading application servers for crypto operations
+
+It erases all data upon detecting tampering.
+
+#pagebreak()
+
+*What is a Master key attack on HSM?*
+
+#pagebreak()
+
+Keys are often left on Programmable ROM devices. They can easily be read! Custodians used to hand keys to engineers to work on. This would give an attacker a window to read the master key.
+
+#pagebreak()
+
+*What is a Casing attack on HSM?*
+
+#pagebreak()
+
+Simply cut into the device to access the hardware. Could take the hardware and perform analysis on it.
+
+#pagebreak()
+
+*What is a Epxoy attack on HSM?*
+
+#pagebreak()
+
+Can scrape away at the epoxy
+
+Once have access to bus, can probe the bus lines as they are usually unencrypted.
+
+#pagebreak()
+
+*What is a Frozen memory attack on HSM?*
+
+#pagebreak()
+
+When in low temperature, traces of data will be retained on hardware, even if it has been "deleted".
+
+Attakers could freeze the machine before attempting to break into it.
+
+#pagebreak()
+
+*What is a Side channel attack on HSM?*
+
+#pagebreak()
+
+Monitor the RF, power, timing to deduce secret keys.
+
+#pagebreak()
+
+*What side channel information is available?*
+
+#pagebreak()
+
+- Power consumption
+- Electromagnetic radiation
+- Timings
+- Errors
+
+Can analyse
+- Power variation using Simple Power Analysis, or Differential Power Analysis.
+
+#pagebreak()
+
+*Desribe the Smart card Hardware*
+
+#pagebreak()
+
+- Has 8 contact points
+- Central Processing Unit
+  - 8 bit microcontroller
+  - 5 MHz clock
+- Cryptographic coprocessor
+  - Expediting modular calculations
+- Memory System
+  - ROM
+  - EEPROM - persistant storage - Fast reading, slow writing
+  - RAM
+
+#pagebreak()
+
+*Desribe the Smart card communcation pattern*
+
+#pagebreak()
+
+- Master-slave model
+- A smart card always plays the passive slave
+
+#pagebreak()
+
+*What is the Cambridge No-PIN attack?*
+
+#pagebreak()
+
+#image("no-pin.png")
+
+#pagebreak()
+
+*What is a security API?*
+
+#pagebreak()
+
+An application programming interface that uses cryptography to enforce a security policy on the interactions between 2 entities.
+
+#pagebreak()
+
+*What are the aims of HSM?*
+
+#pagebreak()
+
+- Isolate the defined code which is security relevant and to physically separate it into a device not under control of the system adminsitrator
+- To minimise the amount of security relevant code and to keep the rules governing its use as simple as possible, so that it would be easier to avoid bugs.
+
+#pagebreak()
+
+*What is the unknown pin attack?*
+
+#pagebreak()
+
+The magnetic stripe on a card contains your account number and your pin. It is encrypted and only an ATM can read the message. However, you can copy your PIN onto a different card. Then Your pin will work for that card.
+
+#pagebreak()
+
+*What is the PIN offset attack?*
+
+#pagebreak()
+
+#image("pin-offset.png")
+
+#pagebreak()
+
+*What is the decimilisation table attack?*
+
+#pagebreak()
+
+- need to convert hex to decimal to create a PIN
+- Decimilisation table is not fixed
+- An insider attacker can exploit this flaw to find out any banks customer's PIN in 15 attempts rather than 10000.
+- Can use a dummy decimilsation table e.g. 0100000000000000
+  - A trial PIN of 0000 will confirm the default PIN doesn't contain the number 1.
+
+#pagebreak()
+
+*What is the XOR-To-Null attack?*
+
+#pagebreak()
+
+You are an engineer and have access to a VSM (Visa Security Module). The goal of the VSM is to allow multiple "admins" to provide keys to ensure customers pins are secure.
+
+You can use the VSM API to send 2 of the same key, that when XORd gives 0.
+
+Can now pass in an encrypted PIN verification key, and it will return the PIN encrypted with key 0.
+
+#pagebreak()
+
+*What is the Meet-in-the-Middle attack in API Security?*
+
+#pagebreak()
+
+An insider attacker just needs to break 1 key of a VSM, and can then use HSM API to crack others.
+
+He can generate $2^16$ keys using the HSM, go home and exhaustively search through the keys calculating check values, until we find a match.
+
+This should take around a week!

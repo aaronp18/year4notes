@@ -1,475 +1,764 @@
-"What are most HPC machines";"Collection of many smaller machines"
-"Moore's Law";"For a given chip size, the number of components would double every year.
+"Define vulnerability, threat, and countermeasure";"Vulnerability: a weakness in a system that could be exploited to cause harm.
 
-Revised to doubling every 2 years."
-"Amdahl's Law";"$S = 1/((1-p) + p/n)$
+Threat: Set of circumstances that has the potential to cause loss or harm.
 
-Shows the relation between serial portions and parallel portions in a program."
-"What are the 4 main 'stream' paradigms? and explain them.";"- SISD
-  - To improve these processor need to: increase clock speed, decrease transistor size, or increase complexity
-  - Very Expensive
-- SIMD
-  - One instruction is applied to multiple pieces fo data in the same clock cycle
-  - Common implementations are SSE or AVX
-  - Also seen in GPU computing
-- MISD
-  - One piece of data is operated upon by multiple instructions within the same clock cycle.
-  - Not often used in HPC
-- MIMD
-  - Multiple instructions can be applied to multiple pieces of data in the same clock cycle.
-  - Commonly used in HPC"
-"What are the 4 levels of parallelism?";"1. Instruction
-  - Pipelining
-  - Vectorisation
-2. Thread
-  - OpenMP
-3. Process
-  - MPI
-4. Job
-  - Independent codes
-  - Queue-based clusters"
-"What are the main ways we can make a super computer faster?";"Improve computer Architecture
+Countermeasure: prevents threats from exercising vulnerabilities."
+"What is the CIA triad?";"Confidentiality, Availability, Integrity.
 
-Improve interconnects between compute nodes
+The 3 fundamental aspects of Computer Security."
+"Give 2 non-CIA security requirements";"1. Authentication
+2. Non-repudiation"
+"What is the weakest link property?";"The overall strength of a security system is the strength of its weakest link."
+"What is a 2-time pad attack?";"If using an XOR operation on a 'one-time pad' over 2 different messages. You get the following results
 
-Improve compiler optimisations
+$M_1 xor K = C_1$
 
-Improve the algorithm used
+$M_2 xor K = C_2$
 
-Allow for multiple jobs and resources to be used at the same time"
-"How can computer architecture change to improve performance?";"Increase clock speed
+It is the case that $C_1 xor C_2 = M_1 xor M_2$ which you can then break into based on language redundancies."
+"What is phishing?";"Is when an attacker attempts to 'lure' a user to give them private information willingly. 
 
-Smaller/more transistors
+Usually done via emails or messages asking for personal information."
+"What is a spoof site, and how can you recognise one?";"A spoof site is a fake site that aims to imitate a real site. The goal is to convince users they are on the real site so they provide private personal information.
 
-More cores
+Usually there are issues on the page such as:
+- Don't use SSL
+- Inconsistencies
+- Grammatical Errors
+- Odd URLs"
+"Give 3 ways you can disguise a url?";"Typejacking - using similar (but not the same) unicode characters
 
-Multiple processors.
+Using IP Address
 
-Faster interconnect between cores, cache, and main memory.
+Have the real site be a substring in the url."
+"How can you defend against phishing attacks?";"Anti-spam software
 
-Use of GPUs"
-"Common interconnect types in HPC";"100 Gigabit Ethernet
-- New
-- Fibre optics
+Security plugins
 
-Infiniband
-- 80GB/s
-- Older and more common
-- Fibre optics"
-"Common Networking paradigms";"#image('network-topologies.png')"
-"There is useful information on compilers?";"I promise"
-"How can algorithms be designed to exploit HPC compute?";"Ensure loops have no dependencies
+Trusted Path (Windows)
 
-Design so loops can be run simultaneously
+Two-factor authentication"
+"What is Smishing?";"SMS + phishing"
+"What is CAPTCHA?";"Completely Automated Public Turing Test to Tell Computers and Humans Apart.
 
-Sometimes it may not be possible."
-"What are the 3 main loop dependencies?";"- Flow dependency
-  - a=x+y b=a+c
-- Anti-dependency
-  - b=a+c a=x+y
-- Output dependency
-  - a=2 x=a+1 a=5"
-"Explain what control dependencies are?";"Conditional branching statements"
-"Discuss 2 options for workload management in HPC";"SLURM
-- very common
-- Open source
-- allocate jobs to queue and when resources are free it runs
-- can define limits and priority to queues
+The goal is to determine wheteher a user is human or not."
+"Give an example of an attack on CAPTCHA? and what is the CAPTCHA 'sweet spot'";"An attack on CAPTCHA is when each character always had the same number of pixels. This meant you could encode a character look up table.
 
-Portable Batch System (PBS)
-- proprietary
-- OpenPBS is an opensource version
-- Has more control over how the queue is managed
-- More difficult for newer users"
-"What is a thread?";"An execution context for a processor
+Protocol Attack:
+ - Man in the middle
+ - Outsourcing
 
-Not a physical thing!!!
+A sweet spot is a term to reference the idea difficulty of a Captcha to distinguish humans from computers."
+"How is reCAPTCHA different to CAPTCHA?";"reCAPTCHA gives site admins the flexiblity to decide whether a user is given a CAPTCHA test, where as CAPTCHA is the test itself."
+"Define:
 
-Limited to a particular NUMA region"
-"Explain a way to fix control dependencies";"Remove branches and instead create a mask that can be applied to select the correct side of the condition."
-"Give 3 ways in which you can assist the compiler in optimising code";"Add flags to the code
+ - Cipher
 
-Use libraries such as OpenMP
+ - Key
 
-Use specific compiler flags such as -O3"
-"Explain synchronisation with respect to threads and global variables";"When threads need to access global variables they need to make sure the data isn't altered and all other threads have the same data.
+ - Keyspace";"- Cipher: a cryptographic algorithm to perform encryption and decryption
+- Key: Used for encryption and decryption
+- Keyspace: the range of the key"
+"What are the 4 general types of attack on cryptography schemes?";"1. Ciphertext-only
+2. Known-plaintext
+3. Chosen-plaintext
+4. Chosen-ciphertext"
+"Explain confusion and diffusion";"- confusion: Obsecures relationship between plaintext and ciphertext
+- diffusion: Dissipates redundancy of plaintext by spreading it over ciphertext."
+"What is a substitution cipher? And what is it's formal definition";"A cipher that replaces a refernce of 1 character with another via a mapping.
 
-Utilise Mutex locks to stop threads from accessing the data."
-"Give 3 main problems with respect to synchronisation in multithreaded applications";"Race Conditions
+e.g. Monoalphabetic cipher, polyalphabetic cipher.
 
-Deadlocks
+Let $P=C=Z_26$. $K$ consists of all possible permutations of the 26 symbols. For each permutation $pi in K$, define
 
-Starvation"
-"What is the difference between Multithreading and Multiprocessing?";"Process records running state, a thread is just concerned with the memory stack
+$e_pi (x) = pi(x) mod 26$
 
-Threads exist within a process
+$d_pi (y) = pi^(-1) (x) mod 26$
 
-Threads switch faster than processes
+keyspace = 26!"
+"What is the formal definition of a shift cipher?";"Let $P = C = K = Z_26$ For $0<=K<=25$ define
 
-Threads can hold all the time, starve other threads."
-"What is superthreading?";"Each clock cycle contains only one threads instructions
+$e_k(x) = (x+K) mod 26$
 
-Switch between threads each cycle"
-"What is hyperthreading?";"Each clock cycle can contain multiple threads instructions.
+$d_k(y) = (y - K) mod 26$"
+"Why is a shift cipher no good?";"Keyspace is only 26. Easy to brute force."
+"Why is a substitution cipher no good?";"Can analyse frequency of characters to gain information between the ciphertext and plain text."
+"What is a vigenere cipher?";"A polyalphabetic cipher based on the idea of combining multiple caeser ciphers.
 
-Often found in modern processors."
-"What is OpenMP? And what thread model does it utilise";"A pragma based multithreading library available in C, C++ and Fortran.
+e.g.
 
-Uses the fork-join model."
-"Give the basics on how to parellelise a for loop with OpenMP";"\#pragma omp parallel for"
-"What are private variables? And what are the 3 ways of defining them in OpenMP";"variables that are local to that thread
+K = 1 2 3 1 2 3 1 2 3
 
-- private: not given an initial value
-- firstprivate: initial variable is set to the value of the variable
-- lastprivate: variables value is set to the value in the primary thread."
-"What are schedules and what are the 3 main types used?";"Schedules specify how the work is split between threads
+M = B E R E A D Y O K
 
-- static: workload split evenly between threads before compute
-- dynamic: workload is split into equally sized chunks, threads request chunks when required
-- guided: same as dynamic, but successive chunks get smaller"
-"How can you synchronise OpenMP programs";"\#pragma omp critical
-- Higher overhead, can block multi-line statements
-\#pragma omp atomic
-- Lower overhead"
-"What is a reduction?";"Allows for some simple function to be applied across multiple threads in parallel, e.g. sum, max, etc.
+c = C G U F C G Z Q N"
+"How do you break a vigenere cipher?";"1. Find key length
+Use Kasiski test.
 
-\#pragma omp parallel for reduction(+:sharedvariable)"
-"How can I get the number of threads in a program?
-How can I get the current thread number?
-How can I set the number of threads in a program?
-How can I get a thread safe time?";"omp_get_num_threads()
+Search for identical segments and count the number of positions apart. Find common divisors.
 
-omp_get_thread_num()
+Or use index of coincidence.
 
-omp_set_num_threads(int)
+$I_c (x) = (sum_(i = 0)^25mat(f_i2))/mat(n2) = (sum_(i = 0)^25f_i(f_i - 1))/n(n-1) approx sum_(i=0)^25 p_i^2$
 
-omp_get_wtime()"
-"What does OMP_NUM_THREADS, OMP_SCHEDULE, and OMP_PROC_BIND do?";"They are all environment variables
-1. set the number of threads available to a program
-2. Sets the default schedule
-3. Controls if and how threads can move between cores."
-"What are the 2 main things to look for in performance analysis?";"- CPU performance
-- Memory Bandwidth
-- Communication Bandwidth"
-"Give 2 examples of performance analysis tools";"gprof
+In English text this value is usually 0.065. So can iterate through keylengths and separate text into groups until all groups have roughly 0.065 index of coincidence.
 
-perf"
-"What's MPI and why is it needed";"A library for message passing between processors.
+2. Find rotation values
 
-Supercomputers consist of many processors connected in a large network, they don't share RAM/Cache, so message passing is required to share data."
-"What's the basic skeleton for MPI initialisation and finalisation?";"```C
-int world_size, rank
-MPI_Init(Null, Null)
-MPI_Comm_size(MPI_COMM_WORLD, &world_size)
-MPI_COMM_RANK(MPI_COMM_WORLD, &rank)
-...
-MPI_FINALIZE()
-```"
-"What is MPI_COMM_WORLD?";"the default communicator created by MPI_Init.
+Once you have the keylength you can brute force through all possible keys in $26^('key length')$ iterations."
+"What is a one-time pad?";"A 'perfect' cryptography scheme where $c_i = k_i xor m_i forall i in 1,2,3...$ 
 
-We can create our own communicators if we would like."
-"How would you send a message in MPI?";"```C
-MPI_Send(
-  void data,
-  int count,
-  MPI_Datatype datatype,
-  int destination,
-  int tag,
-  MPI_Comm communicator
-)
-```"
-"How would you recv a message in MPI?";"```C
-MPI_Send(
-  void data,
-  int count,
-  MPI_Datatype datatype,
-  int source,
-  int tag,
-  MPI_Comm communicator,
-  MPI_Status status
-)
-```"
-"What's the main issue with MPI_Recv and MPI_Send? What is there to fix this?";"They are both blocking functions.
+It is impractical as you would need an infinitely long key."
+"Bayes' theorem";"$p(E_1 | E_2) = (P(E_1)P(E_2 | E_1))/P(E_2)$"
+"Define perfect secrecy";"A cryptosystem has perfect secrecy if
 
-There exists non-blocking version of each: MPI_Isend, MPI_Irecv"
-"What are the communication modes in MPI?";"- Buffered: send instructions can start at any point and may complete before a corresponding receive instruction is executed.
-- Synchronous: Send instructions can start at any point, but can only complete successfully when a receive instruction is executed.
-- Ready: Send can only start if the receive has been executed."
-"What MPI function do you use for 1-to-all communication? and give the function signature.";"`int MPI_Bcast(void data, int count, MPI_Datatype datatype, int root, MPI_Comm comm)`"
-"What MPI function do you use for data scattering? and give the function signature.";"`int MPI_Scatter(const void sendbuf, int sendcount, MPI_Datatype sendtype, vod recvbuf, int recvcount, MPI_Datatype recvtype, int roo, MPI_Comm comm)`"
-"What MPI function do you use for data gathering? and give the function signature.";"`int MPI_Gather(const void sendbuf, int sendcound, MPI_Datatype sendtype, void recvbuf, int reccount, MPI_Datatype recvtype, int roo, MPI_Comm comm)`"
-"What do All\_\_ communicators do?";"Gathers and Scatters. 2 main types
+$p(m|c) = p(m) forall m in M, c in C$"
+"How can we make OTP practical?";"Stream Ciphers.
 
-`MPI_Allgather` - gather than broadcast
+Basic idea is to use a shorter key to generate a really long key."
+"Explain Synchronous stream ciphers";"Construct the key stream from the key only.
 
-`MPI_Alltoall` - an Allgather but different ranks receive different data"
-"What are reductions? and how do we do one in MPI?";"Apply an operations over multiple ranks.
+Can use a recurrence algorithm to construct the cipher e.g.:
 
-`int MPI_Reduce(const void sendbuf, void recvbuff, int count, MPI_Datatype, datatype, MPI_Op op, int root, MPI_Comm comm)`"
-"What are available Operators for reducing in MPI?";"- MPI_MAX
-- MPI_MIN
-- MPI_SUM
-- MPI_PROD
-- MPI_LAND
-- MPI_BAND
-- MPI_LOR
-- MPI_BOR
-- MPI_LXOR
-- MPI_BXOR
-- MPI_MAXLOC
-- MPI_MINLOC"
-"How do you broadcast reductions?";"`MPI_Allreduce`"
-"What is performance portability?";"'A measurement of an application's performance efficiency for a given problem that can be executed correctly on all platforms in a given set.'
+$k_(i+m) = sum_(j=0)^(m-1)c_j k_(i+j) mod 2$"
+"What's the issue with a synchronous stream cipher?";"After a period, the key will repeat."
+"How is a synchronous stream cipher implemented in hardware?";"Using a Lienar Feedback Shift Register (LFSR)
+
+#image('lfsr.png')"
+"Give 3 attacks on stream ciphers";"two-time pad attack
+
+No Integrity
+- m = 'Transfer £100 to Alice'
+- c' = $c xor 'Alice' xor 'Eve'$
+- c = $K xor 'Alice'$
+- so c' = $K xor 'Eve'$
+
+Algorithmic weakness e.g. Content Scramble System for MPEG-2"
+"How was Content Scramble System (CSS) broken?";"1. Try all possible 17-bit LFSR to get 20 bytes output
+2. Subtract from the first 20 bytes of stream output
+3. If consistent with 25-bit LFSR, found the key!"
+"What is Iterated Key Construction in a Block Cipher";"Take a key K, and break into n keys via a scheduling algorithm. Use each $k_i$ to encrypt successive blocks of plaintext."
+"What is a Pseudo Random Function? and what is a Pseudo Random Permutation?";"PRF: 
+
+$F: K times X -> Y$
+
+s.t. Exists 'efficient' algorithm to evaluate $F(k, x)$
+
+PRP:
+
+$E: K times X -> X$
+
+s.t.
+1. Exists 'efficient' deterministic algorithm to evaluate $E(k, x)$
+2. The function $E(k,.)$ is one-to-one
+3. Exists 'efficient' inversion algorithm $D(k,.)$"
+"When is a PRP equal to a PRF?";"1. X = Y
+2. It is invertible"
+"What is a feistel network?";"```
+For i = 0,1,...,n-1
+  L_i_1 = R_i
+  R_i_1 = L_i xor F(k_i, R_i)
+End
+```
+
+Should not swap R and L in last layer so it's easier to invert."
+"Explain the steps of the F function in a Feistel network?";"1. The input (32 bits) is expanded to 48 bits and then XOR'd with the key k.
+2. S-boxes
+  - 48 bits are split into 8 6-bits, which then go through an S-box to become 8 4-bits
+  - #image('s-box.png')
+3. P-box
+  - (statically) randomly changes the output of the S-boxes."
+"What to keep in mind when choosing S and P boxes?";"Should not be random.
+
+Choose boxes s.t.
+- No output bit should be close to a linear function of the input bits.
+- S-boxes area 4-to-1 mapping."
+"Why is double encryption DES not much more secure than DES?";"It is susceptible to a Meet in the Middle Attack.
+
+If an attacker knows a pair of ciphertext and plaintext. They can attempt to encrypt the plaintext with all $2^56$ keys and decrypt the ciphertext with all $2^56$ keys. Can then look for a match.
+
+Although the key is 112 bits, it only had 57-bits of entropy."
+"What is a better alternative to Double DES?";"Triple DES - 168 bit key size = 112 bit security."
+"What is the fundamental difference between AES and DES";"DES = Feistel
+
+AES = Substitution-Permutation"
+"Overview of AES";"#image('aes-overview.png')"
+"What are the 3 main steps in each round of Substitution-Permutation";"1. SubBytes
+ - A mapping from input bytes to output bytes
+ - input is an element of a finite field $G F(2^8)$
+ - Compute the inverse
+ - For i = 0, 1, .., 7
+  
+ $quad quad$do $b_i = (a_i + a_i_4 + a_i_5 + a_i_6 + a_i_y + c_i) mod 2$
+
+2. ShiftRows
+  - #image('shift-rows.png')
+
+3. MixColumns
+  - Each byte in a column is replaced by 2 times that byte, plus 3 times the next bytem plus the byte that comes next, plus the byte that follows. (obviously, duh)."
+"How does AES key scheduling work?";"Expanding the 16 byte key eleven times to 176 bytes (or 44 words).
+
+#image('AES-Key-Scheduling.png')"
+"What are the 5 Modes of operation for AES covered in this module?";"- Electronic Code Book
+- Cipher Block Chaining
+- Cipher Feedback
+- Output Feedback
+- Counter"
+"Explain Electronic Codebook";"Each plaintext block is encrypted independently to generate ciphertext.
+
+Can cause data leakage by identifying patterns between blocks."
+"Explain Cipher block chaining";"The input to each encryption block is:
+ - previous blocks ciphertext (or initialisation vector) xor plaintext
+ - key
+
+Input is padded so the entire input is a multiple of 16 bytes.
+
+Encryption can then not be parallelised.
+
+Can recover from losing a whole block, but not a single byte."
+"How does PKCS7 Padding work?";"The value of each byte added, is the total number of pad bytes used.
+
+e.g. if 4 bytes are padded, the padding looks like: 04040404"
+"What is the padding oracle attack?";"If a server errors if the padding is incorrect, an attacker can use this information to figure out the plaintext.
+
+Can cycle through XORing a random R to the penultimate block and feeding the input to the server. cycle the final byte $r_15$ until the server accepts. We know that $d_15 xor r_15 = 01$, and so $d_15 = 01 xor r_15$. We can then use the IV/original ciphertext to calculate $p_15 = d_15 xor 'iv'_15$. "
+"What is cipher feedback mode?";"Similar to CBC, but we encrypt before xoring with plaintext.
+
+#image('cipher-feedback.png')"
+"What is output feedback mode?";"Similar to CFB, but we chain the output of encryption, not the XOR of encryption and plaintext.
+
+This is essentially a stream cipher."
+"What is counter mode?";"The input to each encryption is a counter, that was randomly initialised. The output is then XOR'd with the plaintext.
+
+Easily parallelisable, acts as a stream cipher."
+"What are the security requirements of hash?";"1. Pre-image resistance
+  - Given H(m), can't find m
+2. Second pre-image resistance
+  - Given m1, can't find a different message m2 s.t. $H('m1') = H('m2')$
+3. Collision resistance
+  - Can't find 2 different m1 and m2 s.t. $H('m1')=H('m2')$"
+"What is the Birthday attack on collision resistance?";"Assume a hash function with n bits output
+1. Select $2^(n/2)$ random  input messages
+2. Compute the hash of each input message
+3. Look for a collision among the output"
+"What is the implication w.r.t. security on the birthday attack?";"For n-bit security, the output of hash must be at least 2n bits long."
+"What is Merkle-Damgard construction and theorem?";"#image('merkle.png')"
+"What are the applications of hash??";"- Digital Signature
+- Data integrity
+- Random Number Generator
+- Data Privacy
+- Commitment Scheme
+- Mining cryptocurrency"
+"What is a MAC?";"Message Authentication Code
+
+Goal is to give integrity not confidentiality"
+"What is the Attacker's power and goal in MAC?";"- Attacker's power: Chosen Message Attack
+  - For m1,m2,..,mq attacker is given ti \<- S(k,mi)
+- Attacker's goal: existential forgery
+  - Produce some new valid message/tag pair $(m,t) in.not {(m_1,t_1),...,(m_q,t_q)}$"
+"What are the 2 approaches to constructing MAC?";"1. Block Cipher
+  - Used a fixed IV and run the input through a block cipher
+
+2. Hash Function
+  - Secure using H(k\|\|m)"
+"How does HMAC work?";"Use secret key at front and back of the message
+
+$'HMAC'(k,m) = H(k xor 'opad' || H(k xor 'ipad' || m))$
+
+#image('hmac.png')"
+"How does Verification Timing attacks work?";"1. Query server with random tag
+2. Loop over all possible first bytes and query server. Stop when verification takes a little longer than step 1.
+3. Repeat for all tag bytes"
+"How do buffer overflows occur?";"When data is written beyond the space allocated for it, e.g. 10th byte in a 6-byte array."
+"What is a programs memory stack look like?";"Text segment:
+- Executable code of the program
+Data Segment:
+- static/global vars
+BSS:
+- Uninitialized static/global variables
+Heap:
+- Dynamic memory allocation
+Stack:
+- Local variables defined inside functions, as well as storing data related to function calls, e.g. return address.
+
+#image('program-stack.png')"
+"What is the layout of the stack?";"#image('stack.png')"
+"How does buffer overflow attack work?";"#image('buffer-overflow.png')
+
+Task A: Find the offset distance between the base of the buffer and return address.
+
+Task B: Find the address to place the malicious code."
+"What is hard about buffer overflow attacks, and what 2 techniques can be used to help?";"It is not trivial to find where to jump to the malicious code. Could take $2^64$ tried for a 64-bit machine.
+
+Technique 1: Fill NOP
+
+Does nothing so we will continually jump instructions until we reac the malicious code
+
+Technique 2: Ret addr spraying
+
+We can overfill the buffer with return addresses to point towards the malicious code. One of these return addresses will overwrite the original return address of the function."
+"Countermeasures for buffer overflow attack?";"Developer approaches:
+- Use safer functions
+
+OS Approaches
+- ASLR (Address Space Layout Randomization)
+
+Compiler Approaches
+- Stack-Guard
+
+Hardware Approaches
+- Non-executable stack"
+"How does ASLR work?";"To randomise the start location of the stack every time code is loaded into memory. Makes it hard to predict ebp."
+"How does a stack guard work?";"#image('stack-guard.png')"
+"What is a race condition?";"Happens when multiple processes access and manipulate the same data concurrently
+
+The output is dependent on the order of execution."
+"What does TOCTTOU mean?";"Time-Of-Check To Time-Of-Use
+
+e.g. While mediator is checking the access rights for my_file, the user changes the file name to your_File and action to 'Delete'."
+"Give an example of a Race Condition attack?";"Symbolic link attack. The program to check permissions will inherently have a TOCTTOU window. We have 2 scripts, one to open a file, and the other to change the file to a symbolic link to a secured file. The goal is to have the script change the file to a symbolic link after the check, but before opening the file."
+"What is Set-UID, and how does it allow users to run privileged programs?";"Set-UID is implemented in many unix systems and allows a process to have 2 User IDs
+- Real UID (RUID): Identigies the real owner of process
+- Effective UID (EUID): Identifies privilege of a process
+
+Set-UID program, RUID $!=$ EUID. RUID is equal to the user's ID, but EUID is set to the owner's ID."
+"What countermeasures are there for race condition attacks?";"Atomic operations: Eliminates the window between check and use.
+
+Sticky Symlink Protection: To prevent creating symbolic links.
+
+Principles of Least Privilege: To prevent the damages after the race is won by the attacker."
+"How does sticky symlink protection work?";"symbolic links inside a sticky world-writable can only be followed when the owner of the symlink matches either the follower or the directory owner."
+"What are cross-site requests?";"When a page from a website sends a HTTP request to a different website.
+#image('csrf.png')"
+"What is a cookie?";"A packet of information sent from the server to client, and then sent back to the server each time it is accessed by the client."
+"What are the issues with cross-site requests?";"Servers can not distinguish between cross-site and same-site requests, as browser's will attack the relevant cookies. This is called CSRF (Cross-Site Request Forgery)."
+"Countermeasures for CSRF?";"Referer Header:
+- HTTP header identifying the address of the web page from where the request was generated
+- This field reveals part of browsing history, causing privacy concerns. So it isn't used.
+
+Same-Site Cookies
+- A special type of cookie that provides an attribute called `SameSite`
+- It tells browsers whether a cookie should be attached to a cross-site request or not.
+
+Secret Token
+- Server embeds a random secret value inside each web page.
+- Secret value is included with the request.
+- Pages from a different origin will not be able to access the secret value."
+"What is XSS?";"Cross-Site Scripting.
+
+An attacker injects malicious code to the victim's browser via the target website.
+
+It is an example of a same-site attack."
+"What are the 2 types of XSS attacks?";"Non-persistent
+- Attack is not stored on the server. and works by tricking a user to click a malicious link
+
+Persistent
+- attacker sends attack data to the server that then gets stored on the server. The website later sends the stored data to other users."
+"3 damages caused by XSS?";"- Web defacing
+- Spoofing requests
+- Stealing information"
+"Countermeasures to XSS?";"- Filter Approach
+  - Remove code from user inputs
+  - Difficult to implement as there are many ways to embed code.
+- Encoding approach
+  - Replaces HTML markups with alternate representations
+  - e.g. &lt instead of <
+- Content Security Policy
+  - Force data and code to be separated
+  - Don't allow inline approach
+  - Only allow the link approach
+  - Can allow inline code using Nonce"
+"How does an SQL injection attack work?";"Can escape an SQL query by changing your inputs to comment out the rest of the SQL query.
+
+#image('sql-inject.png')"
+"What small alteration needs to be made when performing this attack with CURL?";"Need to alter the characters in the URL s.t. they are url-encoded. e.g. replace a space with \%20"
+"How can we delete a database using an sql injection?";"Multiple SQL statements.
+
+Does not work with MySQL database, as it has inbuilt protections to not allow multiple SQL statements to execute."
+"Countermeasures for SQL Injection?";"- Prepared statement
+  - Allows us to separate code and data
+  - Trusted code is sent via a code channel
+  - untrusted data is sent via a data channel
+  - Database then knows the difference between code and data."
+"What is promiscuous mode?";"Usually, frames that are not destined to a given NIC are discarded.
+
+When operating in promiscuous mode, NIC passes every frame received from the network."
+"What is monitor mode?";"Promiscuous mode available on Wireless Networks.
+
+Wi-Fi card can capture frames on a certain frequency/channel/ Hence, you may miss getting information if you're on a different channel."
+"How does the NIC receive a packet? What does promiscuous mode do? What is the WiFi equivalent of promiscuous mode, and what are its limitations?";"NIC hears all frames on a wire, when it finds a packet addressed to it (by comparing MAC addresses), the frame is copied into a buffer and dispatched to user programs. Frames that aren't destined to the NIC are discarded.
+
+In promiscuous mode, the NIC passes every frame from the network to the kernel.
+
+The WiFi equivalent is monitor mode. Limitations: interference means that the WiFi card can't copy everything, only captures 802.11 frames on the channel the device is listening to so may miss info on other channels."
+"What does a BSD packet filter (BPF) do? What are the limitations of receiving packets using raw sockets, and what is the solution?";"BPF allows a user program to attach a (combination of) filter(s) to a socket, which tells the kernel to discard unwanted packets.
+
+Limitations of raw sockets are: portability issues, lack of optimisation, & difficulty in setting filters. Solution is to use the pcap library, which has a standard API across all platforms & allows programmers to specify rules using human-readable Boolean expressions."
+"Define packet spoofing. Why are raw sockets preferred for this? What's the procedure to spoof a UDP packet?";"Packet spoofing is when some critical information in the packet is forged.
+
+Raw sockets allow us to construct the entire packet (including header fields) before sending it out.
+
+Procedure for UDP:
+- Capture UDP packet of interest
+- Make a copy
+- Replace the UDP data field with a new message & swap the source & destination fields
+- Send the spoofed reply"
+"List the pros of using C vs Scapy for constructing a spoofed packet.";"Simpler in Scapy but faster in C."
+"Define endianness.";"The order in which a given multi-byte data item is stored in memory."
+"What's the difference between little endian & big endian? Which is network order? Why is a standardised network order needed?";"Little endian puts the small end in memory first big endian puts the big end in memory first.
+
+Network order is big endian.
+
+Standard required as computers using different byte orders to each other will misunderstand the communications."
+"Describe the steps in the TCP handshake.";"SYN - client sends a packet to the server using a randomly generated number as its sequence number. Server will use a TCB to store information about the connection.
+
+SYN-ACK - server replies using its own randomly generated number as its sequence number.
+
+ACK - client sends an ACK packet to conclude the handshake. The ACK prompts the server to take the TCB out of the queue. SYN-ACK will be resent if the ACK doesn't arrive. Eventually the TCB is discarded once it times out."
+"Describe a SYN flooding attack. What is a countermeasure?";"Continuously send a lot of SYN packets to the server so that queue space is consumed by more and more TCB records. Use random source IP addresses to avoid being blocked by firewalls.
+
+Countermeasure is a SYN cookie - calculate a keyed hash from the information in the packet using a secret key and send to the client, don't store the TCB. When the client sends the ACK, they will respond with cookie+1. An attacker will never receive the cookie."
+"There's two ways to close a TCP connection. What are they?";"TCP FIN
+- The #emoji.star.arc civilised #emoji.star.arc way
+- A sends a FIN packet to B
+- B ACKs, which closes the A-to-B communication
+- B repeats to close the entire connections
+
+TCP RST
+- One of the parties sends an RST packet to immediately break the connection
+- Only meant to be for emergency/error"
+"What's the idea behind a TCP reset attack? Where can you get any info needed?";"Break up a TCP connection between A and B by sending an RST packet with the following fields set correctly:
+- Source IP address & port
+- Destination IP address & port
+- A sequence number within the receive window
+
+Use Wireshark to get the necessary window."
+"How does a TCP Reset attack work on Telnet, SSH and Video-streaming connections? Are there any situations where the attack isn't possible/there could be actions taken?";"- Telnet: use an existing netwox tool or write your own program
+- SSH: impossible if encryption is done below the transport layer. O/w same as Telnet.
+- Video-streaming: use netwox 78 to reset each packet that comes from the user machine. If RST packets are sent continuously to a server, the behaviour is suspicious & punitive actions may be taken against the user."
+"Describe a TCP session hijacking attack.";"Inject data into an established connection. Spoof a TCP packet with these fields set correctly:
+- Source IP address & port
+- Destination IP address & port
+- Sequence number within the receive window"
+"How do you hijack a Telnet connection? What are the consequences of a highjacked TCP connection?";"Steps:
+- User establishes a telnet connection with the server
+- Use Wireshark to sniff the traffic
+- Retrieve the destination port, source port & sequence number
+
+Consequences:
+- User program freezes
+- Retransmission packets between user & server
+- Deadlock: client will think the packets are out-of-order and retransmit, server will discard the retransmitted packets as duplicates
+- Arbitrary command execution, including getting a reverse shell"
+"How can you defend against TCP attacks? What are these defences effective/ineffective against?";"- Make it difficult to spoof packets: not effective against local attacks.
+- Encrypt the payload: effective against TCP session hijacking, not effective against SYN flooding and TCP reset attacks."
+"Define a firewall. What are the requirements?";"Part of a computer system/network designed to stop unauthorised traffic flowing from one network to another, allowing the separation of trusted & untrusted components of a network, and the differentiation of networks within a trusted network.
+
+Requirements
+- All traffic between trust zones should pass through the firewall
+- Only authorised traffic (defined by the security policy) should pass through
+- The firewall itself must be immune to penetration, which is achieved by using a hardened system with secured OSs"
+"What are the 3 access policies of a firewall? What are the 3 actions a firewall can take?";"Policies
+- User control: control access to data based on user role
+- Service control: control access by the type of service offered by the host
+- Direction control: determine the direction in which a request may be initiated & are allowed to flow through the firewall
+
+Actions
+- Accepted: allow the connected network/host through
+- Denied: don't allow entry to the other side of the firewall
+- Rejected: denied, but you're told through an ICMP packet"
+"What are the 2 types of filtering and 3 types of firewall?";"Types of filtering
+- Ingress: inspect incoming traffic to safeguard an internal network & prevent external attacks
+- Egress filtering: inspect outgoing traffic & prevent users reaching the outside
+
+Packet Filter/Stateless Firewall: control traffic based on information in the packet headers, don't pay attention to whether the packet is part of a stream, don't maintain the packet states.
+
+Stateful Firewall: track the state of the traffic in a connection state table by monitoring all connection interactions until they close.
+
+Application/Proxy Firewall: control input, output & access from/to an application/service by impersonating the intended recipient. Data on the connection is analysed up to the application layer to determine whether the packet should be allowed/rejected."
+"How do you build a packet filter?";"Can be done inside the kernel, using either:
+- Netfilter: provides hooks at critical points on the packet traversal path inside a Linux kernel
+- Loadable kernel modules: allow privileged users to dynamically add/remove modules to the kernel
+- Built-in packet filters"
+"How do you build a stateful firewall?";"`nf_conntrack` is a connection tracking framework in the Linux kernel built on top of netfilter, able to store context in memory.
+
+Each packet will be marked as one of:
+- NEW: connection is starting & the packet is part of a valid sequence. Only exists for a connection if the firewall has only seen traffic in one direction
+- ESTABLISHED: connection has been established & is two-way
+- RELATED: special state that helps to establish relationships among different connections
+- INVALID: packet doesn’t follow the expected behaviour of a connection"
+"How do you build a application/proxy firewall? What is a key challenge in doing this and what are potential solutions?";"Typical implementation is a proxy.
+
+Critical challenge is ensuring all web traffic goes through the proxy server
+
+Solutions:
+- Configure each host to redirect all web traffic to the proxy
+- Place web proxies on a network bridge that connects internal & external networks"
+"What are other applications of a web proxy?";"Anonymising proxy: hide the origin of a network request from servers
+
+Evade egress filtering"
+"Describe the Static Port Forwarding/SSH Tunnelling technique for firewall evasion.";"- 2 devices, home & inner, want to communicate but there's a firewall that blocks access between the two, but not between home and a secret 3rd machine called outer.
+
+- Set up a tunnel between home and outer
+- On the home end, the tunnel receives TCP packets from the telnet client
+- Forwards TCP data to outer, which places the data in another TCP packet set for inner, which will be invisible to the firewall"
+"Describe the Dynamic Port Forwarding technique for firewall evasion. What is the advantage of this method over static port forwarding?";"Set up an ssh tunnel between a localhost port and the home machine
+
+Redirect all web requests to go through this port
+
+Set up a SOCKS proxy on the localhost: ssh will send the TCP data over the tunnel to the home machine, which will communicate with the blocked site.
+
+Advantage: static has to be done on a per-website basis"
+"Describe the Reverse SSH Tunnelling technique for firewall evasion.";"A firewall may block incoming ssh sessions. Assuming it doesn't block outgoing ssh sessions, reverse ssh tunnelling can be used to access an internal website."
+"Describe the VPN technique for firewall evasion.";"Create a tunnel between a computer inside the network & another one outside
+
+IP packets sent via this tunnel
+
+Tunnel traffic is encrypted, so firewalls can't see what is inside & can't filter."
+"Describe the two methods for IP Tunnelling.";"IPSec Tunnelling
+- Utilises the Internet Protocol Security proticol
+- Has a tunneling mode, where the original IP packet is encapsualted and placed into a new packet.
+
+TLS/SSL Tunneling
+- Tunneling done outside the kernel (application level)
+- Put each VPN-bound packet inside a TCP/UDP packet
+- The other end of the tunnel will extract the IP packet
+- To secure the packets, both ends will se TLS/SSL protocol on top of TCP/UDP"
+"Outline the DNS Hierarchy.";"#image('dns-hierarchy.png')"
+"What is the difference between Zone and Domain?";"A zone only contains a portion of the DNS data for a domain.
+
+When a domain is divided into subdomains, their DNS data can still be put in the same zone (but don't have to be)."
+"What are Authoritative Name Servers?";"Publishes information about the zone.
+
+Provides the original and definitive answers to DNS queries.
+
+Can be either a master server, or a slave server.
+
+Master server stores the master copied of all zone records whereas a slave server uses an automatic updating mechanismto maintain an identical copy of the master records.
+
+There is a Many-to-Many relationships between zones and authoritative name servers."
+"What are the 5 different types of TLDs?";"- Infrastructure: .arpa
+- Generic: .com .net
+- Sponsored: .edu .gov
+- Country Code: .au .fr .de
+- Reserved TLD: .example .test .local"
+"How does SNS lookup work?";"1. Query root server
+  - Gives a set of servers to query instead
+2. Query given servers
+  - Given more servers
+3. Repeat step 2, until we get given IP address"
+"What is the structure of a DNS response?";"- Question Section: Describes the question asked
+- Answer Section: Records the answer to the question
+- Authority Section: Records that point toward authoritative nameservers
+- Additional Section: Records that are related to the query, e.g. nameserver IPs"
+"What are the 2 main DNS attacks?";"- DoS
+- DNS Spoofing Attacks"
+"How can DNS attacks be performed on Compromised machines?";"Can alter the /hosts file or change the default DNS in the resolv.conf file."
+"Explain Local DNS Cache Poisoning Attack?";"Attacker intercepts a DNS query, and responds to the query pretending to be the Local DNS server."
+"Explain challenges with remote DNS Cache Poisoning Attack?";"Spoofing replies is much more difficult, because they need to guess 2 random numbers used by the query packet:
+- source port number
+- Transaction ID"
+"Explain how the Kaminsky Attack works.";"#image('kaminsky.png')"
+"Attacks from malicious DNS Server.";"In addition to providing an IP address in the answer section of the response, DNS server can also provide information in the authority and additional sections. Attackers can use these sections to provide fraudulent information."
+"Why can't we simply reply with fake IPs of other domains? How do we get around this?";"DNS protocol makes it invalid to reply with IPs of different domains to the one requested. So will get ignored.
+
+Instead, we can have our DNS Server reply with a fake hostname during reverse DNS lookups. So when a user queries our bad website IP address, we will tell them it is www.facebook.com."
+"What is a DNS rebinding attack?";"Allows us to bypass same origin policy enforced by browsers.
+
+#image('dns-rebinding.png')"
+"How to protect against DNS Cache Poisoning Attacks?";"- Domain Name System Security Extensions (DNSSEC)
+  - All answers from DNSSEC protected zones are digitally signed.
+  - Can check the signatures to see if the response is authentic or not."
+"3 methods of DoS attacks on DNS servers";"1. Root Server attack
+  - Bring down root servers
+  - Hard as they are highly distributed and most responses from TLDs are cached for 48 hours.
+  - Would need to bring down many machines for a long time to see any effect.
+2. TLD Server attack
+  - Usually easier, although TLDs such as gov, com, net have very resillient infrastructure. But some country TLDs are easier to attack.
+3. Particular domain attack
+  - target specific DNS service providers that offer services to domains you want to attack.
+  - Spam requests."
+"Explain Merkle Puzzles";"Problems that can be solved with some effort e.g. symmetric cipher with 32-bit k.
+
+Alice: Prepares $2^32$ puzzles and sends them all to Bob
+
+Bob: Chooses one of the puzzles, and solves it to obtain $(x_j, m_j)$ and sends $x_j$ to Alice.
+
+Alice: Looks up puzzle with number $x_j$. Uses $m_j$ as the shared key.
+
+Alice work: n
+
+Bob Work: n
+
+Eavesdropper work: $n^2$"
+"What is a primitve root modulo p";"A number whose powers generate all the nonzero numbers mod p.
+
+e.g. P=7, $Z_7^{star} = {1,2,3,4,5,6}$
+
+$5^1 = 5 mod 7$
+
+$5^2 = 4 mod 7$
+
+$5^3 = 6 mod 7$
+
+$5^4 = 2 mod 7$
+
+$5^5 = 3 mod 7$
+
+$5^6 = 1 mod 7$
+
+Thus, 5 is a primitive root modulo 7."
+"What is a discrete logarithm?";"Given a value $h in Z_p^{star}$ with generator g,
+
+find x s.t.
 
 $
-cal(p)(a, e, H) = cases((|H|)/(sum_(i in H)1/(e_i(a, p)))quad&'if i is supported' forall i in H, 0 quad& 'otherwise')
+g^x = h (mod p)
 $"
-"Explain the pros and cons of different packet sizes in inter process communication";"smaller packets:
-- Copying data from memory to the network card can be interspersed
-- Packets can be made available more quickly
+"How does Diffie-Hellman key exchange work?";"Let p be a prime, and g a primitive root modulo p
 
-larger packets:
-- Ratio of data to packet header is better
-- Cost of copying memory vs the injection rate of the messages to the network"
-"What is domain decomposition?";"The act of splitting the domain of a problem into smaller chunks for to spread between different processors."
-"What are halo's with respect to mesh decomposition?";"Halo's are the overlapping sections of data between neighboring ranks/processes."
-"Assuming a grid of size NNZ points, using 1D decomposition with P processors along the y-axis:
+Alice: selects x from [1,p-1] and calculate $A=g^x$
 
-What size subgrid is each processor responsible for?
+Bob: selects y from [1,p-1] and calculate $B=g^y$
 
-What is the computation time for each subgrid?
+send between
 
-What is the performance model for the execution time?";"Subgrid size is NN/PZ
+Alice: Compute $K=H(B^x)=H(g^(x y))$
 
-Computation time is $t_c times N times N/P times Z$
+Bob: Compute $K' = H(A^y) = H(g^(x y))$"
+"How hard is the Diffie-Hellman function?";"Best known algorithm run time is $e^O(n^(1/3))$"
+"What is the man-in-the-middle attack on DH?";"An attacker intercepts Alice's message, and creates their own $x in [1,p-1]$
 
-Performance model is $T_p = t_c times N times N/P times Z + 2(t_s + 2t_w N Z)$"
-"A performance model is given by $T_p = t_c times N times N/P times Z + 2(t_s + 2t_w N Z)$:
+Establishes a DH connection with Bob.
 
-What happens as $P arrow infinity?$
+Also establishes the DH connection with Alice.
 
-Why is this not necessarily a good thing?";"Execution time will decrease.
+Now is in the middle of the communication, listening to everything."
+"How to prevent man-in-the-middle attack on DH?";"Add authentication! This is hard, and is an active area of research.
 
-Since the number of processors doesn't affect communication time, this won't change as P decreases. Since computation time decreases with increasing P, more and more of the execution time will be due to the communication overhead, so the program will be less efficient."
-"Surface-to-Volume ratio (SVR) is a way to compare decomposition methods. What do the surface and volume affect, and what is a better SVR?";"Surface affects how much communication occurs, volume affects how much computation occurs (per processor).
-
-The lower the SVR the better - it means lower proportion of communication time in the total execution time."
-"What is Iso-efficiency?";"How the amount of computation performed (N) must scale with processor number (P) to keep parallel efficiency (E) constant."
-"How do you calculate an algorithm's iso-efficiency function? What kind of function gives more scalability?";"The iso-efficiency function is N over P.
-
-Functions with lower orders of P (e.g. N = O(P)) give higher scalability."
-"What is Amdahl's Law? Give 2 limitations";"Let the serial fraction of a program be $s$, if we make the remaining part $n$ times faster by running it on $n$ processors, then speedup is:
-
-$S(n) = frac(n, (1-s) + n s) <= frac(1,s)$
-
-Limitations are that it can only tell the upper bound of the speedup for a particular algorithm, & it can't tell if other algorithms with greater parallelism exist for the problem."
-"What are the limitations of asymptotic analysis?";"You ignore the lower-order terms: given an algorithm with time complexity O(nlogn), the actual time complexity could be 10n + nlogn. For small n, the 10n would dominate.
-
-You can only tell the order of the execution time of a program, not its actual execution time. It may be the case that at certain values of n one algorithm performs better than another, even if the other is better asymptotically."
-"How much more powerful is a GPU compared to a multicore CPU, and what is the reason for the performance gap?";"About 100x more powerful.
-
-Reason is the differences in design."
-"What are the design motivations for a CPU?";"To optimize the performance of sequential code.
-
-Latency-oriented $arrow$ minimise the average instruction latency in sequential code."
-"Name some of the key features of a CPU. What is the cost of these features?";"Complicated CU, which can execute instructions out-of-order or in parallel, may perform branch prediction, and can allow for data forwarding.
-
-Large cache to reduce data access latencies.
-
-Powerful ALU.
-
-Cost is increased chip area & power."
-"What is the design goal for GPUs?";"Throughput-oriented $arrow$ maximise the total throughput of a large number of threads, allowing individual threads to take a longer time."
-"Name the key features of a GPU, and how they're different to those on a CPU.";"Most of the chip area is dedicated to FLOP calculations. Each calculation is simple, so we have a simple CU, and simple ALUs.
-
-Calculation is deemed more important than cache, so cache size is reduced, allowing longer latencies for data access."
-"What are the two parts of a CUDA program? Where do they execute?";"Host code runs on the CPU
-
-Device code runs on the GPU."
-"What are kernel functions, and how can they be identified?";"Functions which run on the GPU. They're marked with CUDA keywords."
-"What is the GPU execution model?";"Start with host execution.
-
-When a kernel function is called it's executed by a large number of GPU threads (called the grid).
-
-When all threads of a kernel complete, the corresponding grid terminates.
-
-Execution continues on the host until another kernel is called."
-"When and how is execution configuration specified?";"Specified when invoking a kernel function.
-
-Syntax is:
-
-`dim3 grid(3,2,4), block(128,1,1)`
-
-`vecAdd <<< grid, block >>> (A,B,C)`
-
-where A,B,C are the parameters passed into `vecAdd()`"
-"What is the difference in compilation between host & device code?";"Host code is compiled with a standard C compiler.
-
-Device code is compiled to PTX code, then into an executable."
-"Why can't a GPU use the same timing methods as those used for CPUs? Explain.";"There's asynchronous executions between the CPU & GPU.
-
-After the CPU launches the kernel functions:
-
-It places the command of running kernel function to a command queue maintained by CUDA.
-
-CUDA runtime runs the commands at its own pace.
-
-CPU continues to perform subsequent tasks after the kernel functions in the host code.
-
-CPU doesn't wait for the GPU to complete the kernel function."
-"Name two methods that can be used to synchronise the CPU & GPU. How do they work?";"`cudaDeviceSynchronise()`: CPU waits until all commands in the CUDA command queue have completed.
-
-`cudaEventSynchronise(event_object)`: CPU waits until the specified event has completed."
-"What is parallel IO?";"Multiple processes of a parallel program access different parts of a common file at the same time."
-"An example of parallel IO is all processes sending their data to rank 0, which then writes to the file. What are the pros and cons of this approach?";"Pros: IO system only deals with IO from one process, doesn't need specialised IO libraries, results are in a single file (so easy to manage).
-
-Cons: single point of failure, single node bottleneck, poor performance & scalability."
-"An example of parallel IO is having each process write to a separate file. What are the pros and cons of this approach?";"Pros: parallel and high performance.
-
-Cons: lots of small files to manage, if the number of processors changes how do you read back, doesn't interpolate well."
-"An example of parallel IO is having multiple processes accessing data from a common file. What are the pros and cons of this approach?";"Pros: simultaneous IO from any number of processes, excellent performance & scalability, results stored in a single file, interpolates well, maps well to collective operations.
-
-Cons: requires a more complex IO library, traditional accesses block the file, requires support of simultaneous access."
-"Data Sieving is an IO optimisation. Explain what it does for reads and writes. What is a problem associated with this optimisation?";"Reads: combine lots of small accesses into a larger one, reducing the number of IO operations
-
-Writes: read the entire region first, make changes, write back.
-
-Writing requires locking in the file system, which can lead to false sharing - 2 addresses share the same cache line, writing to one causes both to be evicted from cache."
-"Collective IO is an IO optimisation. Explain what it does. What must you guarantee about each of the processes?";"Collective IO is coordinated access to storage by a group of processes.
-
-In collective operations, the underlying IO layers know what data is being requested by each process. The entire block is read, then data is moved to their final destinations.
-
-Have to ensure that all processes participating in the IO call the function at the same time."
-"Name and explain the 3 kinds of positioning variations that can be used for data access routines.";"Individual file pointer: when a file is opened by a process, a file pointer is created & owned by the process.
-
-Explicit offset: data access routines that accept explicit offsets
-
-Shared file pointer: when a file is opened collectively by a group of processes, a shared file pointer is created and stored by these processes"
-"Name and explain the 2 kinds of synchronism variations that can be used for data access routines.
-
-One of them can error after the function call. Which one errors, what's the error, and how do you prevent it?";"Blocking: don't return until the IO request is completed.
-
-Non-blocking: initiate the operation and return immediately.
-
-Non-blocking errors if the application buffer is accessed whilst IO is ongoing. Fixed by using some variation of `MPI_Wait...()` (e.g. `MPI_Waitall()`)."
-"Name and explain the 2 kinds of coordination variations that can be used for data access routines.";"Non-collective (independent): each process does IO independently
-
-Collective: all processes have to participate when doing IO"
-"At least 1 process is accessing a file. What are the 3 situations in which consistency needs to be maintained?";"A process writes data, and the same process later reads the data
-
-A process writes data, and another process reads the data
-
-2 process write to the data"
-"In some cases, MPI can guarantee consistency. Where it can't, what are the 3 ways a user can ensure consistency?";"Making writing data to the system buffer & transferring data to storage atomic.
-
-Close the file & reopen it to force all writes to be transferred to storage
-
-Use `MPI_File_sync()` to transfer all writes to storage."
-"What is file interoperability?";"The ability to read the data previously written to a file."
-"Name & explain the 3 different data representations.";"Native: data is stored in a file exactly as it is in memory
-
-Internal: data is stored in an implementation-dependent format.
-
-External32: data on the storage medium is always the standard representation (big-endian IEEE)."
-"What are the pros & cons of the native representation?";"Pros: data precision & IO performance
-
-Cons: loss of transparent interoperability (can't be used in heterogeneous environments)"
-"What may be necessary when using the internal representation? What is an advantage of using this representation?";"Type conversions may be necessary.
-
-Pros: can be used in heterogeneous environments"
-"What is an advantage of using External32 representation?";"Data can be recognised by other applications."
-"What are the motivations for clusters?";"Clustering allows high performance CPUs alongside high-speed networking.
-
-High-performance CPUs are more portable & scalable than custom-designed mainframe computers."
-"The cluster manager is a party in a cluster. What are the other two, and what do they each do?";"Users: submit jobs & job requirements.
-
-Administrators: describe policy restrictions.
-
-Cluster manager: monitors the state of the cluster, schedules jobs, tracks resource usage."
-"What are the 5 main activities of a cluster manager. Explain them briefly.";"Queuing: submitted jobs are held in the queue until the job is at the head of the queue, & the matching resources are available.
-
-Scheduling: determine what time a job should execute & on which resources.
-
-Monitoring: provide info to admins, users & the manager on the status of jobs & resources.
-
-Resource management: handle details of starting job execution, stopping a job, cleaning up after completion/abortion, and removing/adding resources.
-
-Accounting: collect usage data to produce usage reports, tune the scheduling policy, anticipate future resource requirements by users, and determine the area of improvement within the cluster."
-"What are 2 LAN structures? Explain them briefly.";"Shared Network (Bus)
-- All processors are connected to & share the bus
-- Each processor listening to every message
-- Requires a complex protocol to access the bus, e.g., Carrier Sense Multiple Access/Collision Detection (CSMA/CD)
-- Collisions may occur, requiring back-off policies & retransmissions
-- Not suitable for HPC since it performs better when communication load is low
-
-Switched Network
-- Allows point-to-point communications between the sender & receiver
-- Simultaneous internal transport provides high aggregate bandwidth
-- Multiple messages are sent simultaneously"
-"What are the different metrics to assess cluster topology?";"Scalability: the number of switches needed to interconnect a given number of nodes (cost per node)
-
-Degree: the number of links to/from a node (aggregate bandwidth)
-
-Diameter: the shortest path between the furthest nodes (latency)
-
-Bisection width: the minimum number of links that need to be cut to divide the topology into 2 independent networks of the same size ($plus.minus$ 1 node)
-
-Bottleneck bandwidth: the smallest bandwidth on a network. A higher number means the network performs better under heavy load."
-"What are the pros and cons of the crossbar topology?";"Pros: low resource contention
-
-Cons: switch scalability is $O(n^2)$, lots of wiring so high cost."
-"What is the scalability, diameter, and bisection width for a linear array?";"Scalability and diameter are both $O(n)$.
-
-Bisection width is $O(1)$."
-"What's the difference between a linear array and ring? What's the scalability, diameter, and bisection width for a ring?";"A ring is just a linear array with wrap-around between the end nodes.
-
-Scalability is $O(n)$.
-
-Diameter is $O(n/2)$.
-
-Bisection width is $O(2)$"
-"What's the scaling, average degree, diameter, and bisection width of a 2D mesh?";"Scaling: $O(n)$
-
-Average degree: 4
-
-Diameter: $O(2n^(1/2))$
-
-Bisection width: $O(n^(1/2))$"
-"What's the scaling, average degree, diameter, and bisection width of a 2D torus?";"Scaling: $O(n)$
-
-Average degree: 4
-
-Diameter: $O(n^(1/2))$
-
-Bisection width: $O(2n^(1/2))$"
-"How do you make a hypercube? What's the scalability, diameter, and bisection width?";"Constructed with binary encoding & iterative graph expansion.
-
-Scalability: $K$ dimensions requires $O(2^K)$
-
-Diameter: $O(K)$
-
-Bisection width: $O(2^(K-1))$"
-"What's the scalability, degree, diameter, and bisection width for a binary tree?";"Scalability: depth $d$ requires $O(2^(d+1) - 1)$
-
-Degree: 3
-
-Diameter: $O(2d)$
-
-Bisection width: $O(1)$"
-"What's the difference between a fat tree and a binary tree? What's the bisection width and degree of a fat tree?";"Branches nearer the top of the tree have more links. Add links s.t. the number of downlinks of a switch is the same as the number of uplinks.
-
-Bisection width: 2^(d-1)
-
-Degree: 2^(k+1)"
-"Describe the store-and-forward switching technique. What's the performance model?";"- Each switch receives an entire packet before it forwards it onto the next switch
-- Useful in non-dedicated environments
-- Buffer size is limited, so packets will be dropped under a heavy load
-- Larger in-switch latency
-- Can detect errors in the packet
-
-Performance model is $T_(c o m m)^c = T_s + (T_h + L T_w)D$"
-"Describe the wormhole (cut-through) switching technique. What's the performance model?";"- Packet is divided into small 'flits' (flow control digits)
-- Switch examines the first flit (header), which contains the destination address, sets up a circuit, & forwards the filt
-- Any subsequent flits are forwarded as they arrive, reducing latency & buffer overhead, but means less error detection
-
-Performance model: $T^c_(c o m m) = T_s + D(T_h + f T_w) + T_w(L - f)$"
+some types include:
+1. Public key certificates
+  - SSL/TLS
+2. Password based"
+"What is information leakage?";"Eve captures A,b. She can narrow down the password range, using a dictionary attack.
+
+This is quite easy with DH, as if the decrypted result ends up in the range [p, 2^2048], the candidate is ruled out. Repeat until we find a value within [0,p-1]."
+"How does Public Key Encryption work?";"3 algorithms: G, E, D
+
+G(): randomised alg to generate a key pair (pk, sk)
+
+E(pk, m): randomised alg. that takes $m in M$ and outputs $c in C$
+
+D(sk, c): decryption alg that takes $c in C$ and outputs $m in M$ or $tack.t$
+
+Consistency: $forall ('pk', 'sk') 'output by' G: forall m in M D('sk', E('pk', m))=m$"
+"How does RSA work?";"Given 2 primes p and q, calculatinng $n=p times q$ is easy.
+
+But factorising n is hard."
+"Fermat's little theorem?";"For any prime p not dividin a, we have
+
+$
+a^(p-1) = 1 mod p
+$
+
+Proof:
+- Given the set {1,2,...,p-1} we multiply it by a.
+- The 2nd set has (p-1) distinct elements in [1,p-1], hence it's a permutation of the first set. Multiplying all elements in each set, we get: $(p-1)! = (p-1)!a^(p-1) mod p$
+- Therefore, $1=a^(p-1) mod p$."
+"Euler's theorem?";"- Euler's phi function: $Phi(n)$ is the number of positive integers less than n with which it has no divisor in common.
+  - e.g. $Phi(n) = (p-1)(q-1)$ if $n=p q$
+- Euler's theorem for any modulus n and any integer a, coprime to n, we have:
+  - $a^(Phi(n))=1 mod n$"
+"Extended Euclidean Algorithm?";"#image('eea.png')"
+"Utilising the Extended Euclidean algorithm, how can we calculate the inverse of an element??";"Given $a in Z_N$ and a is relatively prime to N, we can compute its inverse by substituting a and N into the Extended Euclidean Algorithm.
+
+$s times a plus t times N = 'GCD'(a, N) = 1$
+
+We have $s times a = 1 mod N => a^(-1) = s$"
+"How does RSA work - in detail?";"Generate 2 large n-bit distinct primes p and q
+
+compute $N = p dot q$ and $phi(N) = (p-1) dot (q-1)$
+
+Choose a random integer e s.t. $'gcd'(e, phi(N)) = 1$
+
+Compute e's inverse d: $d dot e = 1 mod phi(N)$
+
+Output: $'pk' = (N,e), 'sk'=(N,d)$
+
+Encrpytion: $c = m^e mod N$
+
+Decryption: $m = c^d mod N$"
+"Prove correctness of RSA?";"case 1: If m is relatively primte to N, i.e.e, $m in Z_N^{star}$
+  - $c^d = (m^e)^d = m^(d e) = m^(d e mod phi(N)) = m mod N$
+case 2: Else
+  - $c_d = (m^e)^d = m^(d e) = m^(d e mod (p-1)) = m mod p$
+  - $c_d = (m^e)^d = m^(d e) = m^(d e mod (q-1)) = m mod q$
+  - Hence $c^d = m mod p times q = m mod N$"
+"Meet in the middle attack on textbook RSA";"#image('meet-in-middle.png')"
+"Mangling ciphertexts on textbook RSA";"#image('mangling.png')"
+"What's the general idea behind digital signatures?";"Sign information by encrypting with your secret key. Given RSA is secure, people can guarantee data comes from me, if upon decrypting the data with my public key, you get the correct data."
+"What's a no message attack?";"#image('no-msg.png')"
+"What's a selected message attack?";"1. A chooses target message m.
+2. A chooses a random message $m_1$.
+3. Sets $m_2 = m/m_1 mod N$
+4. A requests signatures $sigma_1$ and $sigma_2$ on $m_1$ and $m_2$.
+5. Result $sigma = sigma_1 dot sigma_2 mod N$ is a valid signature on m."
+"Tamper Evident vs Tamper Resistance";"Tamper Evident: detectable upon tampeer
+
+Tamper resistant: robust against tamper"
+"What is a Hardware Security Module?";"A closed system to provide the following functions:
+- Onboard secure generation
+- Onboard secure storage
+- Use of cryptographic and sensitive data
+- Offloading application servers for crypto operations
+
+It erases all data upon detecting tampering."
+"What is a Master key attack on HSM?";"Keys are often left on Programmable ROM devices. They can easily be read! Custodians used to hand keys to engineers to work on. This would give an attacker a window to read the master key."
+"What is a Casing attack on HSM?";"Simply cut into the device to access the hardware. Could take the hardware and perform analysis on it."
+"What is a Epxoy attack on HSM?";"Can scrape away at the epoxy
+
+Once have access to bus, can probe the bus lines as they are usually unencrypted."
+"What is a Frozen memory attack on HSM?";"When in low temperature, traces of data will be retained on hardware, even if it has been 'deleted'.
+
+Attakers could freeze the machine before attempting to break into it."
+"What is a Side channel attack on HSM?";"Monitor the RF, power, timing to deduce secret keys."
+"What side channel information is available?";"- Power consumption
+- Electromagnetic radiation
+- Timings
+- Errors
+
+Can analyse
+- Power variation using Simple Power Analysis, or Differential Power Analysis."
+"Desribe the Smart card Hardware";"- Has 8 contact points
+- Central Processing Unit
+  - 8 bit microcontroller
+  - 5 MHz clock
+- Cryptographic coprocessor
+  - Expediting modular calculations
+- Memory System
+  - ROM
+  - EEPROM - persistant storage - Fast reading, slow writing
+  - RAM"
+"Desribe the Smart card communcation pattern";"- Master-slave model
+- A smart card always plays the passive slave"
+"What is the Cambridge No-PIN attack?";"#image('no-pin.png')"
+"What is a security API?";"An application programming interface that uses cryptography to enforce a security policy on the interactions between 2 entities."
+"What are the aims of HSM?";"- Isolate the defined code which is security relevant and to physically separate it into a device not under control of the system adminsitrator
+- To minimise the amount of security relevant code and to keep the rules governing its use as simple as possible, so that it would be easier to avoid bugs."
+"What is the unknown pin attack?";"The magnetic stripe on a card contains your account number and your pin. It is encrypted and only an ATM can read the message. However, you can copy your PIN onto a different card. Then Your pin will work for that card."
+"What is the PIN offset attack?";"#image('pin-offset.png')"
+"What is the decimilisation table attack?";"- need to convert hex to decimal to create a PIN
+- Decimilisation table is not fixed
+- An insider attacker can exploit this flaw to find out any banks customer's PIN in 15 attempts rather than 10000.
+- Can use a dummy decimilsation table e.g. 0100000000000000
+  - A trial PIN of 0000 will confirm the default PIN doesn't contain the number 1."
+"What is the XOR-To-Null attack?";"You are an engineer and have access to a VSM (Visa Security Module). The goal of the VSM is to allow multiple 'admins' to provide keys to ensure customers pins are secure.
+
+You can use the VSM API to send 2 of the same key, that when XORd gives 0.
+
+Can now pass in an encrypted PIN verification key, and it will return the PIN encrypted with key 0."
+"What is the Meet-in-the-Middle attack in API Security?";"An insider attacker just needs to break 1 key of a VSM, and can then use HSM API to crack others.
+
+He can generate $2^16$ keys using the HSM, go home and exhaustively search through the keys calculating check values, until we find a match.
+
+This should take around a week!"
