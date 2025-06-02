@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Classical Cryptography](#classical-cryptography) |                                                                                     |
-|---------------------------------------------------|-------------------------------------------------------------------------------------|
+| ------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [Modular Arithmetic](#modular-arithmetic)         |                                                                                     |
 | [Data Range](#data-range)                         |                                                                                     |
 | [Cipher](#cipher)                                 | Crypotgraphic algorithm to encrypt and decrypt data                                 |
@@ -18,7 +18,7 @@
 | [Vigenere Cipher](#vigenere-cipher)               |                                                                                     |
 
 | [Stream Cipher](#stream-cipher)                                                       |                                                                                     |
-|---------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| ------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [Perfect Secrecy](#perfect-secrecy)                                                   |                                                                                     |
 | [Recurrence](#recurrence)                                                             |                                                                                     |
 | [Weakness](#weakness)                                                                 |                                                                                     |
@@ -734,3 +734,215 @@ def verify(key, msg, sig_bytes):
   - In practice A is preresented as {0,1}^n eg n = 2048
   - If the decrypted result falls in the [p, 2^2048] can be rulled out
   - Problem is worst if elliptic curve is used.
+
+## Public Key Encryption
+
+### Definition
+- Public key encryption is a triple of algorithms
+- G(): randomised algorithm ouputs a key pair (pk, sk) - public key and secret key
+- E(pk, m): randomised algorithm that takes message and outputs ciphertext 
+- D(sk, c): decipher algorithm that takes ciphertext and outputs message or __
+- Consistency: for all key pairs out put of G, for all messages, the decryption of the encryption of the message is the message itself
+- $D(sk, E(pk, m)) = m$
+
+### RSA
+- Rivest, Shamir, Adleman
+- First widely used public key system
+- SSL/TLS
+- Secure email and filessytesm
+- One way function
+
+### Femrat's Little Theorem
+- If p is prime and a is not divisible by p, then $a^{p-1} \equiv 1 \mod p$
+
+### Euler's Theroem
+- Euler's phi $\phi(n)$ (totient) functon is the number of positive integers less than n with which ith as no divisor in common.
+- EG: $\phi(n) = (p-1)(q-1)$ for n = pq
+- Euerls theorm is more general than Fermat's little theorem
+- For any modulus $n$, and any integer a coprime to $n$, then:
+- $a^{\phi(n)} \equiv 1 \mod n$
+
+#### Euclidean Algorithm
+- Used to find the GCD of two numbers
+- ![alt text](imgs/cryptography/image-45.png)
+
+#### Extended Euclidean Algorithm
+![alt text](imgs/cryptography/image-46.png)
+
+
+#### Computing the Inverse
+- given an element $a$ in $Z_N$ where $a$ is relativly prime to $N$, we can compute its inverse $a^{-1}$ in $Z_N$ using the extended Euclidean algorithm
+- $a \times a^{-1} \equiv 1 \mod N$
+- $s \times a + t \times N = GCD(a, N) = 1$
+- where $s \times a \equiv 1 \mod N$, thus $a^{-1} \equiv s$
+
+#### Summary
+
+![alt text](imgs/cryptography/image-47.png)
+
+
+### Chinese Remainder Theorem
+- Method of solving systems of congruences
+- ![alt text](imgs/cryptography/image-48.png)
+
+### RSA Key Generation
+- Choose two large prime numbers p and q
+- Compute $N = p * q$ and $\phi(N) = (p-1)(q-1)$
+- Chose a random integer e, $gcd(e, \phi(N)) = 1$
+- Compute e's inverse d: $d * e = 1 \mod \phi(N)$
+- ![alt text](imgs/cryptography/image-49.png)
+
+#### Textbook RSA Encrypton
+![alt text](imgs/cryptography/image-50.png)
+
+
+#### Correctness
+![alt text](imgs/cryptography/image-51.png)
+
+
+#### Meet in the Middle Attack on Textbook RSA
+- Build table
+- For each, test if in the table
+- ![alt text](imgs/cryptography/image-52.png)
+
+#### Mangling Ciphertext
+![alt text](imgs/cryptography/image-53.png)
+- Change so that decoded to something else
+
+#### Common Modulus Attack
+- Assume organisation uses common modulus N for all empolyees
+- each empolyee recieves key pair (Pk=e, sk=d)
+- Knowledge of d -> factorisation of N
+
+
+### RSA Padding
+- Padding used to randomise the encryption
+- PKCS #1 v1.5 
+  - ![alt text](imgs/cryptography/image-54.png) 
+- RSA OAEP
+- ![alt text](imgs/cryptography/image-55.png)
+
+#### RSA In Practice
+![alt text](imgs/cryptography/image-56.png)
+
+
+## Digital Signature
+- Want to bind a documetnt to an author, so that no one can copy it and change it.
+- Digital signature uses a secret key to sign a document and then verifiers can verifiy with a public key.
+![alt text](imgs/cryptography/image-57.png)
+
+### Definition
+- Signature Scheme (Gen, S, V)
+- Gen(): randomised algorithm that outputs a key pair (pk, sk)
+- S(sk, m): randomised algorithm that takes a message and outputs a signature using the secret key
+- V(pk, m, s): deterministic algorithm that takes a public key, message and signature and outputs "yes" or "no"
+- Consistency: for all key pairs output by Gen, for all messages, the verification of the signature of the message is "yes"
+- $V(pk, S(sk, m), m) = yes$
+
+### Attacks
+- Attackers power: Chosen message atack
+  - For each message, attacker is given the signature
+- Attackers goal: Existential forgery
+  - Produce some new valid msg/sign pair 
+- Therefore for a secure digital signature, the attacker must not be able to produce a valid sginature for a new message.
+
+### Text Book RSA
+![alt text](imgs/cryptography/image-58.png)  
+
+#### No Message Attack
+- Only has acess to public key
+- Choses some element $\sigma$ in $Z_N$
+- Computes $m = \sigma^e \mod N$
+- Output: $(m, \sigma)$
+
+#### Selected Message Attack
+- Has access to public key and two signatures
+- How can the attacker forge a signature on any chosen message m?
+- Select target message m
+- Chose random $m_1$ in Z_N
+- Sets $m_2 = \frac{m}{m_1} \mod N$
+- Obtain the sinatures $\sigma_1$ and $\sigma_2$ for $m_1$ and $m_2$
+- $\sigma = \sigma_1 \cdot \sigma_2 \mod N$
+- Is a valid signature for M.
+
+#### Hashed RSA
+- Hash the message before signing
+- ![alt text](imgs/cryptography/image-59.png)
+
+### Case Study
+- A developer generates $N = p \cdot q$ 
+- Then generates a unique key pair (pk, sk)
+- $Sk = {N,d}$
+- $Pk = {N,e}$
+
+#### Attacks?
+What if the developer uses the same N for all employees?
+- If the attacker knows the public key of one employee, they can factor N and find the private key of all employees
+
+
+### Digital Signature Algorithm 
+- Based on discrete logarithm
+- Adopted in 1991 as standard despite controversy
+- Schnorr Signature (1989)
+  - Simpler than DSA
+  - Well understood security proofs
+  - DSA has no proofs.
+  - Therefore Schronorr was considered better 
+  - Closely related to **zero knowledge proof**
+
+
+#### Zero Knowledge Proof
+- Prover has a secret x
+- Prover wants to convince the verifier that they know x
+- Prover can convince the verifier that they know x without revealing x
+- ![alt text](imgs/cryptography/image-60.png)
+- Verifiier knows theres a 50% chance of being right
+- So repeats the process multiple times
+- Ensure participant is honest
+
+###### Requirements
+- Completeness:
+  - If the statement is true, the rpover will be able to convince the verifier this fact
+- Soundness:
+  - If the statement is false, no cheating prover can convince the verifier that it is true expect with some small probability
+- Zero knowledge:
+  - the verifier learns nothing about the secret other than the fact that the prover knows it
+
+#### Schorr Idendification Scheme
+- ![alt text](imgs/cryptography/image-61.png)  
+- ![alt text](imgs/cryptography/image-62.png)
+- Designed to be very fast and efficient
+- Computationally Efificnet:
+  - Alice - one exponentiaon per round - Precomputed offline
+  - Bob - one exponentiation per round - Simulateous exponentiation technique
+- Communication Efficient:
+  - ![alt text](imgs/cryptography/image-63.png)
+- Completeness: If alice knows the private key, she can pass the idendication protocl successfully
+- Soundness: If alice doesnt know the private key, then the probabilty she can pass the idendification successfully is $2^{-k}$ where k is the bit length of c.
+- Proof:
+  ![alt text](imgs/cryptography/image-64.png)
+  ![alt text](imgs/cryptography/image-65.png)
+
+
+![alt text](imgs/cryptography/image-66.png)
+
+
+#### Non interactive Zero Knowledge Proof
+- Can replace the verifier with a cryptographic hash function
+- Naturally is honest -verifier
+- technique is called Fiat-Shamir heuristic
+- 
+- ![alt text](imgs/cryptography/image-67.png)
+
+![alt text](imgs/cryptography/image-68.png)
+
+### DSS Keys
+![alt text](imgs/cryptography/image-69.png)
+![alt text](imgs/cryptography/image-70.png)
+![alt text](imgs/cryptography/image-71.png)
+![alt text](imgs/cryptography/image-72.png)
+- Digital Signature Standard (DSS) is a standard for digital signatures
+- Derived from Schorr signature
+- Widely used in practice
+- Scrutinised for years without any attack being found
+- No security proof exists.
