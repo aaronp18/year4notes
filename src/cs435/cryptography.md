@@ -470,7 +470,7 @@ $$
 - Also essentaially stream cipher
 - Encryption and decryption are the same 
 - Both encryptioon and decription can be parallelised (big avantage over CBC).
-
+![alt text](imgs/cryptography/image-73.png)
 
 ## Hash
 - Compress an arbitrary message into an output of fixed length
@@ -607,7 +607,7 @@ $$
 - Build a MAC from a hash function
   - EG SHA256
 - Suppose:
-  - MAC Tag = $H(k, m[0] || m[1] || m[2])
+  - MAC Tag = $H(k, m[0] || m[1] || m[2])$
     - Could append another blocjk m[3] and compute
       - $H(k, m[0] || m[1] || m[2] || m[3])$
       - But this is not secure 
