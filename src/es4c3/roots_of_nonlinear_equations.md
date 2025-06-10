@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Polynomial Equations](#polynomial-equations)                                 |                                                                                                        |
-|-------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------|
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | [General Eigenvalue problem](#general-eigenvalue-problem)                     | $Ax = \lambda x$                                                                                       |
 | [Companion Matrix, A](#companion-matrix-a)                                    | Specifcy suitable matrix for the initial polynomal which have roots \lambda of...                      |
 | [Characteristic polynomial equation](#characteristic-polynomial-equation)     | $\lambda^n + \frac{a_2}{a_1}\lambda^{n-1} + \ldots + \frac{a_n}{a_1}\lambda + \frac{a_{n+1}}{a_1} = 0$ |
@@ -11,13 +11,13 @@
 | [Numerical Roots via Polynomial](#numerical-roots-via-polynomial)             | Introduce grid with nodes x_i and use  curve fitting to calculate coefficients...                      |
 
 | [Bracketing Methods](#bracketing-methods)                                       |                                                                                     |
-|---------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [Incremental Search](#incremental-search)                                       | $x_{i+1} = x_i + \Delta x $                                                         |
 | [Bisection Iteration Error Convergence](#bisection-iteration-error-convergence) | $\Delta x^{(i+1)} = \frac{1}{2}\Delta x^{(i)} = \frac{1}{2^i}(x^{(1)})$             |
 | [Bisection Limitations](#bisection-limitations)                                 | Initial interval of uncertainty must contain odd number of roots (otherwise has ... |
 
 | [Open Methods](#open-methods)                                           |                                                                                     |
-|-------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [Fixed Point Iteration Convergence](#fixed-point-iteration-convergence) | Convergences to root. Modulus of deritvative of max function of error must be le... |
 | [Fixed Point Iteration Divergence](#fixed-point-iteration-divergence)   | Diverges from root. Modulis of deritvative of function of error is be greater th... |
 | [Newton Raphson Method Error](#newton-raphson-method-error)             | $error_{i+1} = \frac{f''(\epsilon)}{2f'(\epsilon)}error_i^2$                        |
@@ -29,10 +29,21 @@
 
 Task is to solve non-linear equation (or system of. ) $f(x) = 0$ using the following methods:
 - Roots via polynomials
+  - Solve eigenvalue problem
+  - Taylor series approximation
+  - Numerically via polynomial interpolation
 - Bracketing methods (bisection)
+  - Function changes sign in the vicinity of a root
+  - Initial interval of uncertainty must contain odd number of roots
+  - Not applicable for tangency point (no difference between singularity and root)
 - Open Methods
   - Fixed point iteration
+    - Iterative formula, convergence is linear depends on function 
   - Newton-raphson method
+    - Taylor series about point
+    - Quadratic convergence, fast convergence
+    - Derivative required
+    - Can oscilate around local maximum or minimum
 
 <div class="equations">
 

@@ -3,7 +3,7 @@
 <equation-table>
 
 | [ODEs and Euler](#odes-and-euler)                                                                    |                                                                                     |
-|------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [Order of ODE](#order-of-ode)                                                                        | Defined by the order of the highest derivative present in the equation (or numbe... |
 | [Linear vs Nonlinear ODE](#linear-vs-nonlinear-ode)                                                  | ODE is linear if it is a                                                            |
 | [General form of ODE](#general-form-of-ode)                                                          | $a_n(t)x^{(n)} + a_{n-1}(t)x^{(n-1)} + \cdots + a_1(t)x' + a_0(t)x = f(t)$          |
@@ -17,10 +17,10 @@
 | [Explicit Euler Global Error per step](#explicit-euler-global-error-per-step)                        | $E\propto O(h)$                                                                     |
 | [Explicit Euler Stability](#explicit-euler-stability)                                                | $\text {Stable if} h \lt \frac{1}{\alpha}$                                          |
 | [Implicit Euler Method](#implicit-euler-method)                                                      | $x(t_{i+1}) = x(t_i) + h f(x_{i+1}, t(t_{i+1}))$                                    |
-| [Implicit Euler Stability](#implicit-euler-stability) | $\text{Stable if} \left| \frac{1}{1+\alpha h} \right| \lt 1$ | 
+| [Implicit Euler Stability](#implicit-euler-stability)                                                | $\text{Stable if} \left                                                             | \frac{1}{1+\alpha h} \right | \lt 1$ |
 
 | [Higher Order Schemes](#higher-order-schemes)                                                  |                                                                            |
-|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| ---------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
 | [Computation Effort](#computation-effort)                                                      | $\text{Computation Effort} \propto n_f \propto \frac{1}{h}$                |
 | [Adaptive Step](#adaptive-step)                                                                | Runge-Kutta-Fehlberg method combines formula of orders four and five.      |
 | [Multiple Step Methods](#multiple-step-methods)                                                | Speeds up calcualtions. Use the available solutions in the previous nodes. |
@@ -114,7 +114,8 @@ Alterntaive derivations include forward finite difference method and rectangular
 Advantages:
 - Simple and direct
 - Easy to implement in many software
-Disadvantes:
+
+Disadvantages:
 - Can be numerically unstable (depends on step size h)
 - Approximation error is proportaional to the step size h
     - Therefore, need very small h, which can be computationally expensive

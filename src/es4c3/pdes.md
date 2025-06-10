@@ -3,7 +3,7 @@
 <equation-table>
 
 | [Partial Differential Equations (PDEs)](#partial-differential-equations-pdes) |                                                                                                                                    |
-|-------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | [Genereal form](#genereal-form)                                               | $A \frac{\partial^2 u}{\partial x^2} + B \frac{\partial^2 u}{\partial x \partial y} + C \frac{\partial^2 u}{\partial y^2} + D = 0$ |
 | [Categories](#categories)                                                     | Defined by the                                                                                                                     |
 | [Elliptic Equation](#elliptic-equation)                                       |                                                                                                                                    |
@@ -14,7 +14,7 @@
 | [Robin / Mixed (Generalised Neumann)](#robin--mixed-generalised-neumann)      |                                                                                                                                    |
 
 | [Finite Difference Approach](#finite-difference-approach)                       |                                                                                                                                                                |
-|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [Problem](#problem)                                                             |                                                                                                                                                                |
 | [Introduce Grid](#introduce-grid)                                               |                                                                                                                                                                |
 | [Finite Difference Scheme](#finite-difference-scheme)                           |                                                                                                                                                                |
@@ -28,11 +28,11 @@
 | [Hyperbolic Scheme](#hyperbolic-scheme)                                         | $u^{k+1}$                                                                                                                                                      |
 | [Hyberbolic Scheme Accuracy](#hyberbolic-scheme-accuracy)                       | $O(\Delta x^2 + \Delta t^2)$                                                                                                                                   |
 
-| [Finite Element Method](#finite-element-method) |   |
-|-------------------------------------------------|---|
-| [Discretisation Error](#discretisation-error)   |   |
-| [Forumlation Error](#forumlation-error)         |   |
-| [Numerical Error](#numerical-error)             |   |
+| [Finite Element Method](#finite-element-method) |     |
+| ----------------------------------------------- | --- |
+| [Discretisation Error](#discretisation-error)   |     |
+| [Forumlation Error](#forumlation-error)         |     |
+| [Numerical Error](#numerical-error)             |     |
 
 </equation-table>
 
@@ -114,7 +114,7 @@ Boundary conditions, vital to specify the area we want. Conditions should specif
 #### Neumann Conditions
 - **Gradient** of the dependent variable
   - The derivate of the dependent variable u in a direction normal, n to the boundary, specified on part of the boundary S2.
-- $ \frac{\partial u(x,y)}{\partial n} = C(x,y)$ for all x,y on the boundary S2 where C(x,y) is often a constant (in engineering)
+- $\frac{\partial u(x,y)}{\partial n} = C(x,y)$ for all x,y on the boundary S2 where C(x,y) is often a constant (in engineering)
 - Example:
   - Heat flux via top and bottom edges
   - Note zero flux, means C=0, reflective boundary condition.
